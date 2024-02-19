@@ -1,15 +1,15 @@
 # Lease Management System
-\
-Manage contracts, dues and schedules of leased property 
-\
+
+Manage contracts, dues and schedules of leased property \ \
+
 **CSSWENG S11**\
 Kho, John\
 Lababidi, Mezen\
 Lada, Martin\
 Mangulabnan, Kenneth\
-Santos, John Lorenzo\
+Santos, Jose Lorenzo\
 Soriano, John Angelo\
-\
+
 ## Guide
 ```
 npm install

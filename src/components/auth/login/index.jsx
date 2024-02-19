@@ -16,6 +16,10 @@ const Login = () => {
         if(!isSigningIn) {
             setIsSigningIn(true)
             await doSignInWithEmailAndPassword(email, password)
+                .catch((err) => {
+                    setErrorMessage(err.message)
+                    setIsSigningIn(false)
+                })
             // doSendEmailVerification()
         }
     }
