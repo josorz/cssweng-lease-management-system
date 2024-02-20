@@ -32,8 +32,15 @@ const Register = () => {
 
             <main>
                 <div>
-                    <h3>Create a New Account</h3>
-                    <form onSubmit={onSubmit}>
+                    <div>
+                        <div>
+                            <h3>Create a New Account</h3>
+                        </div>
+
+                    </div>
+                    <form
+                        onSubmit={onSubmit}
+                    >
                         <div>
                             <label>
                                 Email
