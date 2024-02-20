@@ -25,62 +25,51 @@ const Login = () => {
     }
 
     return (
-        <>
-        <Header />
-            <div>
-                {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
+        <div>
+            {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
 
-                <main>
-                    <div>
+            <main>
+                <div>
+                    <form onSubmit={onSubmit}>
                         <div>
-                            <div>
-                                <h3>Welcome Back</h3>
-                            </div>
+                            <label>
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                autoComplete='email'
+                                required
+                                value={email} onChange={(e) => { setEmail(e.target.value) }}
+                            />
                         </div>
-                        <form
-                            onSubmit={onSubmit}
+
+                        <div>
+                            <label>
+                                Password
+                            </label>
+                            <input
+                                type="password"
+                                autoComplete='current-password'
+                                required
+                                value={password} onChange={(e) => { setPassword(e.target.value) }}
+                            />
+                        </div>
+
+                        {errorMessage && (
+                            <span>{errorMessage}</span>
+                        )}
+
+                        <button
+                            type="submit"
+                            disabled={isSigningIn}
                         >
-                            <div>
-                                <label>
-                                    Email
-                                </label>
-                                <input
-                                    type="email"
-                                    autoComplete='email'
-                                    required
-                                    value={email} onChange={(e) => { setEmail(e.target.value) }}
-                                />
-                            </div>
-
-
-                            <div>
-                                <label>
-                                    Password
-                                </label>
-                                <input
-                                    type="password"
-                                    autoComplete='current-password'
-                                    required
-                                    value={password} onChange={(e) => { setPassword(e.target.value) }}
-                                />
-                            </div>
-
-                            {errorMessage && (
-                                <span>{errorMessage}</span>
-                            )}
-
-                            <button
-                                type="submit"
-                                disabled={isSigningIn}
-                            >
-                                {isSigningIn ? 'Signing In...' : 'Sign In'}
-                            </button>
-                        </form>
-                        <p>Don't have an account? <Link to={'/register'}>Sign up</Link></p>
-                    </div>
-                </main>
-            </div>
-        </>
+                            {isSigningIn ? 'Signing In...' : 'Sign In'}
+                        </button>
+                    </form>
+                    <p>Don't have an account? <Link to={'/register'}>Sign up</Link></p>
+                </div>
+            </main>
+        </div>
     )
 }
 
