@@ -4,7 +4,6 @@ import { useAuth } from '../../../contexts/authContext'
 import { doCreateUserWithEmailAndPassword } from '../../../firebase/auth'
 
 const Register = () => {
-
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
@@ -85,7 +84,7 @@ const Register = () => {
                         </button>
                         <div>
                             Already have an account? {'   '}
-                            <Link to={'/login'}>Continue</Link>
+                            <Link to={'/login'}>Login</Link>
                         </div>
                     </form>
                 </div>
