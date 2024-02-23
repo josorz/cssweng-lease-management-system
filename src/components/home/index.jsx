@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth } from "../../contexts/authContext";
 import Header from "../header";
 import { Navigate } from "react-router-dom";
+import Sidebar from "./sidebar";
 
 const Home = () => {
   const { currentUser, userLoggedIn } = useAuth();
@@ -13,6 +14,7 @@ const Home = () => {
   return (
     <>
       <Header />
+      <Sidebar />
       <div>
         Hello{" "}
         {currentUser.displayName ? currentUser.displayName : currentUser.email},
