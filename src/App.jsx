@@ -4,31 +4,21 @@ import Register from "./components/auth/register";
 import Home from "./components/home";
 
 import { AuthProvider } from "./contexts/authContext";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: "*",
-      element: <Login />,
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/register",
-      element: <Register />,
-    },
-    {
-      path: "/home",
-      element: <Home />,
-    },
-  ]);
-
   return (
     <AuthProvider>
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<PrivateRoutes />}>
+            <Route element={<Home />} path="/home" exact />
+          </Route>
+          <Route element={<Login />} path="/login" />
+          <Route element={<Register />} path="/register" />
+        </Routes>
+      </BrowserRouter>
     </AuthProvider>
   );
 }
