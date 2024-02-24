@@ -1,15 +1,11 @@
 import React from "react";
-import { useAuth } from "../../contexts/authContext";
+import { useOutletContext } from "react-router-dom";
 import Header from "../header";
-import { Navigate } from "react-router-dom";
 import Sidebar from "./sidebar";
 
 const Home = () => {
-  const { currentUser, userLoggedIn } = useAuth();
-  console.log("current uesr is " + !currentUser);
-  if (!userLoggedIn) {
-    return <Navigate to="/login" />;
-  }
+  const currentUser = useOutletContext();
+  console.log("current uesr is " + currentUser);
 
   return (
     <>
