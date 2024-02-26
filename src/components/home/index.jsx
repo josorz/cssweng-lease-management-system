@@ -1,5 +1,5 @@
 import React from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, Outlet } from "react-router-dom";
 import Header from "../header";
 import Sidebar from "./sidebar";
 
@@ -16,6 +16,7 @@ const Home = () => {
         {currentUser.displayName ? currentUser.displayName : currentUser.email},
         you are now logged in.
       </div>
+      <Outlet />
     </>
   );
 };

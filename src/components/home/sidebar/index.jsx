@@ -5,7 +5,7 @@ import Properties from "../../properties";
 const Sidebar = () => {
   return (
     <>
-      <Link to="/properties">Manage Properties</Link>
+      <Link to="properties">Manage Properties</Link>
       <br />
       <Link to="">Manage Contracts</Link>
     </>
