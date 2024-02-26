@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-firebase/firestore": "^0.5.5",
     "dotenv": "^16.4.4",
     "firebase": "^10.8.0",
     "react": "^18.2.0",
