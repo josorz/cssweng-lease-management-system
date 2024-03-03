@@ -5,7 +5,7 @@ import { collection, doc, getDocs } from "firebase/firestore";
 import { firestore } from "../../firebase/firebase";
 import CardLayout from "./CardLayout";
 import Card from "./Card";
-import Sidebar from "./../home/sidebar";
+import Header from "./../home/sidebar";
 
 const Properties = () => {
   const [properties, setProperties] = useState(null);
