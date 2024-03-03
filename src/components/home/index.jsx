@@ -1,7 +1,6 @@
 import React from "react";
 import { useOutletContext, Outlet } from "react-router-dom";
 import Header from "../header";
-import Sidebar from "./sidebar";
 
 const Home = () => {
   const currentUser = useOutletContext();
@@ -10,7 +9,6 @@ const Home = () => {
   return (
     <>
       <Header />
-      <Sidebar />
       <div>
         Hello{" "}
         {currentUser.displayName ? currentUser.displayName : currentUser.email},

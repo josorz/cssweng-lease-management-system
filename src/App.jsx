@@ -3,7 +3,6 @@ import Register from "./components/auth/register";
 
 import Home from "./components/home";
 import Properties from "./components/properties";
-import Sidebar from "./components/home/sidebar";
 
 import { AuthProvider } from "./contexts/authContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
