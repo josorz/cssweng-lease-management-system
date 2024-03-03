@@ -24,6 +24,10 @@ const Properties = () => {
 
   return (
     <>
+      <h1>Properties</h1>
+      <Link to="" onClick="">
+        Add Property
+      </Link>
       <CardLayout>
         {tableData.map((data) => (
           <Card key={data.id} data={data} />
