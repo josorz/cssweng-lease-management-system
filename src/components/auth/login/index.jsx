@@ -25,7 +25,7 @@ const Login = () => {
 
   return (
     <div>
-      {userLoggedIn && <Navigate to={"/home"} replace={true} />}
+      {userLoggedIn && <Navigate to={"/"} replace={true} />}
 
       <main>
         <div>

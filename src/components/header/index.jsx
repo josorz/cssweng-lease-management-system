@@ -1,32 +1,26 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/authContext";
+import { Link, useNavigate, useMatch } from "react-router-dom";
 import { doSignOut } from "../../firebase/auth";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { userLoggedIn } = useAuth();
+  const homeMatch = useMatch("/");
+  const trackerMatch = useMatch("/trackers");
+
+  const handleSignOut = () => {
+    doSignOut().then(() => {
+      navigate("/login");
+    });
+  };
+
   return (
     <nav>
-      {userLoggedIn ? (
-        <>
-          <button
-            onClick={() => {
-              doSignOut().then(() => {
-                navigate("/login");
-              });
-            }}
-          >
-            Logout
-          </button>
-        </>
-      ) : (
-        <>
-          <Link to={"/login"}>Login</Link>
-          <br />
-          <Link to={"/register"}>Register</Link>
-        </>
-      )}
+      <>
+        {trackerMatch ? <Link to="/">View All Properties</Link> : ""}
+        {homeMatch ? <Link to="trackers">View Trackers</Link> : ""}
+        <br />
+        <Link onClick={handleSignOut}>Sign Out</Link>
+      </>
     </nav>
   );
 };

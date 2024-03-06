@@ -5,7 +5,6 @@ import { collection, doc, getDocs } from "firebase/firestore";
 import { firestore } from "../../firebase/firebase";
 import CardLayout from "./CardLayout";
 import Card from "./Card";
-import Sidebar from "./../home/sidebar";
 
 const Properties = () => {
   const [properties, setProperties] = useState(null);
@@ -25,6 +24,10 @@ const Properties = () => {
 
   return (
     <>
+      <h1>Properties</h1>
+      <Link to="" onClick="">
+        Add Property
+      </Link>
       <CardLayout>
         {tableData.map((data) => (
           <Card key={data.id} data={data} />
