@@ -1,0 +1,262 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 144rem;
+}.add-property-miF {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: #0e6843;
+}
+.add-property-miF .auto-group-lfg3-6Vd {
+  width: 100%;
+  height: 9.6rem;
+  position: relative;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-lfg3-6Vd .header-DaF {
+  width: 144rem;
+  height: 9.1rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient(292.9deg, #048853 99.02%, rgba(0, 0, 0, 0.8399999738) 265.36%);
+}
+.add-property-miF .auto-group-lfg3-6Vd .twenty25-iG7 {
+  width: 26.1rem;
+  height: 7.5rem;
+  position: absolute;
+  left: 113.9rem;
+  top: 0.5rem;
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1.5;
+  font-style: italic;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.add-property-miF .auto-group-lfg3-6Vd .add-property-Cwy {
+  width: 48.3rem;
+  height: 9.6rem;
+  position: absolute;
+  left: 2.1rem;
+  top: 0;
+  text-align: center;
+  font-size: 6.4rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #00ff75;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.add-property-miF .auto-group-cohh-6nT {
+  box-sizing: border-box;
+  padding-top: 8.9rem;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-tm4b-RZq {
+  margin: 0rem 68.7rem 1.7rem 15.7rem;
+  width: calc(100% - 84.4rem);
+  display: flex;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-tm4b-RZq .property-name--k6K {
+  margin-right: 1.7rem;
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-tm4b-RZq .rectangle-75-4co {
+  width: 30.1rem;
+  height: 6rem;
+  background-color: #ffffff;
+  border-radius: 3rem;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-vetf-CU7 {
+  margin: 0rem 36.9rem 1.7rem 27.3rem;
+  width: calc(100% - 64.2rem);
+  display: flex;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-vetf-CU7 .location--Kod {
+  margin-right: 1.7rem;
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-vetf-CU7 .rectangle-79-TQ3 {
+  width: 61.9rem;
+  height: 6rem;
+  background-color: #ffffff;
+  border-radius: 3rem;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-tnzm-azT {
+  margin: 0rem 36.9rem 1.7rem 30rem;
+  width: calc(100% - 66.9rem);
+  display: flex;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-tnzm-azT .tenant--KBM {
+  margin-right: 1.7rem;
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-tnzm-azT .rectangle-81-E3R {
+  width: 61.9rem;
+  height: 6rem;
+  background-color: #ffffff;
+  border-radius: 3rem;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-njcx-N9d {
+  margin: 0rem 36.9rem 1.7rem 8.5rem;
+  width: calc(100% - 45.4rem);
+  display: flex;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-njcx-N9d .contract-start-date--VEF {
+  margin-right: 1.2rem;
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-njcx-N9d .rectangle-80-1iP {
+  width: 61.9rem;
+  height: 6rem;
+  background-color: #ffffff;
+  border-radius: 3rem;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-2dkb-9Zh {
+  margin: 0rem 68.7rem 1.7rem 10.2rem;
+  width: calc(100% - 78.9rem);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-2dkb-9Zh .contract-end-date--HA7 {
+  margin: 0.1rem 1.6rem 0rem 0rem;
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-2dkb-9Zh .rectangle-82-ncf {
+  width: 30.1rem;
+  height: 6rem;
+  background-color: #ffffff;
+  border-radius: 3rem;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-1mro-Kcb {
+  margin: 0rem 36.9rem 8.1rem 26.3rem;
+  width: calc(100% - 63.2rem);
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-1mro-Kcb .remarks--FWF {
+  margin: 0.4rem 2.1rem 0rem 0rem;
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-1mro-Kcb .rectangle-83-a2j {
+  width: 61.9rem;
+  height: 16rem;
+  background-color: #ffffff;
+  border-radius: 3rem;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-ui1m-7YT {
+  margin: 0rem 7.4rem 342rem 118rem;
+  width: calc(100% - 125.4rem);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-ui1m-7YT .save-qjM {
+  margin-right: 3.2rem;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .auto-group-ui1m-7YT .cancel-ZQT {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.add-property-miF .auto-group-cohh-6nT .mask-group-6QP {
+  margin-right: 7.4rem;
+  width: 136.6rem;
+  height: 73.7rem;
+  position: relative;
+  object-fit: contain;
+  vertical-align: top;
+  flex-shrink: 0;
+}
