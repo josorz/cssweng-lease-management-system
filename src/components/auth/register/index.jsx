@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Navigate, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/authContext";
 import { doCreateUserWithEmailAndPassword } from "../../../firebase/auth";
+import "./register.css"
+
+import bgImage from "../../../assets/bg-nRm.png";
+import vectorImage from "../../../assets/vector.png";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -26,66 +30,46 @@ const Register = () => {
   };
 
   return (
-    <>
-      {userLoggedIn && <Navigate to={"/home"} replace={true} />}
-
-      <main>
-        <div>
-          <form onSubmit={onSubmit}>
-            <div>
-              <label>Email</label>
-              <input
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-            </div>
-
-            <div>
-              <label>Password</label>
-              <input
-                disabled={isRegistering}
-                type="password"
-                autoComplete="new-password"
-                required
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </div>
-
-            <div>
-              <label>Confirm Password</label>
-              <input
-                disabled={isRegistering}
-                type="password"
-                autoComplete="off"
-                required
-                value={confirmPassword}
-                onChange={(e) => {
-                  setconfirmPassword(e.target.value);
-                }}
-              />
-            </div>
-
-            {errorMessage && <span>{errorMessage}</span>}
-
-            <button type="submit" disabled={isRegistering}>
-              {isRegistering ? "Signing Up..." : "Sign Up"}
-            </button>
-            <div>
-              Already have an account? {"   "}
-              <Link to={"/login"}>Login</Link>
-            </div>
-          </form>
-        </div>
-      </main>
-    </>
+    <form onSubmit={onSubmit} className="registration-R1Z">
+      <div className="group-3-XKV">
+        <img className="bg-Rvf" src={bgImage} alt="Background" />
+        <img className="vector-mjd" src={vectorImage} alt="Vector" />
+      </div>
+      <input
+        type="text"
+        className="full-name-uaw"
+        placeholder="Full Name"
+      />
+      <input
+        type="email"
+        className="email-vkw"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="password"
+        className="password-97u"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <input
+        type="password"
+        className="confirm-password-NWT"
+        placeholder="Confirm Password"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+      />
+      <div className="twenty25-o5y">TWENTY25.</div>
+      <p className="already-have-an-account-sign-in-655">
+        <span className="already-have-an-account-sign-in-655-sub-0">
+          Already have an account?{" "}
+        </span>
+        <span className="already-have-an-account-sign-in-655-sub-1">Sign in</span>
+      </p>
+      <button type="submit">Register</button>
+    </form>
   );
 };
 
