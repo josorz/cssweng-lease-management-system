@@ -647,3 +647,10 @@ body {
 .button-4:-webkit-details-marker {
   display: none;
 }
+.buttons-BSw {
+  display: flex;
+  justify-content: flex-start; /* Aligns items to the start of the container */
+  align-items: center; /* Vertically centers the items in the container */
+  /* Add any additional styling here, such as padding or margin as needed */
+  padding: 1px;
+}
