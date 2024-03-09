@@ -159,3 +159,10 @@ body {
   color: #000000;
   font-family: Poppins, 'Source Sans Pro';
 }
+
+.registration-R1Z .register-button {
+  position: absolute;
+  left: 57.95rem;
+  top: 80rem; /* adjust as needed */
+  /* add other styles as needed */
+}
