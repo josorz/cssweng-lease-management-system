@@ -15,17 +15,26 @@ const Register = () => {
   const [confirmPassword, setconfirmPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [registrationSuccessful, setRegistrationSuccessful] = useState(false); //for confirmation of reg
 
   const { userLoggedIn } = useAuth();
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) { // check if passwords match
+      setErrorMessage("Passwords do not match");
+      return;
+    }
     if (!isRegistering) {
       setIsRegistering(true);
-      await doCreateUserWithEmailAndPassword(email, password).catch((err) => {
+      try {
+        await doCreateUserWithEmailAndPassword(email, password);
+        setRegistrationSuccessful(true); // set registrationSuccessful to true if registration is successful
+        navigate('/dashboard');
+      } catch (err) {
         setErrorMessage(err.message);
         setIsRegistering(false);
-      });
+      }
     }
   };
 
@@ -59,16 +68,20 @@ const Register = () => {
         className="confirm-password-NWT"
         placeholder="Confirm Password"
         value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
+        onChange={(e) => setconfirmPassword(e.target.value)}
       />
       <div className="twenty25-o5y">TWENTY25.</div>
       <p className="already-have-an-account-sign-in-655">
         <span className="already-have-an-account-sign-in-655-sub-0">
           Already have an account?{" "}
         </span>
-        <span className="already-have-an-account-sign-in-655-sub-1">Sign in</span>
+        <Link to="/login" className="already-have-an-account-sign-in-655-sub-1">
+          Sign in
+        </Link>
       </p>
-      <button type="submit">Register</button>
+      {registrationSuccessful && <p>Registration successful!</p>} {/* display a message if registration is successful */}
+      {errorMessage && <p>{errorMessage}</p>}
+      <button type="submit" className="register-button">Register</button>
     </form>
   );
 };
