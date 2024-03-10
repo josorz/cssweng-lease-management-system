@@ -1,7 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
+import { useAuth } from "../../../contexts/authContext";
+import { doSignOut } from "../../../firebase/auth";
 import "./home.css";
 import "./home.scss";
+
 import xyMimage from "/src/assets/mask-group-xyM.png";
 import SHmimage from "/src/assets/mask-group-SHm.png";
 import ew1image from "/src/assets/mask-group-ew1.png";
@@ -10,6 +13,18 @@ import Pf5image from "/src/assets/mask-group-Pf5.png";
 import ixFimage from "/src/assets/mask-group-ixF.png";
 import icon from "/src/assets/icon-plus-ygT.png";
 const Home = () => {
+  const navigate = useNavigate();
+  const { setUserLoggedIn } = useAuth(); // Assuming your auth context provides a way to update the user's logged-in state
+
+  const handleSignOut = async () => {
+    try {
+      await doSignOut(); // Sign out the user
+      setUserLoggedIn(false); // Update the context state
+      navigate("/login"); // Programmatically navigate to the login page
+    } catch (error) {
+      console.error("Sign out error:", error);
+    }
+  };
   return (
     <div>
       <meta charSet="utf-8" />
@@ -24,10 +39,10 @@ const Home = () => {
       <div className="property-dashboard-fLB">
         <div className="navigation-bar-signed-in-ai3">
           <div className="twenty25-fzP">TWENTY25.</div>
-          <div className="buttons-BSw">
+          <div>
             <button className="button-4 properties-ihm">PROPERTIES</button>
-            <button className="button-4 trackers-qnP">TRACKERS</button>
-            <button className="button-4 sign-out-NGX">SIGN OUT</button>
+            <button className="button-4 trackers-qnP ">TRACKERS</button>
+            <button className="button-4 sign-out-NGX" onClick={handleSignOut}>SIGN OUT</button>
           </div>
         </div>
         <div className="property-9-H8b">
