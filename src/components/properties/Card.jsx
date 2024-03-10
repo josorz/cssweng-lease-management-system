@@ -10,6 +10,11 @@ const Card = ({ data }) => {
       <p>{data.loc_street}</p>
       <p>{data.property_type}</p>
       <p>{data.unit_number}</p>
+      <div>
+        <p>Three dots menu thing</p>
+        <a>Edit Property</a>
+        <a>Delete Property</a>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import from "axios";
 
 const PropertyForm = () => {
   const [property, setProperty] = useState({
