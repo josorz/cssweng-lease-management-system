@@ -26,6 +26,12 @@ const Home = () => {
       console.error("Sign out error:", error);
     }
   };
+
+  const navigate1 = useNavigate(); 
+
+  const goToTrackersPage = () => {
+    navigate1('/viewTrackers'); 
+  };
   return (
     <div>
       <meta charSet="utf-8" />
@@ -42,7 +48,7 @@ const Home = () => {
           <div className="twenty25-fzP">TWENTY25.</div>
           <div>
             <button className="button-4 properties-ihm">PROPERTIES</button>
-            <button className="button-4 trackers-qnP ">TRACKERS</button>
+            <button className="button-4 trackers-qnP" onClick={goToTrackersPage}>TRACKERS</button>
             <button className="button-4 sign-out-NGX" onClick={handleSignOut}>SIGN OUT</button>
           </div>
         </div>
