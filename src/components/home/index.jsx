@@ -1,7 +1,7 @@
 import React from "react";
-import { Navigate, Link } from "react-router-dom";
-import { useAuth } from "../../../contexts/authContext";
-import { doSignOut } from "../../../firebase/auth";
+import { Navigate, Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/authContext/index";
+import { doSignOut } from "../../firebase/auth";
 import "./home.css";
 import "./home.scss";
 
@@ -12,15 +12,16 @@ import Zhimage from "/src/assets/mask-group-5Zh.png";
 import Pf5image from "/src/assets/mask-group-Pf5.png";
 import ixFimage from "/src/assets/mask-group-ixF.png";
 import icon from "/src/assets/icon-plus-ygT.png";
+
 const Home = () => {
   const navigate = useNavigate();
-  const { setUserLoggedIn } = useAuth(); // Assuming your auth context provides a way to update the user's logged-in state
+  const { setUserLoggedIn } = useAuth(); 
 
   const handleSignOut = async () => {
     try {
-      await doSignOut(); // Sign out the user
-      setUserLoggedIn(false); // Update the context state
-      navigate("/login"); // Programmatically navigate to the login page
+      await doSignOut();
+      setUserLoggedIn(false); 
+      navigate("/login"); 
     } catch (error) {
       console.error("Sign out error:", error);
     }
