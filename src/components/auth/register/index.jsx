@@ -30,7 +30,7 @@ const Register = () => {
       try {
         await doCreateUserWithEmailAndPassword(email, password);
         setRegistrationSuccessful(true); // set registrationSuccessful to true if registration is successful
-        navigate('/dashboard');
+        // navigate('/login'); //commented out because confirmation msg not displaying figure out a way in sprint3 to display msg then redirect
       } catch (err) {
         setErrorMessage(err.message);
         setIsRegistering(false);
@@ -39,6 +39,21 @@ const Register = () => {
   };
 
   return (
+  <>
+  <meta charSet="utf-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <title>Registration</title>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Poppins%3A400%2C500%2C700"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700"
+  />
+  <link rel="stylesheet" href="./register.css" />
     <form onSubmit={onSubmit} className="registration-R1Z">
       <div className="group-3-XKV">
         <img className="bg-Rvf" src={bgImage} alt="Background" />
@@ -83,6 +98,7 @@ const Register = () => {
       {errorMessage && <p>{errorMessage}</p>}
       <button type="submit" className="register-button">Register</button>
     </form>
+    </>
   );
 };
 
