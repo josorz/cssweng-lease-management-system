@@ -3,7 +3,7 @@ import handleSignOut from"../home/index";
 import "./property-summary-dashboard.css";
 import "./property-summary-dashboard.scss";
 
-const viewTrackers = () => {
+const ViewTrackers = () => {
   return (
     <div>
   <meta charSet="utf-8" />
@@ -66,4 +66,4 @@ const viewTrackers = () => {
   );
 };
 
-export default viewTrackers;
+export default ViewTrackers;
