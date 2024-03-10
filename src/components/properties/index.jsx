@@ -14,10 +14,11 @@ const Properties = () => {
   const [addProperty, setAddProperty] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5050/api/properties/get-properties")
+    fetch("api/properties/get-properties")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+
         data.forEach((doc) => {
           const id = doc.id;
           setTableData([...tableData, { id, ...doc }]);

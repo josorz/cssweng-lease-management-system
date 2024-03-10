@@ -4,7 +4,7 @@ const app = express();
 
 
 const propertyRoutes = require('./routes/propertyRoutes')
-const cors =require('cors')
+const cors=require('cors')
 
 require('dotenv').config()
 app.use(cors());
