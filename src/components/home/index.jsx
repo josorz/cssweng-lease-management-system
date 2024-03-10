@@ -30,7 +30,7 @@ const Home = () => {
   const navigate1 = useNavigate(); 
 
   const goToTrackersPage = () => {
-    navigate1('/viewTrackers'); 
+    navigate1('/trackers'); 
   };
   return (
     <div>

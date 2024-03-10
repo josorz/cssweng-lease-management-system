@@ -2,13 +2,17 @@ import React from "react";
 import handleSignOut from"../home/index";
 import "./property-summary-dashboard.css";
 import "./property-summary-dashboard.scss";
-import town from "./assets/town-1-rJ3.png";
-import qCs from "./assets/ellipse-1-qCs.png";
-import duck from "./assets/assets-1-dUK.png";
+
+import town from "../../assets/town-1-rJ3.png";
+import qCs from "../../assets/ellipse-1-qCs.png";
+import duck from "../../assets/assets-1-dUK.png";
+import house1 from "../../assets/house-1-1CT.png"
+import house2 from "../../assets/house-1-Jyu.png"
+import mask from "../../assets/mask-group-YJs.png"
 const ViewTrackers = () => {
   return (
     <div>
-  <meta charSet="utf-8" />
+  <meta charSet="utf-8" />s
   <link rel="icon" href="/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
@@ -44,14 +48,14 @@ const ViewTrackers = () => {
       </div>
       <div className="maintenance-tracker-1cB">
         <div className="auto-group-eqek-JLP">
-          <img className="house-1-bqH" src="./assets/house-1-1CT.png" />
+          <img className="house-1-bqH" src={house1} />
         </div>
         <p className="maintenance-tracker-KmH">Maintenance Tracker</p>
         <p className="description-add-here-T6o">description add here</p>
       </div>
       <div className="maintenance-tracker-k5u">
         <div className="auto-group-mwxf-F2f">
-          <img className="house-1-KoD" src="./assets/house-1-Jyu.png" />
+          <img className="house-1-KoD" src={house2} />
         </div>
         <p className="billing-tracker-3UK">Billing Tracker</p>
         <p className="description-add-here-NFh">description add here</p>
@@ -61,7 +65,7 @@ const ViewTrackers = () => {
       <div className="rectangle-89-PRh">
       </div>
     </div>
-    <img className="mask-group-iD5" src="./assets/mask-group-YJs.png" />
+    <img className="mask-group-iD5" src={mask} />
   </div>
 </div>
 

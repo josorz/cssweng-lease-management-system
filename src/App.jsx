@@ -14,15 +14,13 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route element={<PrivateRoutes />}>
-            <Route element={<Home />} path="/">
-              <Route element={<Properties />} path="/" />
-              <Route element={<ViewTrackers />} path="/trackers" />
-            </Route>
-          </Route>
-          <Route element={<Login />} path="/" />
           <Route element={<Login />} path="/login" />
           <Route element={<Register />} path="/register" />
+          <Route element={<PrivateRoutes />} path="/">
+            <Route element={<Home />} path="/" />
+            <Route element={<Properties />} path="properties" />
+            <Route element={<ViewTrackers />} path="trackers" />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>
