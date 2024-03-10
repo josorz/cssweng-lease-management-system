@@ -1,0 +1,142 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 144rem;
+}.signup-FUB {
+  width: 100%;
+  height: 90rem;
+  position: relative;
+  overflow: hidden;
+  background-color: #0e6843;
+}
+.signup-FUB .group-2-Bsd {
+  width: 191.7rem;
+  height: 133.5377rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  object-fit: contain;
+  vertical-align: top;
+}
+.signup-FUB .twenty25-vaK {
+  width: 25.6rem;
+  height: 7.5rem;
+  position: absolute;
+  left: 3.7rem;
+  top: 1.2rem;
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1.5;
+  font-style: italic;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.signup-FUB .signup-cCF {
+  width: 23.2rem;
+  height: 9.6rem;
+  position: absolute;
+  left: 60.4rem;
+  top: 17.2rem;
+  font-size: 6.4rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #a4d579;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.signup-FUB .rectangle-65-791 {
+  width: 50.1rem;
+  height: 9.6rem;
+  position: absolute;
+  left: 46.9rem;
+  top: 28.4rem;
+  background: linear-gradient(91.73deg, rgba(0, 73, 44, 0.8700000048) 148.72%, #000000 188.97%);
+}
+.signup-FUB .rectangle-67-Qto {
+  width: 50.1rem;
+  height: 9.7rem;
+  position: absolute;
+  left: 47rem;
+  top: 39.6rem;
+  background: linear-gradient(91.69deg, #000000 169.62%, rgba(0, 73, 44, 0.8700000048) 190.34%);
+}
+.signup-FUB .rectangle-70-vMM {
+  width: 50.1rem;
+  height: 9.6rem;
+  position: absolute;
+  left: 46.9rem;
+  top: 51.9rem;
+  background: linear-gradient(271.73deg, rgba(0, 73, 44, 0.8700000048) 148.72%, #000000 188.97%);
+}
+.signup-FUB .rectangle-71-cjy {
+  width: 50.1rem;
+  height: 9.7rem;
+  position: absolute;
+  left: 47rem;
+  top: 63.1rem;
+  background: linear-gradient(91.69deg, #000000 169.62%, rgba(0, 73, 44, 0.8700000048) 190.34%);
+}
+.signup-FUB .full-name-j3u {
+  width: 15.1rem;
+  height: 4.5rem;
+  position: absolute;
+  left: 50.7rem;
+  top: 30.8rem;
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.signup-FUB .email-eAs {
+  width: 8.4rem;
+  height: 4.5rem;
+  position: absolute;
+  left: 50.7rem;
+  top: 42rem;
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.signup-FUB .password-xST {
+  width: 14.6rem;
+  height: 4.5rem;
+  position: absolute;
+  left: 50.7rem;
+  top: 54.3rem;
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.signup-FUB .confirm-password-sJX {
+  width: 27.7rem;
+  height: 4.5rem;
+  position: absolute;
+  left: 50.7rem;
+  top: 65.5rem;
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+}
