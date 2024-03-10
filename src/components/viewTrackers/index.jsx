@@ -2,7 +2,9 @@ import React from "react";
 import handleSignOut from"../home/index";
 import "./property-summary-dashboard.css";
 import "./property-summary-dashboard.scss";
-
+import town from "./assets/town-1-rJ3.png";
+import qCs from "./assets/ellipse-1-qCs.png";
+import duck from "./assets/assets-1-dUK.png";
 const ViewTrackers = () => {
   return (
     <div>
@@ -24,15 +26,15 @@ const ViewTrackers = () => {
       <p className="view-all-properties-UWT">View All Properties</p>
       <div className="revenue-tracker-yCK">
         <div className="auto-group-tqbu-e3Z">
-          <img className="town-1-7xj" src="./assets/town-1-rJ3.png" />
+          <img className="town-1-7xj" src={town} />
         </div>
         <p className="revenue-cPh">Revenue</p>
         <p className="item-999999999-KJ7">$ 999999999</p>
       </div>
       <div className="net-profit-tracker-B5R">
         <div className="auto-group-pxax-pu5">
-          <img className="ellipse-1-LsR" src="./assets/ellipse-1-qCs.png" />
-          <img className="assets-1-gwH" src="./assets/assets-1-dUK.png" />
+          <img className="ellipse-1-LsR" src={qCs} />
+          <img className="assets-1-gwH" src={duck} />
         </div>
         <p className="net-profit-QcP">Net Profit </p>
         <p className="item-100000000-LW3">
