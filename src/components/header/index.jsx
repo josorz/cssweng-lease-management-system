@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate, useMatch } from "react-router-dom";
 import { doSignOut } from "../../firebase/auth";
+import "./header.css";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -15,12 +16,14 @@ const Header = () => {
 
   return (
     <nav>
-      <>
-        {trackerMatch ? <Link to="/">View All Properties</Link> : ""}
-        {homeMatch ? <Link to="trackers">View Trackers</Link> : ""}
-        <br />
-        <Link onClick={handleSignOut}>Sign Out</Link>
-      </>
+      <span className="logo-text">TWENTY25.</span>
+      <div>
+        <div className="nav-links">
+          {trackerMatch ? <Link to="/">Properties</Link> : ""}
+          {homeMatch ? <Link to="trackers">Trackers</Link> : ""}
+          <Link onClick={handleSignOut}>Sign Out</Link>
+        </div>
+      </div>
     </nav>
   );
 };

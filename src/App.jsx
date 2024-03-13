@@ -1,7 +1,7 @@
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
 
-import Home from "./components/home";
+import Dashboard from "./components/dashboard";
 import Properties from "./components/properties";
 import ViewTrackers from "./components/viewTrackers";
 
@@ -17,9 +17,10 @@ function App() {
           <Route element={<Login />} path="/login" />
           <Route element={<Register />} path="/register" />
           <Route element={<PrivateRoutes />} path="/">
-            <Route element={<Home />} path="/" />
-            <Route element={<Properties />} path="properties" />
-            <Route element={<ViewTrackers />} path="trackers" />
+            <Route element={<Dashboard />} path="/">
+              <Route element={<Properties />} path="/" />
+              <Route element={<ViewTrackers />} path="trackers" />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
