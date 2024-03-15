@@ -12,7 +12,10 @@ const PaymentsSchema = new Schema({
     date_due: Date,
     information: String,
     amount: Number,
-    status: String,
+    status: {
+        type: String,
+        enum: ['Paid', 'Waived', 'Overdue']
+    },
 }, { collection: 'Payments' });
 
 
