@@ -16,7 +16,11 @@ const PropertiesSchema = new Schema({
         required: false
     },
     loc_barangay: String,
-    loc_city: String
+    loc_city: String,
+    maintenance_history: [{
+        date: Date,
+        description: String
+    }]
 }, { collection: 'Properties' });
 
 module.exports = mongoose.model("Properties", PropertiesSchema);
