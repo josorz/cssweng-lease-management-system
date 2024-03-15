@@ -1,37 +1,79 @@
 const Properties = require('../models/Properties')
 
-// GET request for list of all posts.
-exports.getProperties = async (request, response) => {
+// GET req for list of all posts.
+exports.getProperties = async (req, res) => {
     try {
         const properties = await Properties.find().exec()
-        response.status(200).json(properties);
+        res.status(200).json(properties);
     } catch (err) {
-        response.status(500).send('Error')
+        res.status(500).send('Error')
     }
 }
 
-exports.getProperty = async (request, response) => {
+exports.createProperty = async (req, res) => {
     try {
-        const id = request.params.id
+        const { property_type, loc_number, loc_street, 
+            loc_propertyname, loc_barangay, loc_city } = req.body;
+
+        await Properties.create({
+            property_type,
+            loc_number,
+            loc_street,
+            loc_propertyname,
+            loc_barangay,
+            loc_city
+        })
+
+        res.status(200).send(`Property added!`)
+    } catch (err) {
+        res.status(500).send(err.message)
+    }
+}
+
+exports.editProperty = async (req, res) => {
+    try {
+        const { property_type, loc_number, loc_street, 
+            loc_propertyname, loc_barangay, loc_city } = req.body;
+
+        await Properties.updateOne({
+            _id: req.params.id
+        }, {
+            property_type,
+            loc_number,
+            loc_street,
+            loc_propertyname,
+            loc_barangay,
+            loc_city
+        })
+
+        res.status(200).send(`[${req.params.id}] property edited!`)
+    } catch (err) {
+        res.status(500).send(err.message)
+    }
+}
+
+exports.getProperty = async (req, res) => {
+    try {
+        const id = req.params.id
         if (!id) {
-            response.status(404).send('Property does not exist')
+            res.status(404).send('Property does not exist')
         }
         const properties = await Properties.findOne({_id: id}).exec()
-        response.status(200).json(properties)
+        res.status(200).json(properties)
     } catch (err) {
-        response.status(500).send('Error')
+        res.status(500).send('Error')
     }
 }
 
-exports.deleteProperty = async (request, response) => {
+exports.deleteProperty = async (req, res) => {
     try {
-        const { id } = request.body
+        const { id } = req.body
         if (!id) {
-            response.status(404).send('Property does not exist')
+            res.status(404).send('Property does not exist')
         }
         await Properties.findByIdAndDelete({_id: id}).exec()
-        response.status(200).send(`Successfully deleted property ${id}`)
+        res.status(200).send(`Successfully deleted property ${id}`)
     } catch (err) {
-        response.status(500).send('Error')
+        res.status(500).send('Error')
     }
 }
