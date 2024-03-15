@@ -9,3 +9,29 @@ exports.getProperties = async (request, response) => {
         response.status(500).send('Error')
     }
 }
+
+exports.getProperty = async (request, response) => {
+    try {
+        const id = request.params.id
+        if (!id) {
+            response.status(404).send('Property does not exist')
+        }
+        const properties = await Properties.findOne({_id: id}).exec()
+        response.status(200).json(properties)
+    } catch (err) {
+        response.status(500).send('Error')
+    }
+}
+
+exports.deleteProperty = async (request, response) => {
+    try {
+        const id = request.body
+        if (!id) {
+            response.status(404).send('Property does not exist')
+        }
+        const properties = await Properties.findByIdAndDelete({_id: id}).exec()
+        response.status(200)
+    } catch (err) {
+        response.status(500).send('Error')
+    }
+}

@@ -4,6 +4,7 @@ import Register from "./components/auth/register";
 import Dashboard from "./components/dashboard";
 import Properties from "./components/properties";
 import ViewTrackers from "./components/viewTrackers";
+import Property from "./components/property";
 
 import { AuthProvider } from "./contexts/authContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -18,7 +19,8 @@ function App() {
           <Route element={<Register />} path="/register" />
           <Route element={<PrivateRoutes />} path="/">
             <Route element={<Dashboard />} path="/">
-              <Route element={<Properties />} path="/" />
+              <Route element={<Properties />} index />
+              <Route path="/property/:propertyId" element={<Property />} />
               <Route element={<ViewTrackers />} path="trackers" />
             </Route>
           </Route>

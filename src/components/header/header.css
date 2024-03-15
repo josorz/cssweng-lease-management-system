@@ -41,7 +41,10 @@ nav {
     flex-shrink: 0;
 }
 
-.nav-links> a:link, a:visited, a:hover, a:active {
+.nav-links a:link, 
+.nav-links a:visited, 
+.nav-links a:hover, 
+.nav-links a:active {
     color: #000;
     text-align: center;
     font-family: "Poppins";

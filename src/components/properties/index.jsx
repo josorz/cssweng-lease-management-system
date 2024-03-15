@@ -29,12 +29,15 @@ const Properties = () => {
         Add Property
       </Link>
       {addProperty && <AddPropertyModal cancel={changeAddProperty} />}
-      <CardLayout>
-        {tableData.map((data) => (
-          <Card key={data._id} data={data} />
-        ))}
-        <p>{JSON.stringify(tableData)}</p>
-      </CardLayout>
+      <div className="card-container">
+        <CardLayout>
+          {tableData.map((data) => (
+            <Link to={`/property/${data._id}`}>
+              <Card key={data._id} data={data} />
+            </Link>
+          ))}
+        </CardLayout>
+      </div>
     </>
   );
 };
