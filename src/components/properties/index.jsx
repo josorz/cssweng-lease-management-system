@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import CardLayout from "./CardLayout";
-import Card from "./Card";
+import CardLayout from "./PropertyCard/CardLayout";
+import Card from "./PropertyCard/Card";
 import AddPropertyModal from "./AddPropertyModal";
 
 const Properties = () => {

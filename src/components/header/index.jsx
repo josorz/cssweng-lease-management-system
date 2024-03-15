@@ -16,7 +16,9 @@ const Header = () => {
 
   return (
     <nav>
-      <span className="logo-text">TWENTY25.</span>
+      <Link to="/">
+        <span className="logo-text">TWENTY25.</span>
+      </Link>
       <div>
         <div className="nav-links">
           {trackerMatch ? <Link to="/">Properties</Link> : ""}

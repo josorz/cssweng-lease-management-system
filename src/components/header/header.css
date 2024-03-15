@@ -55,3 +55,10 @@ nav {
     text-transform:uppercase;
     text-decoration: none;
 }
+
+nav > a:link, 
+nav > a:visited, 
+nav > a:hover, 
+nav > a:active {
+    text-decoration: none;
+}
