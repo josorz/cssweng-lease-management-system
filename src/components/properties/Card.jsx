@@ -20,7 +20,6 @@ const Card = ({ key, data }) => {
         <span className="property-occupancy-shape"></span>
         <span className="property-occupancy-text">Occupied</span>
       </div>
-      {data._id}
     </div>
   );
 };

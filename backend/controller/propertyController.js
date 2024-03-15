@@ -25,12 +25,12 @@ exports.getProperty = async (request, response) => {
 
 exports.deleteProperty = async (request, response) => {
     try {
-        const id = request.body
+        const { id } = request.body
         if (!id) {
             response.status(404).send('Property does not exist')
         }
-        const properties = await Properties.findByIdAndDelete({_id: id}).exec()
-        response.status(200)
+        await Properties.findByIdAndDelete({_id: id}).exec()
+        response.status(200).send(`Successfully deleted property ${id}`)
     } catch (err) {
         response.status(500).send('Error')
     }

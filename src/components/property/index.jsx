@@ -1,15 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
-const deleteProperty = () => {
-  fetch(`/api/properties/delete-property`, {
+const deleteProperty = (propertyId) => {
+  fetch("/api/properties/delete-property", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(propertyId),
-  }).then(<Navigate to="/login" />);
+    body: JSON.stringify({ id: propertyId }),
+  }).then(() => {
+    const navigate = useNavigate();
+    navigate("/");
+  });
 };
 
 const Property = () => {
@@ -27,7 +30,9 @@ const Property = () => {
       <div>{propertyInfo.loc_street}</div>
       <div>{propertyInfo.loc_barangay}</div>
       <div>{propertyInfo.loc_city}</div>
-      <a>Delete Property</a>
+      <Link to="" onClick={() => deleteProperty(propertyId)}>
+        Delete Property
+      </Link>
       <a>Add Tenant</a>
     </div>
   );
