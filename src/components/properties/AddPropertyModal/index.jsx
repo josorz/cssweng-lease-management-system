@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 
 const PropertyForm = () => {
   const [property, setProperty] = useState({
@@ -21,21 +20,21 @@ const PropertyForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post("/api/properties", property);
-      alert("Property added successfully!");
-      setProperty({
-        property_type: "",
-        loc_street: "",
-        loc_barangay: "",
-        loc_city: "",
-        loc_posx: "",
-        loc_posy: "",
-      });
-    } catch (error) {
-      console.error("Error adding property:", error);
-      alert("Failed to add property. Please try again.");
-    }
+    // try {
+    //   await axios.post("/api/properties", property);
+    //   alert("Property added successfully!");
+    //   setProperty({
+    //     property_type: "",
+    //     loc_street: "",
+    //     loc_barangay: "",
+    //     loc_city: "",
+    //     loc_posx: "",
+    //     loc_posy: "",
+    //   });
+    // } catch (error) {
+    //   console.error("Error adding property:", error);
+    //   alert("Failed to add property. Please try again.");
+    // }
   };
 
   return (
