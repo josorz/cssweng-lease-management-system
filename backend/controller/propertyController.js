@@ -77,3 +77,50 @@ exports.deleteProperty = async (req, res) => {
         res.status(500).send('Error')
     }
 }
+
+exports.getProperty = async (req, res) => {
+    try {
+        const id = req.params.id
+        if (!id) {
+            res.status(404).send('Property does not exist')
+        }
+        const properties = await Properties.findOne({_id: id}).exec()
+        res.status(200).json(properties)
+    } catch (err) {
+        res.status(500).send('Error')
+    }
+}
+
+exports.addMaintenance = async (req, res) => {
+    try {
+        const { id, date, description } = req.body;
+
+        const newMaintenance = { date, description }
+
+        await Properties.findOneAndUpdate(
+            { _id: id },
+            { $push: { maintenance_history: newMaintenance } }
+            ).exec()
+
+        res.status(200).send(`Success!`)
+    } catch (err) {
+        res.status(500).send(err.message)
+    }
+}
+
+exports.deleteMaintenance = async (req, res) => {
+    try {
+        const { id, data } = req.body;
+
+        console.log(data)
+
+        await Properties.updateOne(
+            { _id: id },
+            { $pull: { maintenance_history: data } }
+        ).exec()
+
+        res.status(200).send(`Success!`)
+    } catch (err) {
+        res.status(500).send(err.message)
+    }
+}
