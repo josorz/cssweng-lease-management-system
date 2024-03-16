@@ -6,8 +6,7 @@ import Header from "../../header";
 import "./login.css";
 
 import bgImage from "../../../assets/bg.png";
-import vectorImage from "../../../assets/vector.png";
-
+import vectorImage from "../../../assets/group-2-7Pu.png";
 const Login = () => {
   const { userLoggedIn } = useAuth();
   const navigate = useNavigate();
@@ -16,7 +15,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const containerStyle = {
+    backgroundColor: '#3e9f76',
+  };
   const onSubmit = async (e) => {
       console.log("hello")
       e.preventDefault();
@@ -39,7 +40,7 @@ const Login = () => {
         <meta charSet="utf-8"/>
         <link rel="icon" href="/favicon.ico"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <meta name="theme-color" content="#000000"/>
+        <meta name="theme-color" content="#3e9f76"/>
         <title>Login</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins%3A400%2C500%2C700"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700"/>
@@ -48,9 +49,9 @@ const Login = () => {
         <form className="login-2-2" onSubmit={onSubmit}>
             <div className="login-3Cj">
                 <div className="group-3-ys5">
-                    <div className="twenty25-6s9">TWENTY25.</div>
-                    <img className="bg-i3y" src={bgImage}/>
-                    <img className="vector-3rw" src={vectorImage}/>
+                    <div className="twenty25">TWENTY25.</div>
+                    <div className="body"></div>
+                    <img className="vector" src={vectorImage}/>
                 </div>
                 <input type={"text"} className={"username-PrF"} placeholder={"Email"}
                        onChange={(e) => setEmail(e.target.value)}/>
