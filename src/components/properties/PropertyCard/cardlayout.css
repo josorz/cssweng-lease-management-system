@@ -1,6 +1,7 @@
 .card-layout {
     display: grid;
     grid-template-columns: 22.5rem 22.5rem 22.5rem;
+    gap: 2rem 0
 }
 
 .card {

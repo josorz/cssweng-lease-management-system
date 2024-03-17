@@ -16,16 +16,20 @@ exports.createProperty = async (req, res) => {
         const { property_type, loc_number, loc_street, 
             loc_propertyname, loc_barangay, loc_city } = req.body;
 
-        await Properties.create({
+        if (loc_propertyname === "") {
+            loc_propertyname = `${loc_number} ${loc_street}`;
+        }
+
+        const result = await Properties.create({
+            loc_propertyname,
             property_type,
             loc_number,
             loc_street,
-            loc_propertyname,
             loc_barangay,
             loc_city
         })
 
-        res.status(200).send(`Property added!`)
+        res.status(200).send(`${result._id}`)
     } catch (err) {
         res.status(500).send(err.message)
     }

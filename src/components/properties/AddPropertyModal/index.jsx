@@ -1,13 +1,18 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PropertyForm = () => {
+  const navigate = useNavigate();
   const [property, setProperty] = useState({
+    image_link: "",
     property_type: "",
+    loc_number: "",
     loc_street: "",
+    loc_propertyname: "",
     loc_barangay: "",
     loc_city: "",
-    loc_posx: "",
-    loc_posy: "",
+    contract_history: "",
+    maintenance_history: "",
   });
 
   const handleChange = (e) => {
@@ -20,21 +25,21 @@ const PropertyForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // try {
-    //   await axios.post("/api/properties", property);
-    //   alert("Property added successfully!");
-    //   setProperty({
-    //     property_type: "",
-    //     loc_street: "",
-    //     loc_barangay: "",
-    //     loc_city: "",
-    //     loc_posx: "",
-    //     loc_posy: "",
-    //   });
-    // } catch (error) {
-    //   console.error("Error adding property:", error);
-    //   alert("Failed to add property. Please try again.");
-    // }
+
+    try {
+      await fetch("api/properties/create-property", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(property),
+      })
+        .then((res) => res.json)
+        .then((id) => navigate(`/properties/${JSON.stringify(id)}`));
+    } catch (error) {
+      console.error("Error adding property:", error);
+      alert("Failed to add property. Please try again.");
+    }
   };
 
   return (
@@ -42,21 +47,59 @@ const PropertyForm = () => {
       <h2>Add Property</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Property Type:</label>
-          <input
-            type="text"
-            name="property_type"
-            value={property.property_type}
-            onChange={handleChange}
-            required
-          />
+          <label>Image Link:</label>
+          <input type="file" id="myFile" name="filename" />
         </div>
+        <div>
+          <label>Property Type:</label>
+          <select
+            name="property_type"
+            id="property_type"
+            defaultValue=""
+            onChange={handleChange}
+            value={property.property_type ? property.property_type : ""}
+            required
+          >
+            <option disabled selected value=""></option>
+            <option value="Apartment">Apartment</option>
+            <option value="Condo">Condo</option>
+            <option value="Single-Property">Single-Property</option>
+          </select>
+        </div>
+        {property.property_type && (
+          <div>
+            <label>
+              {property.property_type === "Single-Property"
+                ? "House Number"
+                : "Unit Number"}
+            </label>
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              name="loc_number"
+              value={property.loc_number}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        )}
         <div>
           <label>Street:</label>
           <input
             type="text"
             name="loc_street"
             value={property.loc_street}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Property Name:</label>
+          <input
+            type="text"
+            name="loc_propertyname"
+            value={property.loc_propertyname}
             onChange={handleChange}
             required
           />
@@ -77,26 +120,6 @@ const PropertyForm = () => {
             type="text"
             name="loc_city"
             value={property.loc_city}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Position X:</label>
-          <input
-            type="number"
-            name="loc_posx"
-            value={property.loc_posx}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Position Y:</label>
-          <input
-            type="number"
-            name="loc_posy"
-            value={property.loc_posx}
             onChange={handleChange}
             required
           />
