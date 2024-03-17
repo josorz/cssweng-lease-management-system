@@ -15,10 +15,7 @@ const ContractsSchema = new Schema({
         ref: 'Tenants',
         required: true
     },
-    status: {
-        type: String,
-        enum: ['Active', 'Terminated', 'Completed']
-    }
+    isTerminated: Boolean
 }, { collection: 'Contracts' });
 
 module.exports = mongoose.model("Contracts", ContractsSchema);

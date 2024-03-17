@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import MaintenanceTable from "./MaintenanceTable";
+import ContractsTable from "./ContractsTable";
 
 const deleteProperty = (propertyId) => {
   fetch("/api/properties/delete-property", {
@@ -18,6 +19,7 @@ const deleteProperty = (propertyId) => {
 
 const Property = () => {
   const [propertyInfo, setPropertyInfo] = useState([]);
+  const [contractHistory, setContracts] = useState([]);
 
   const [inputMaintenanceDate, setInputMaintenanceDate] = useState("");
   const [inputMaintenanceDesc, setInputMaintenanceDesc] = useState("");
@@ -33,8 +35,27 @@ const Property = () => {
       .then((data) => {
         setPropertyInfo(data);
         setTableData(data.maintenance_history);
+        setContracts(data.contract_history);
       });
   }, []);
+
+  // the backend part of this works but idk where to place it yet
+  // const addContract = async (e) => {
+  //   e.preventDefault();
+  //   fetch("http://localhost:5050/api/contracts/create-contract", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       property: "65f49969df7b8282fc6b3fc1",
+  //       date_start: "2024-03-14",
+  //       date_end: "2025-03-14",
+  //       tenant: "65f530f5df7b8282fced41fe",
+  //       isTerminated: false,
+  //     }),
+  //   });
+  // };
 
   const addMaintenanceRow = async (e) => {
     e.preventDefault();
@@ -80,34 +101,8 @@ const Property = () => {
         Remove Property
       </Link>
       <div>View Current Contract</div>
-      <div>Contract Info</div>
-      <table>
-        <tr>
-          <th>Contract Start</th>
-          <th>Contract End</th>
-          <th>Tenant Name</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-        <tr>
-          <td>3/15/2024</td>
-          <td>3/15/2025</td>
-          <td>Soriano, Maricel</td>
-          <td>Active</td>
-          <td>
-            <button>View Contract</button>
-          </td>
-        </tr>
-        <tr>
-          <td>3/15/2024</td>
-          <td>3/15/2023</td>
-          <td>Santos, Erik</td>
-          <td>Completed</td>
-          <td>
-            <button>View Contract</button>
-          </td>
-        </tr>
-      </table>
+      <div>Contract History</div>
+      <ContractsTable data={contractHistory} />
       <div>Maintenance Info</div>
       <form onSubmit={addMaintenanceRow}>
         <input

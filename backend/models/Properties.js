@@ -22,9 +22,9 @@ const PropertiesSchema = new Schema({
         ref: 'Contracts',
     }],
     maintenance_history: [{
-        date: Date,
-        description: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'MaintenanceTasks',
     }]
-}, { collection: 'Properties' });
+}, { virtuals: true, collection: 'Properties' });
 
 module.exports = mongoose.model("Properties", PropertiesSchema);

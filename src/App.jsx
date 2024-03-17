@@ -5,6 +5,7 @@ import Dashboard from "./components/dashboard";
 import Properties from "./components/properties";
 import ViewTrackers from "./components/viewTrackers";
 import Property from "./components/property";
+import Contract from "./components/contract";
 
 import { AuthProvider } from "./contexts/authContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -22,6 +23,7 @@ function App() {
               <Route element={<Properties />} index />
               <Route path="/property/:propertyId" element={<Property />} />
               <Route element={<ViewTrackers />} path="trackers" />
+              <Route path="/contract/:contractId" element={<Contract />} />
             </Route>
           </Route>
         </Routes>

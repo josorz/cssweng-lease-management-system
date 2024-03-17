@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { convertDateToString } from "../../utils/dateUtil";
 
 const MaintenanceTable = ({ data, deleteMaintenanceRow }) => {
   return (
@@ -11,7 +12,7 @@ const MaintenanceTable = ({ data, deleteMaintenanceRow }) => {
         </tr>
         {data.map((info, index) => (
           <tr key={index}>
-            <td>{info.date}</td>
+            <td>{convertDateToString(info.date)}</td>
             <td>{info.description}</td>
             <td>
               <div>
