@@ -10,12 +10,13 @@ const ContractsSchema = new Schema({
     },
     date_start: Date,
     date_end: Date,
+    totalAmount: Number,
     tenant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tenants',
         required: true
     },
-    isTerminated: Boolean
+    isTerminated: Boolean,
 }, { collection: 'Contracts' });
 
 module.exports = mongoose.model("Contracts", ContractsSchema);

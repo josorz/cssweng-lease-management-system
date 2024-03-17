@@ -21,7 +21,7 @@ const BillsSchema = new Schema({
     amount: Number,
     status: {
         type: String,
-        enum: ['Paid', 'Waived']
+        enum: ['Paid', 'Waived', 'Unpaid']
     },
 }, { collection: 'Bills' });
 

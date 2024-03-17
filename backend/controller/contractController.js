@@ -14,14 +14,19 @@ exports.getContracts = async (req, res) => {
 
 exports.createContract = async (req, res) => {
     try {
-        const { property, date_start, date_end, tenant, isTerminated } = req.body;
-        const newContract = await Contracts.create({
-            property,
-            date_start,
-            date_end,
-            tenant,
-            isTerminated
-        })
+        // TODO: Update to new contract schema
+
+        // const { property, date_start, date_end, tenant, isTerminated } = req.body;
+        // const newContract = await Contracts.create({
+        //     property,
+        //     date_start,
+        //     date_end,
+        //     tenant,
+        //     isTerminated
+        // })
+
+        // TODO: use the computeRentBilling in /utils to compute for the rent
+        // then .save() the resulting bills in the Bills schema
 
         await Properties.findOneAndUpdate(
             { _id: property },
