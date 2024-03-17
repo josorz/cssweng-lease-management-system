@@ -27,15 +27,13 @@ const CreateTaskModal = () => {
     e.preventDefault();
 
     try {
-      await fetch("api/properties/create-task", {
+      await fetch("api/maintenanceTasks/create-maintenance-task", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify(task),
-      })
-        .then((res) => res.json)
-        .then((id) => navigate(`/properties/${JSON.stringify(id)}`));
+      }).then((res) => res.json);
       // TODO:
       // add a state on the parent that can change the table in real time
     } catch (error) {
@@ -52,12 +50,7 @@ const CreateTaskModal = () => {
 
   return (
     <div>
-      <h2>Add Property</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Image Link:</label>
-          <input type="file" id="myFile" name="filename" />
-        </div>
         <div>
           <label>Property Type:</label>
           <select
@@ -90,7 +83,7 @@ const CreateTaskModal = () => {
           <label>Deadline:</label>
           <input
             type="date"
-            name="date"
+            name="deadline"
             value={task.deadline}
             onChange={handleChange}
             required

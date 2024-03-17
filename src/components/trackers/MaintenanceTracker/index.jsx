@@ -32,8 +32,9 @@ const MaintenanceTracker = () => {
 
   return (
     <div>
-      <CreateTaskModal />
       <h1>Maintenance Tracker</h1>
+      <p>Create Task</p>
+      <CreateTaskModal />
       <table>
         <tbody>
           <tr>
