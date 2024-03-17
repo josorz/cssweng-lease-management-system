@@ -26,6 +26,7 @@ const ViewTrackers = () => {
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C600%2C700"
       />
       <link rel="stylesheet" href="./styles/property-summary-dashboard.css" />
+      <a href="/trackers/maintenance">Maintenance Tracker</a>
       <div className="property-summary-dashboard-4Qo">
         <div className="auto-group-uzsb-ZsM">
           <img className="bg-gBH" src="./assets/bg-SdM.png" />

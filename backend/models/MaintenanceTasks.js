@@ -11,6 +11,11 @@ const MaintenanceTasksSchema = new Schema({
     deadline: Date,
     description: String,
     contractor: String,
+    status: {
+        type: String,
+        enum: ['Complete', 'Pending', 'Cancelled'], // i didnt put overdue
+        required: true
+    },
     priority: {
         type: String,
         enum: ['Low', 'Medium', 'High'],
