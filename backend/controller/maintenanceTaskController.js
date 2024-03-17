@@ -1,6 +1,5 @@
 const MaintenanceTasks = require('../models/MaintenanceTasks')
 const Properties = require('../models/Properties')
-const Tenants = require('../models/Tenants')
 
 exports.getMaintenanceTasks = async (req, res) => {
     try {
@@ -36,14 +35,16 @@ exports.getMaintenanceTask = async (req, res) => {
 }
 
 exports.createMaintenanceTask = async (req, res) => {
-    try {
-        const { property, date_start, date_end, tenant, isTerminated } = req.body;
+    try { 
+        const { property, date, deadline, description, contractor, priority } = req.body;
+
         const newMaintenanceTask = await MaintenanceTasks.create({
             property,
-            date_start,
-            date_end,
-            tenant,
-            isTerminated
+            date,
+            deadline,
+            description,
+            contractor,
+            priority
         })
 
         await Properties.findOneAndUpdate(
