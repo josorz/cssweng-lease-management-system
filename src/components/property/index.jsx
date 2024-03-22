@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import MaintenanceTable from "./MaintenanceTable";
 import ContractsTable from "./ContractsTable";
+import AddContractModal from "./AddContractModal";
 
 const deleteProperty = (propertyId) => {
   fetch("/api/properties/delete-property", {
@@ -26,16 +27,25 @@ const Property = () => {
 
   const [tableData, setTableData] = useState([]);
 
+  const [currContract, setCurrContract] = useState("");
+
   const { propertyId } = useParams();
 
   useEffect(() => {
-    const url = `/api/properties/get-property/${propertyId}`;
-    fetch(url)
+    fetch(`/api/properties/get-property/${propertyId}`)
       .then((res) => res.json())
       .then((data) => {
         setPropertyInfo(data);
         setTableData(data.maintenance_history);
-        setContracts(data.contract_history);
+      });
+
+    fetch(`/api/contracts/get-contracts/${propertyId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setContracts(data.contracts);
+          setCurrContract(data.currContract);
+        }
       });
   }, []);
 
@@ -91,7 +101,7 @@ const Property = () => {
     });
   };
 
-  return (
+  return contractHistory == [] ? null : (
     <div>
       <div>{propertyInfo.loc_street}</div>
       <div>{propertyInfo.loc_barangay}</div>
@@ -100,7 +110,13 @@ const Property = () => {
       <Link to="" onClick={() => deleteProperty(propertyId)}>
         Remove Property
       </Link>
-      <div>View Current Contract</div>
+      {currContract ? (
+        <Link to={`/contract/${currContract}`}>View Current Contract</Link>
+      ) : (
+        <>
+          <AddContractModal property={propertyId} />
+        </>
+      )}
       <div>Contract History</div>
       <ContractsTable data={contractHistory} />
       <div>Maintenance Info</div>

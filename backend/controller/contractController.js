@@ -5,7 +5,26 @@ const Tenants = require('../models/Tenants')
 // GET req for list of all posts.
 exports.getContracts = async (req, res) => {
     try {
-        const contracts = await Contracts.find().exec()
+        const propertyId = req.params.propertyId
+        let contracts
+        if (!propertyId) {
+            contracts = await Contracts.find({}, 'date_start date_end')
+                        .populate({path: 'tenant', select: 'last_name first_name'})
+                        .sort('-date_end')
+                        .exec()
+        } else {
+            contracts = await Contracts.find({property: propertyId}, 'date_start date_end')
+                    .populate({path: 'tenant', select: 'last_name first_name'})
+                    .sort('-date_end')
+                    .exec()
+            if (contracts.length > 0) {
+                const latestContact = contracts[0]
+                if (latestContact.date_end > Date.now())
+                    contracts = {contracts: [...contracts], currContract: latestContact._id}
+                else
+                    contracts = {contracts: [...contracts], currContract: null}
+            }
+        }
         res.status(200).json(contracts);
     } catch (err) {
         res.status(500).send('Error')
