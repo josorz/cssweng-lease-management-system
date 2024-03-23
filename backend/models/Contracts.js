@@ -12,11 +12,14 @@ const ContractsSchema = new Schema({
     date_end: Date,
     totalAmount: Number,
     tenant: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tenants',
-        required: true
+        last_name: String,
+        first_name: String,
+        contact: Number, 
+        email: String,
+        id_picture: String
     },
     isTerminated: Boolean,
+    terminated_date: Date
 }, { collection: 'Contracts' });
 
 module.exports = mongoose.model("Contracts", ContractsSchema);

@@ -1,6 +1,5 @@
 const Contracts = require('../models/Contracts')
 const Properties = require('../models/Properties')
-const Tenants = require('../models/Tenants')
 
 // GET req for list of all posts.
 exports.getContracts = async (req, res) => {
@@ -8,13 +7,11 @@ exports.getContracts = async (req, res) => {
         const propertyId = req.params.propertyId
         let contracts
         if (!propertyId) {
-            contracts = await Contracts.find({}, 'date_start date_end')
-                        .populate({path: 'tenant', select: 'last_name first_name'})
+            contracts = await Contracts.find({}, 'date_start date_end tenant.last_name')
                         .sort('-date_end')
                         .exec()
         } else {
-            contracts = await Contracts.find({property: propertyId}, 'date_start date_end')
-                    .populate({path: 'tenant', select: 'last_name first_name'})
+            contracts = await Contracts.find({property: propertyId}, 'date_start date_end tenant.last_name')
                     .sort('-date_end')
                     .exec()
             if (contracts.length > 0) {
