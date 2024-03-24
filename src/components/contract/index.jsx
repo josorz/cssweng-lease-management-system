@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 const Contract = () => {
+  const [contractData, setContractData] = useState({});
+
+  const { contractId } = useParams();
+  useEffect(() => {
+    fetch(`/api/contracts/get-contract/${contractId}`)
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }, []);
   return (
     <div>
       <div>301 Green Residences {">"} Contract</div>
@@ -10,6 +19,7 @@ const Contract = () => {
       <div>Address: 301 Green Residences, Taft. Ave, Malate, Manila</div>
       <div>Contract Info</div>
       <div>Name: John Angelo Soriano</div>
+      <div>View Identification</div>
       <div>Start Date: March 15, 2024</div>
       <div>End Date: March 15, 2025</div>
       <div></div>

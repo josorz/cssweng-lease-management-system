@@ -10,7 +10,7 @@ const ContractsSchema = new Schema({
     },
     date_start: Date,
     date_end: Date,
-    totalAmount: Number,
+    monthly_due: Number,
     tenant: {
         last_name: String,
         first_name: String,

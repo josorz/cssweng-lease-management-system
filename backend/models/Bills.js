@@ -24,9 +24,5 @@ const BillsSchema = new Schema({
         enum: ['Paid', 'Waived', 'Unpaid']
     },
 }, { collection: 'Bills' });
-
-BillsSchema.virtual('status').get(() => {
-    this.status ? this.status : "Overdue"
-})
     
 module.exports = mongoose.model("Payments", BillsSchema);

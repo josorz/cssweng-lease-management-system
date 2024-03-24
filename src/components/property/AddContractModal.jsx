@@ -4,24 +4,6 @@ import { useEffect } from "react";
 import { countMonths } from "../../utils/dateUtil";
 import moment from "moment";
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    await fetch("api/contracts/create-contract", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(newContract),
-    })
-      .then((res) => res.json)
-      .then((id) => navigate(`/contracts/${JSON.stringify(id)}`));
-  } catch (error) {
-    console.error("Error adding property:", error);
-    alert("Failed to add property. Please try again.");
-  }
-};
-
 const AddContract = ({ property }) => {
   const navigate = useNavigate();
 
@@ -29,7 +11,7 @@ const AddContract = ({ property }) => {
     property,
     date_start: "",
     date_end: "",
-    totalAmount: "",
+    monthly_due: "",
     tenant: {
       last_name: "",
       first_name: "",
@@ -40,29 +22,60 @@ const AddContract = ({ property }) => {
     isTerminated: false,
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewContract({
-      ...newContract,
-      [name]: value,
-    });
-  };
+  useEffect(() => {
+    console.log(newContract);
+  }, [newContract]);
 
-  const uploadImage = (e) => {
-    const imageInput = e.target.files[0];
-    if (imageInput) {
+  const [tenantImage, setTenantImage] = useState(null);
+
+  const uploadImage = async () => {
+    if (tenantImage) {
       const formData = new FormData();
-      formData.append("image", imageInput);
+      formData.append("image", tenantImage);
       fetch("/api/images/upload", {
         method: "POST",
         body: formData,
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      }).catch((error) => {
-        console.error("Error uploading image:", error);
-      });
+      })
+        .then((data) => data.json())
+        .then((image) => image.imageUrl)
+        .catch((error) => {
+          console.error("Error uploading image:", error);
+        });
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const imageLink = await uploadImage().then((res) => res);
+      console.log(imageLink);
+      await fetch("/api/contracts/create-contract", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          ...newContract,
+          tenant: { ...newContract.tenant, id_picture: imageLink },
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => navigate(`/contract/${data}`));
+    } catch (error) {
+      console.error("Error adding property:", error);
+      alert("Failed to add property. Please try again.");
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewContract({
+      ...newContract,
+      [name]: value,
+    });
   };
 
   const changeEndDate = (e) => {
@@ -79,15 +92,6 @@ const AddContract = ({ property }) => {
         date_end: endDate,
       });
     }
-  };
-
-  const calculateMonthly = () => {
-    // Get Start and end Date and format it to comply with Moment.js standards
-    const startDate = moment(newContract.date_start, "YYYY-MM-DD");
-    const endDate = moment(newContract.date_end, "YYYY-MM-DD");
-    // Count months
-    const months = endDate.diff(startDate, "M");
-    return parseFloat(newContract.totalAmount) / parseFloat(months);
   };
 
   return (
@@ -120,8 +124,8 @@ const AddContract = ({ property }) => {
           type="text"
           inputMode="numeric"
           pattern="^[0-9]+(\.[0-9]+)?$"
-          name="totalAmount"
-          value={newContract.totalAmount}
+          name="monthly_due"
+          value={newContract.monthly_due}
           onChange={handleChange}
           required
         />
@@ -130,11 +134,11 @@ const AddContract = ({ property }) => {
             This contract will generate the following bills: <br />
           </i>
           <i>
-            Deposit for three months, worth {calculateMonthly() * 3}
+            Deposit for three months, worth {newContract.monthly_due * 3}
             <br />
           </i>
           <i>
-            Two months advance worth {calculateMonthly() * 2}
+            Two months advance worth {newContract.monthly_due * 2}
             <br />
           </i>
           <i>Both due at start date</i>
@@ -196,7 +200,11 @@ const AddContract = ({ property }) => {
             required
           />
           <label>ID</label>
-          <input type="file" onChange={uploadImage} required />
+          <input
+            type="file"
+            onChange={(e) => setTenantImage(e.target.files[0])}
+            required
+          />
         </div>
         <button type="submit">Create New Contract</button>
       </form>

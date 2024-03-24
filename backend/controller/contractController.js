@@ -1,5 +1,6 @@
 const Contracts = require('../models/Contracts')
-const Properties = require('../models/Properties')
+const Bills = require('../models/Bills')
+const { computeRentBilling } = require('../utils/computeRentBilling')
 
 // GET req for list of all posts.
 exports.getContracts = async (req, res) => {
@@ -30,26 +31,18 @@ exports.getContracts = async (req, res) => {
 
 exports.createContract = async (req, res) => {
     try {
-        // TODO: Update to new contract schema
+        const { start_date, end_date, monthly_due } = req.body
+        const newContract = req.body
 
-        // const { property, date_start, date_end, tenant, isTerminated } = req.body;
-        // const newContract = await Contracts.create({
-        //     property,
-        //     date_start,
-        //     date_end,
-        //     tenant,
-        //     isTerminated
-        // })
+        const entry = await Contracts.create(newContract)
 
         // TODO: use the computeRentBilling in /utils to compute for the rent
         // then .save() the resulting bills in the Bills schema
 
-        await Properties.findOneAndUpdate(
-            { _id: property },
-            { $push: { contract_history: newContract._id } }
-        ).exec()
+        const bills = computeRentBilling(start_date, end_date, monthly_due)
+        console.log(bills)
 
-        res.status(200).send(`Contract added!`)
+        res.status(200).send(entry._id)
     } catch (err) {
         res.status(500).send(err.message)
     }

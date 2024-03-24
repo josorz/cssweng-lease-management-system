@@ -1,4 +1,6 @@
 const multer = require('multer');
+const path = require('path');
+const crypto = require('crypto');
 
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
@@ -6,7 +8,8 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, callback) => {
         const fileExtension = path.extname(file.originalname);
-        callback(null, file.originalname + fileExtension);
+        const filename = "image" + crypto.randomBytes(10).toString('hex') + fileExtension
+        callback(null, filename);
     },
 });
 
