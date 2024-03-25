@@ -32,25 +32,26 @@ const AddContract = ({ property }) => {
     if (tenantImage) {
       const formData = new FormData();
       formData.append("image", tenantImage);
-      fetch("/api/images/upload", {
-        method: "POST",
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-        .then((data) => data.json())
-        .then((image) => image.imageUrl)
-        .catch((error) => {
-          console.error("Error uploading image:", error);
+      try {
+        const response = await fetch("/api/images/upload", {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         });
+        const data = await response.json();
+        return data.imageUrl;
+      } catch {
+        console.error("Error uploading image");
+      }
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const imageLink = await uploadImage().then((res) => res);
+      const imageLink = await uploadImage();
       console.log(imageLink);
       await fetch("/api/contracts/create-contract", {
         method: "POST",
@@ -94,6 +95,10 @@ const AddContract = ({ property }) => {
     }
   };
 
+  useEffect(() => {
+    console.log(tenantImage);
+  }, [tenantImage]);
+
   return (
     <div>
       <h1>Add New Contract</h1>
@@ -107,6 +112,7 @@ const AddContract = ({ property }) => {
           inputMode="numeric"
           pattern="[0-9]*"
           name="mon"
+          min="6"
           onChange={changeEndDate}
           required
         />
@@ -119,7 +125,7 @@ const AddContract = ({ property }) => {
           value={newContract.date_end}
           disabled
         />
-        <label>Total Contract Amount</label>
+        <label>Monthly Due</label>
         <input
           type="text"
           inputMode="numeric"

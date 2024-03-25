@@ -13,7 +13,7 @@ const Contract = () => {
   return (
     <div>
       <div>301 Green Residences {">"} Contract</div>
-      <div>Print Button</div>
+      <div>Print Info</div>
       <div>Property Info</div>
       <div>Type: Apartment</div>
       <div>Address: 301 Green Residences, Taft. Ave, Malate, Manila</div>
