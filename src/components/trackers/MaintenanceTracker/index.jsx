@@ -34,7 +34,10 @@ const MaintenanceTracker = () => {
     <div>
       <h1>Maintenance Tracker</h1>
       <p>Create Task</p>
-      <CreateTaskModal />
+      <CreateTaskModal
+        data={maintenanceTableData}
+        setData={setMaintenanceTableData}
+      />
       <table>
         <tbody>
           <tr>
@@ -49,7 +52,7 @@ const MaintenanceTracker = () => {
           </tr>
           {maintenanceTableData.map((data, index) => (
             <tr>
-              <td>{data.property}</td>
+              <td>{`${data.property.loc_number} ${data.property.loc_street}`}</td>
               <td>{convertDateToString(data.date)}</td>
               <td>{convertDateToString(data.deadline)}</td>
               <td>

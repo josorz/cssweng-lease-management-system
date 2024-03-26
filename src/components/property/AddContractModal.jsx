@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { countMonths } from "../../utils/dateUtil";
 import moment from "moment";
 
 const AddContract = ({ property }) => {
@@ -109,8 +108,7 @@ const AddContract = ({ property }) => {
         <label>Number of Months</label>
         <input
           type="text"
-          inputMode="numeric"
-          pattern="[0-9]*"
+          inputMode="number"
           name="mon"
           min="6"
           onChange={changeEndDate}

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const CreateTaskModal = () => {
-  const navigate = useNavigate();
-
+const CreateTaskModal = ({ data, setData }) => {
   const [properties, setProperties] = useState([]);
   const [task, setTask] = useState({
     property: "",
@@ -27,13 +25,19 @@ const CreateTaskModal = () => {
     e.preventDefault();
 
     try {
-      await fetch("api/maintenanceTasks/create-maintenance-task", {
+      await fetch("/api/maintenanceTasks/create-maintenance-task", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify(task),
-      }).then((res) => res.json);
+      })
+        .then((res) => res.json())
+        .then((id) => {
+          const newData = { ...id, ...task, property: id.property };
+          setData([...data, newData]);
+          console.log(data);
+        });
       // TODO:
       // add a state on the parent that can change the table in real time
     } catch (error) {
@@ -64,7 +68,7 @@ const CreateTaskModal = () => {
             <option disabled selected value=""></option>
             {properties.map((data) => (
               <option
-                value={data.id}
+                value={data._id}
               >{`${data.loc_number} ${data.loc_street}`}</option>
             ))}
           </select>
@@ -85,6 +89,7 @@ const CreateTaskModal = () => {
             type="date"
             name="deadline"
             value={task.deadline}
+            min={task.date}
             onChange={handleChange}
             required
           />

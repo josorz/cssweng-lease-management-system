@@ -17,14 +17,6 @@ const PropertiesSchema = new Schema({
     },
     loc_barangay: String,
     loc_city: String,
-    contract_history: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Contracts',
-    }],
-    maintenance_history: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'MaintenanceTasks',
-    }],
     isHidden: {
         type: Boolean,
         default: false
