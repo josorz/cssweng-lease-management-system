@@ -9,7 +9,8 @@ exports.getContracts = async (req, res) => {
         const propertyId = req.params.propertyId
         let contracts
         if (!propertyId) {
-            contracts = await Contracts.find({}, 'date_start date_end tenant.last_name')
+            contracts = await Contracts.find({}, 'date_start date_end tenant.last_name property')
+                        .populate('property', 'loc_number loc_street')
                         .sort('-date_end')
                         .exec()
         } else {
@@ -88,9 +89,8 @@ exports.getContract = async (req, res) => {
             res.status(404).send('Contract does not exist')
         }
         const contracts = await Contracts.findOne({_id: id})
-            .populate('property')
-            .exec()
-        res.status(200).json(contracts)
+        const bills = await Bills.find({tenant_contract: id})
+        res.status(200).json({...contracts, bills: [...bills]})
     } catch (err) {
         res.status(500).send('Error')
     }

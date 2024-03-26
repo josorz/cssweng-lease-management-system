@@ -8,6 +8,7 @@ import Contract from "./components/contract";
 
 import ViewTrackers from "./components/viewTrackers";
 import MaintenanceTracker from "./components/trackers/MaintenanceTracker";
+import PenaltyTracker from "./components/trackers/PenaltyTracker";
 
 import { AuthProvider } from "./contexts/authContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -28,6 +29,7 @@ function App() {
               <Route path="trackers">
                 <Route element={<ViewTrackers />} index />
                 <Route path="maintenance" element={<MaintenanceTracker />} />
+                <Route path="penalty" element={<PenaltyTracker />} />
                 {/* <Route /> */}
               </Route>
             </Route>
