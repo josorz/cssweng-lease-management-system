@@ -29,7 +29,7 @@ exports.createProperty = async (req, res) => {
             loc_city
         })
 
-        res.status(200).send(`${result._id}`)
+        res.status(200).send(result._id)
     } catch (err) {
         res.status(500).send(err.message)
     }

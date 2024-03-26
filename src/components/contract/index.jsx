@@ -44,8 +44,8 @@ const Contract = () => {
       <div></div>
       <div>Billing Info / Rent</div>
       <BillsTable data={rentData} />
-      <BillsTable data={utilData} />
-      <BillsTable data={penaltyData} />
+      {/* <BillsTable data={utilData} />
+      <BillsTable data={penaltyData} /> */}
       <div></div>
       <div>Add New Expense</div>
     </div>

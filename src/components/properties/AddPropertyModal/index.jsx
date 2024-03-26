@@ -34,8 +34,8 @@ const PropertyForm = () => {
         },
         body: JSON.stringify(property),
       })
-        .then((res) => res.json)
-        .then((id) => navigate(`/properties/${JSON.stringify(id)}`));
+        .then((res) => res.json())
+        .then((id) => navigate(`/property/${id}`));
     } catch (error) {
       console.error("Error adding property:", error);
       alert("Failed to add property. Please try again.");
