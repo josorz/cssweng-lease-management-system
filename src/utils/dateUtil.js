@@ -9,6 +9,10 @@ export const convertDateToString = (isoDate) => {
     return `${month}/${day}/${year}`;
 }
 
+export const dateToWordDate = (date) => {
+    return moment(date).format('MMMM DD, YYYY')
+}
+
 export const compareNowAndDate = (currentDate, deadline) => {
     // TODO
 }

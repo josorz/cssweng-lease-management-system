@@ -88,9 +88,9 @@ exports.getContract = async (req, res) => {
         if (!id) {
             res.status(404).send('Contract does not exist')
         }
-        const contracts = await Contracts.findOne({_id: id})
+        const contracts = await Contracts.findOne({_id: id}).populate('property')
         const bills = await Bills.find({tenant_contract: id})
-        res.status(200).json({...contracts, bills: [...bills]})
+        res.status(200).json({contract: contracts, bills: [...bills]})
     } catch (err) {
         res.status(500).send('Error')
     }

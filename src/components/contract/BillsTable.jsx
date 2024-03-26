@@ -6,19 +6,19 @@ import { convertDateToString } from "../../utils/dateUtil";
 const BillsTable = ({ data }) => {
   return (
     <table>
-      <tr>
-        <th>Date Due</th>
-        <th>Information</th>
-        <th>Amount</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-      {data &&
-        data.map((item) => (
+      <tbody>
+        <tr>
+          <th>Date Due</th>
+          <th>Information</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        {data.map((item) => (
           <tr key={item._id}>
             <td>{convertDateToString(item.date_due)}</td>
             <td>{item.information}</td>
-            <td>{item.amount}</td>
+            <td>₱ {item.amount.toFixed(2)}</td>
             <td>
               {/* <Status status={item.isTerminated} date={""} /> */}
               {item.date_received
@@ -34,6 +34,7 @@ const BillsTable = ({ data }) => {
             </td>
           </tr>
         ))}
+      </tbody>
     </table>
   );
 };
