@@ -4,7 +4,7 @@ const Contracts = require('../models/Contracts')
 // GET req for list of all posts.
 exports.getProperties = async (req, res) => {
     try {
-        const properties = await Properties.find().exec()
+        const properties = await Properties.find({isHidden: false}).exec()
         res.status(200).json(properties);
     } catch (err) {
         res.status(500).send('Error')
@@ -26,7 +26,8 @@ exports.createProperty = async (req, res) => {
             loc_number,
             loc_street,
             loc_barangay,
-            loc_city
+            loc_city,
+            isHidden: false
         })
 
         res.status(200).send(result._id)
@@ -84,7 +85,7 @@ exports.deleteProperty = async (req, res) => {
         if (!id) {
             res.status(404).send('Property does not exist')
         }
-        await Properties.findByIdAndDelete({_id: id}).exec()
+        await Properties.findOneAndUpdate({_id: id}, {isHidden: true}).exec()
         res.status(200).send(`Successfully deleted property ${id}`)
     } catch (err) {
         res.status(500).send('Error')

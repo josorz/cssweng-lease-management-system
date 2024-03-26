@@ -24,7 +24,11 @@ const PropertiesSchema = new Schema({
     maintenance_history: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'MaintenanceTasks',
-    }]
+    }],
+    isHidden: {
+        type: Boolean,
+        default: false
+    }
 }, { virtuals: true, collection: 'Properties' });
 
 module.exports = mongoose.model("Properties", PropertiesSchema);
