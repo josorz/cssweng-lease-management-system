@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Task Modal Test</title>
+</head>
+<body>
+
+<div id="root">
+  <form id="editTaskForm">
+    <div>
+      <label for="property">Property Type:</label>
+      <select name="property" id="property" required>
+        <option disabled selected value=""></option>
+        <!-- Populate options manually or using JavaScript -->
+      </select>
+    </div>
+    <div>
+      <label for="date">Date:</label>
+      <input type="date" name="date" id="date" required>
+    </div>
+    <div>
+      <label for="deadline">Deadline:</label>
+      <input type="date" name="deadline" id="deadline" required>
+    </div>
+    <div>
+      <label for="description">Description:</label>
+      <input type="text" name="description" id="description" required>
+    </div>
+    <div>
+      <label for="contractor">Contractor:</label>
+      <input type="text" name="contractor" id="contractor" required>
+    </div>
+    <div>
+      <label for="priority">Priority:</label>
+      <select name="priority" id="priority" required>
+        <option disabled selected value=""></option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+  document.getElementById("editTaskForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const formData = {
+      property: document.getElementById("property").value,
+      date: document.getElementById("date").value,
+      deadline: document.getElementById("deadline").value,
+      description: document.getElementById("description").value,
+      contractor: document.getElementById("contractor").value,
+      priority: document.getElementById("priority").value
+    };
+    console.log("Form submitted with data:", formData);
+    // You can perform further testing or actions here
+  });
+</script>
+
+</body>
+</html>
