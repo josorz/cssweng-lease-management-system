@@ -10,6 +10,8 @@ const Status = ({ status }) => {
     Paid: "green",
     Unpaid: "#8B0000",
     Waived: "yellow",
+    Complete: "green",
+    Active: "#ADD8E6",
   };
 
   return (

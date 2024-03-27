@@ -10,6 +10,7 @@ import ViewTrackers from "./components/viewTrackers";
 import MaintenanceTracker from "./components/trackers/MaintenanceTracker";
 import PenaltyTracker from "./components/trackers/PenaltyTracker";
 import RentTracker from "./components/trackers/RentTracker";
+import ContractManager from "./components/trackers/ContractManager";
 
 import { AuthProvider } from "./contexts/authContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -32,6 +33,7 @@ function App() {
                 <Route path="maintenance" element={<MaintenanceTracker />} />
                 <Route path="penalty" element={<PenaltyTracker />} />
                 <Route path="rent" element={<RentTracker />} />
+                <Route path="contract" element={<ContractManager />} />
                 {/* <Route /> */}
               </Route>
             </Route>

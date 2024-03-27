@@ -38,7 +38,7 @@ const Property = () => {
         setPropertyInfo(data);
       });
 
-    fetch(`/api/maintenance-tasks/get-maintenance-tasks/${propertyId}`)
+    fetch(`/api/contracts/get-contracts/${propertyId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data) {
@@ -46,10 +46,6 @@ const Property = () => {
           setCurrContract(data.currContract);
         }
       });
-
-    fetch(`/api/contracts/get-contracts/${propertyId}`)
-      .then((res) => res.json())
-      .then((data) => {});
   }, []);
 
   const addMaintenanceRow = async (e) => {

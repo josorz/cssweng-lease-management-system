@@ -7,7 +7,7 @@ exports.getMaintenanceTasks = async (req, res) => {
         let response
         if (!propertyId) {
             response = await MaintenanceTasks.find({})
-                .populate('property', 'loc_number loc_street')
+                .populate('Properties', 'property.loc_number property.loc_street')
                 .exec()
         } else {
             const property = await Properties.findOne({_id: propertyId}, 'loc_number loc_street').exec()

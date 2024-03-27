@@ -9,5 +9,4 @@ router.post('/create-bill', billController.createBill);
 
 router.get('/get-financial-performance', billController.getFinancialPerformance);
 router.get('/get-upcoming-bills', billController.getUpcomingBills);
-
 module.exports = router;

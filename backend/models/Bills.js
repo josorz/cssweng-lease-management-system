@@ -24,5 +24,5 @@ const BillsSchema = new Schema({
         default: false
     }
 }, { collection: 'Bills' });
-    
+
 module.exports = mongoose.model("Bills", BillsSchema);

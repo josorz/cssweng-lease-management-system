@@ -7,25 +7,34 @@ const { computeRentBilling } = require('../utils/computeRentBilling')
 // GET req for list of all posts.
 exports.getContracts = async (req, res) => {
     try {
-        const propertyId = req.params.propertyId
-        let contracts
+        const propertyId = req.params.propertyId;
+        let contracts;
+        
         if (!propertyId) {
-            contracts = await Contracts.find({}, 'date_start date_end tenant.last_name property')
-                        .populate('property', 'loc_number loc_street')
-                        .sort('-date_end')
-                        .exec()
+            contracts = await Contracts.find({}, 'date_start date_end tenant.last_name isTerminated property')
+                .populate('property', 'loc_number loc_street')
+                .sort('-date_end')
+                .exec();
         } else {
-            contracts = await Contracts.find({property: propertyId}, 'date_start date_end tenant.last_name')
-                    .sort('-date_end')
-                    .exec()
+            contracts = await Contracts.find({ property: propertyId }, 'date_start date_end isTerminated tenant.last_name')
+                .sort('-date_end')
+                .exec();
             if (contracts.length > 0) {
-                const latestContact = contracts[0]
-                if (latestContact.date_end > Date.now())
-                    contracts = {contracts: [...contracts], currContract: latestContact._id}
-                else
-                    contracts = {contracts: [...contracts], currContract: null}
+                const latestContract = contracts[0].isTerminated ? null : contracts[0];
+                if (latestContract && new Date(latestContract.date_end) > new Date()) {
+                    contracts = {
+                        contracts: [...contracts],
+                        currContract: latestContract._id
+                    };
+                } else {
+                    contracts = {
+                        contracts: [...contracts],
+                        currContract: null
+                    };
+                }
             }
         }
+        
         res.status(200).json(contracts);
     } catch (err) {
         res.status(500).send('Error')
@@ -104,7 +113,7 @@ exports.deleteContract = async (req, res) => {
         if (!id) {
             res.status(404).send('Contract does not exist')
         }
-        await Contracts.findByIdAndDelete({_id: id}).exec()
+        await Contracts.findOneAndUpdate({_id: id}, {isTerminated: true}).exec()
         res.status(200).send(`Successfully deleted contract ${id}`)
     } catch (err) {
         res.status(500).send('Error')
@@ -154,5 +163,25 @@ exports.getOccupancyChart = async (req, res) => {
         res.status(200).json(response);
     } catch (err) {
         res.status(500).send('Error')
+    }
+}
+
+exports.getRentTracker = async (req, res) => {
+    try {
+        const query = await Contracts.aggregate([
+            {
+                $lookup: {
+                    from: 'Bills', // Collection name of Bills
+                    localField: '_id',
+                    foreignField: 'tenant_contract',
+                    as: 'bills'
+                }
+            }
+        ]);
+
+        const response = await Properties.populate(query, {path: 'property', select: 'loc_number loc_street'})
+        res.status(200).json(response)
+    } catch(err){
+        res.status(500).send(err)
     }
 }
