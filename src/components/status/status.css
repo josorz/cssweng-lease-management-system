@@ -1,0 +1,14 @@
+.status > .shape{
+    display: inline-block;
+    height: 1.5em;
+    width: 1.5em;
+    border: 2px solid black;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: .75em;
+    margin-left: 1em;
+    margin-top: 1em
+}

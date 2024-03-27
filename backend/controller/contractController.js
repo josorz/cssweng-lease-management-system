@@ -108,3 +108,7 @@ exports.deleteContract = async (req, res) => {
         res.status(500).send('Error')
     }
 }
+
+exports.getOccupancyRate = async(req,res) => {
+    
+}
