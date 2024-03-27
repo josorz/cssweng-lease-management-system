@@ -25,4 +25,4 @@ const BillsSchema = new Schema({
     }
 }, { collection: 'Bills' });
     
-module.exports = mongoose.model("Payments", BillsSchema);
+module.exports = mongoose.model("Bills", BillsSchema);

@@ -110,3 +110,22 @@ exports.deleteMaintenanceTask = async (req, res) => {
         res.status(500).send('Error')
     }
 }
+
+exports.getUpcomingTasks = async (req, res) => {
+    try {
+        const currentDate = new Date();
+
+        // Query upcoming bills
+        const upcomingBills = await MaintenanceTasks.find({
+            status: 'Pending',
+            deadline: { $gte: currentDate }
+        }).populate('property')
+        .sort({date_due: 1})
+        .exec();
+
+        // Send the upcoming bills as JSON response
+        res.status(200).json(upcomingBills);
+    } catch (err) {
+        res.status(500).send('Error')
+    }
+}

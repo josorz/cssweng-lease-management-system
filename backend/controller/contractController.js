@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Contracts = require('../models/Contracts')
 const Bills = require('../models/Bills')
+const Properties = require('../models/Properties')
 const { computeRentBilling } = require('../utils/computeRentBilling')
 
 // GET req for list of all posts.
@@ -39,8 +40,9 @@ exports.createContract = async (req, res) => {
         const { date_start, date_end, monthly_due } = req.body
         const newContract = req.body
 
-        const entry = await Contracts.create([newContract], { session: session })
-        const contractId = entry[0]._id
+        const [entry] = await Contracts.create([newContract], { session: session })
+        const contractId = entry._id
+        console.log("Contract Id is", contractId)
 
         // use computeRentBilling in /utils to compute for the rent
         // then create() the resulting bills in the Bills schema
@@ -109,6 +111,48 @@ exports.deleteContract = async (req, res) => {
     }
 }
 
-exports.getOccupancyRate = async(req,res) => {
-    
+exports.getOccupancyChart = async (req, res) => {
+    try {
+        const currentDate = new Date();
+        const twoMonthsAgo = new Date();
+        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+        
+        const occupiedContracts = await Contracts.find({ isTerminated: false, date_end: { $gt: currentDate }})
+                                    .exec()
+        const occupied = occupiedContracts.length
+
+        const expiringContracts = await Contracts.find({ 
+                                        isTerminated: false,
+                                        date_end: {
+                                            $gte: twoMonthsAgo,  // Greater than or equal to two months ago
+                                            $lt: new Date()      // Less than current date
+                                        }
+                                    }).exec()
+        const expiring = expiringContracts.length
+
+        const properties = await Properties.find({ isHidden: false }).exec()
+        const vacant = properties.length - occupied
+
+        const data = [vacant - occupied, occupied, expiring]
+        const response = {
+                labels: [
+                'Vacant',
+                'Occupied',
+                'Expiring'
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: data,
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+            }]
+        }
+        res.status(200).json(response);
+    } catch (err) {
+        res.status(500).send('Error')
+    }
 }

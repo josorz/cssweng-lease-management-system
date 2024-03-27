@@ -7,6 +7,6 @@ router.get('/get-contract/:id', contractController.getContract);
 router.post('/edit-contract', contractController.editContract);
 router.post('/delete-contract', contractController.deleteContract);
 router.post('/create-contract', contractController.createContract);
-router.get('/get-occupancy-rate', contractController.getOccupancyRate);
+router.get('/get-occupancy-chart', contractController.getOccupancyChart);
 
 module.exports = router;

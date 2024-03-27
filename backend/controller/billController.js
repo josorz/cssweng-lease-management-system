@@ -112,3 +112,48 @@ exports.deleteBill = async (req, res) => {
         res.status(500).send('Error')
     }
 }
+
+exports.getFinancialPerformance = async (req, res) => {
+    try {
+        const twoWeeksAgo = new Date();
+        twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+    
+        const query = await Bills.aggregate([
+            {
+                $match: {
+                    date_received: { $gte: twoWeeksAgo }
+                }
+            },
+            {
+                $group: {
+                _id: null,
+                totalAmount: { $sum: '$amount' } // assuming 'amount' is the field containing the bill amount
+                }
+            }
+            ]).exec();
+        const totalAmount = query.length > 0 ? query[0].totalAmount : 0;
+        
+        res.status(200).json({totalAmount})
+    } catch (err) {
+        res.status(500).send(err)   
+    }
+}
+
+exports.getUpcomingBills = async (req, res) => {
+    try {
+        const currentDate = new Date();
+
+        // Query upcoming bills
+        const upcomingBills = await Bills.find({
+            date_received: null,
+            date_due: { $gte: currentDate } // Select bills where date_due is greater than or equal to the current date
+        }).populate('tenant_contract', 'tenant.last_name')
+        .sort({date_due: 1})
+        .exec();
+
+        // Send the upcoming bills as JSON response
+        res.status(200).json(upcomingBills);
+    } catch (err) {
+        res.status(500).send('Error')
+    }
+}
