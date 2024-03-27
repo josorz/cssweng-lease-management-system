@@ -10,8 +10,7 @@ const postingImage = async (req, res) => {
   try {
     // Create an Image model instance.
     const image = new Image({
-      name: req.file.originalname,
-      contentType: req.file.mimetype,
+      name: req.file.filename,
       imageId: req.file.id,
     });
 
@@ -19,7 +18,7 @@ const postingImage = async (req, res) => {
     const savedImage = await image.save();
 
     // Set the imageUrl based on your server URL and the image ID
-    savedImage.imageUrl = `http://localhost:5000/api/images/${savedImage._id}`;
+    savedImage.imageUrl = `/api/images/${savedImage._id}`;
     //this is for getting the image from the database
 
     // Save the updated Image model
