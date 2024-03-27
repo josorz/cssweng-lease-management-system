@@ -8,4 +8,4 @@ const imageSchema = new mongoose.Schema({
 }, { collection: 'Images' });
 
 
-module.exports = mongoose.model('Image', imageSchema);
+module.exports = mongoose.model('Images', imageSchema);

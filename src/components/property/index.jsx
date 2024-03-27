@@ -36,10 +36,9 @@ const Property = () => {
       .then((res) => res.json())
       .then((data) => {
         setPropertyInfo(data);
-        setTableData(data.maintenance_history);
       });
 
-    fetch(`/api/contracts/get-contracts/${propertyId}`)
+    fetch(`/api/maintenance-tasks/get-maintenance-tasks/${propertyId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data) {
@@ -47,25 +46,11 @@ const Property = () => {
           setCurrContract(data.currContract);
         }
       });
-  }, []);
 
-  // the backend part of this works but idk where to place it yet
-  // const addContract = async (e) => {
-  //   e.preventDefault();
-  //   fetch("http://localhost:5050/api/contracts/create-contract", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       property: "65f49969df7b8282fc6b3fc1",
-  //       date_start: "2024-03-14",
-  //       date_end: "2025-03-14",
-  //       tenant: "65f530f5df7b8282fced41fe",
-  //       isTerminated: false,
-  //     }),
-  //   });
-  // };
+    fetch(`/api/contracts/get-contracts/${propertyId}`)
+      .then((res) => res.json())
+      .then((data) => {});
+  }, []);
 
   const addMaintenanceRow = async (e) => {
     e.preventDefault();

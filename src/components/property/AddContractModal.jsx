@@ -21,10 +21,6 @@ const AddContract = ({ property }) => {
     isTerminated: false,
   });
 
-  useEffect(() => {
-    console.log(newContract);
-  }, [newContract]);
-
   const [tenantImage, setTenantImage] = useState(null);
 
   const uploadImage = async () => {

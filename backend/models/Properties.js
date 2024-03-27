@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const PropertiesSchema = new Schema({
-    image_link: String,
+    image_link: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Image',
+    },
     property_type: {
         type: String,
         required: true,

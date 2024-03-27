@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 const PropertyForm = () => {
   const navigate = useNavigate();
+
+  const [image, setImage] = useState(null);
+
   const [property, setProperty] = useState({
     image_link: "",
     property_type: "",
@@ -11,8 +14,6 @@ const PropertyForm = () => {
     loc_propertyname: "",
     loc_barangay: "",
     loc_city: "",
-    contract_history: "",
-    maintenance_history: "",
   });
 
   const handleChange = (e) => {
@@ -26,13 +27,22 @@ const PropertyForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("property_type", property.property_type);
+    formData.append("loc_number", property.loc_number);
+    formData.append("loc_street", property.loc_street);
+    formData.append("loc_propertyname", property.loc_propertyname);
+    formData.append("loc_barangay", property.loc_barangay);
+    formData.append("loc_city", property.loc_city);
+
     try {
       await fetch("api/properties/create-property", {
         method: "POST",
         headers: {
-          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(property),
+        body: formData,
       })
         .then((res) => res.json())
         .then((id) => navigate(`/property/${id}`));
@@ -48,7 +58,12 @@ const PropertyForm = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Image Link:</label>
-          <input type="file" id="myFile" name="filename" />
+          <input
+            type="file"
+            id="myFile"
+            name="filename"
+            onChange={(e) => setImage(e.target.files[0])}
+          />
         </div>
         <div>
           <label>Property Type:</label>
