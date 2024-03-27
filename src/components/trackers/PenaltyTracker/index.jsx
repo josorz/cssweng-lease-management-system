@@ -5,16 +5,18 @@ import Status from "../Status";
 import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import CreateTaskModal from "./CreateTaskModal";
+import CreatePenaltyModal from "./CreatePenaltyModal";
 
-const MaintenanceTracker = () => {
-  const [maintenanceTableData, setMaintenanceTableData] = useState([]);
+const PenaltyTracker = () => {
+  const [overdueBills, setOverdueBills] = useState([]);
 
   useEffect(() => {
-    fetch("/api/maintenanceTasks/get-maintenance-tasks/")
+    fetch("/api/bills/get-bills/")
       .then((res) => res.json())
       .then((data) => {
-        setMaintenanceTableData(data);
+        setOverdueBills(
+          data.filter((bill) => new Date(bill.date_due) < new Date())
+        );
       });
   }, []);
 
@@ -26,18 +28,45 @@ const MaintenanceTracker = () => {
       },
       body: JSON.stringify({ id }),
     }).then(() => {
-      setMaintenanceTableData((data) => data.filter((item) => item._id !== id));
+      setOverdueBills(data);
     });
   };
 
   return (
     <div>
-      <h1>Maintenance Tracker</h1>
-      <p>Create Task</p>
-      <CreateTaskModal
-        data={maintenanceTableData}
-        setData={setMaintenanceTableData}
-      />
+      <h1>Penalty Tracker</h1>
+
+      <h2>Overdue Bills</h2>
+      <table>
+        <tbody>
+          <tr>
+            <th>Date</th>
+            <th>Property</th>
+            <th>Tenant Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+          {overdueBills.map((data, index) => (
+            <tr key={data.id}>
+              <td>{convertDateToString(data.date_due)}</td>
+              <td>{data.tenant_contract.property}</td>
+              <td>{data.tenant_contract.tenant.last_name}</td>
+              <td>{data.information}</td>
+              <td>
+                <button>
+                  <FontAwesomeIcon icon={faPencil} />
+                </button>
+                <button onClick={() => deleteTask(data._id)}>
+                  <FontAwesomeIcon icon={faTrashCan} />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <p>Add Penalty</p>
+      <CreatePenaltyModal />
       <table>
         <tbody>
           <tr>
@@ -50,9 +79,9 @@ const MaintenanceTracker = () => {
             <th>Priority</th>
             <th>Actions</th>
           </tr>
-          {maintenanceTableData.map((data, index) => (
+          {overdueBills.map((data, index) => (
             <tr>
-              <td>{`${data.property.loc_number} ${data.property.loc_street}`}</td>
+              <td>{data.property}</td>
               <td>{convertDateToString(data.date)}</td>
               <td>{convertDateToString(data.deadline)}</td>
               <td>
@@ -77,4 +106,4 @@ const MaintenanceTracker = () => {
   );
 };
 
-export default MaintenanceTracker;
+export default PenaltyTracker;

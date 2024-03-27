@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const PropertiesSchema = new Schema({
-    image_link: String,
+    image_link: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Image',
+    },
     property_type: {
         type: String,
         required: true,
@@ -17,14 +20,10 @@ const PropertiesSchema = new Schema({
     },
     loc_barangay: String,
     loc_city: String,
-    contract_history: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Contracts',
-    }],
-    maintenance_history: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'MaintenanceTasks',
-    }]
+    isHidden: {
+        type: Boolean,
+        default: false
+    }
 }, { virtuals: true, collection: 'Properties' });
 
 module.exports = mongoose.model("Properties", PropertiesSchema);

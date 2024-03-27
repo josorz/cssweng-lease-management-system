@@ -11,7 +11,9 @@ const Card = ({ key, data }) => {
       <p>{data.loc_street}</p>
       <p>{data.property_type}</p>
       <p>{data.unit_number}</p> */}
-      <div className="property-image">image</div>
+      <div className="property-image">
+        <img src={`/api/images/${data.image_link}`} alt="" />
+      </div>
       <div className="property-info">
         {data.unit_number}, {data.loc_street}, {data.loc_barangay},{" "}
         {data.loc_city}

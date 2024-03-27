@@ -19,10 +19,10 @@ const BillsSchema = new Schema({
     },
     information: String,
     amount: Number,
-    status: {
-        type: String,
-        enum: ['Paid', 'Waived', 'Unpaid']
-    },
+    isWaived: {
+        type: Boolean,
+        default: false
+    }
 }, { collection: 'Bills' });
     
 module.exports = mongoose.model("Payments", BillsSchema);

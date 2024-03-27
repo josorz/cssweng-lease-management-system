@@ -12,6 +12,8 @@ import mask from "../../assets/mask-group-YJs.png";
 const ViewTrackers = () => {
   return (
     <div>
+      <a href="/trackers/maintenance">Maintenance Tracker</a>
+      <a href="/trackers/penalty">Penalty Tracker</a>
       <meta charSet="utf-8" />s
       <link rel="icon" href="/favicon.ico" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,7 +28,6 @@ const ViewTrackers = () => {
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C600%2C700"
       />
       <link rel="stylesheet" href="./styles/property-summary-dashboard.css" />
-      <a href="/trackers/maintenance">Maintenance Tracker</a>
       <div className="property-summary-dashboard-4Qo">
         <div className="auto-group-uzsb-ZsM">
           <img className="bg-gBH" src="./assets/bg-SdM.png" />

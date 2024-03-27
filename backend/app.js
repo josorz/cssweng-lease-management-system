@@ -6,6 +6,7 @@ const app = express();
 const propertyRoutes = require('./routes/propertyRoutes')
 const contractRoutes = require('./routes/contractRoutes')
 const maintenanceTaskRoutes = require('./routes/maintenanceTaskRoutes')
+const billRoutes = require('./routes/billRoutes')
 const imageRoutes = require('./routes/imageRoutes')
 
 const cors=require('cors')
@@ -28,6 +29,7 @@ app.use("/api/properties", propertyRoutes);
 app.use("/api/maintenanceTasks", maintenanceTaskRoutes);
 app.use("/api/contracts", contractRoutes)
 app.use('/api/images',imageRoutes);
+app.use('/api/bills',billRoutes);
 
 // Global error handling
 app.use((err, _req, res, next) => {
