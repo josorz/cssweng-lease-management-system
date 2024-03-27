@@ -68,7 +68,12 @@ const Contract = () => {
         <div>
           Name: {contractData.tenant.first_name} {contractData.tenant.last_name}
         </div>
-        <div>View Identification</div>
+        <Link
+          to={`/api/images/${contractData.tenant.id_picture}`}
+          target="_blank"
+        >
+          <div>View Identification</div>
+        </Link>
         <div>Start Date: {dateToWordDate(contractData.date_start)}</div>
         <div>End Date: {dateToWordDate(contractData.date_end)}</div>
         <div></div>

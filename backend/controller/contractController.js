@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const Contracts = require('../models/Contracts')
 const Bills = require('../models/Bills')
 const Properties = require('../models/Properties')
+const { uploadImage } = require('../utils/uploadImage')
 const { computeRentBilling } = require('../utils/computeRentBilling')
 
 // GET req for list of all posts.
@@ -49,9 +50,12 @@ exports.createContract = async (req, res) => {
         const { date_start, date_end, monthly_due } = req.body
         const newContract = req.body
 
-        const [entry] = await Contracts.create([newContract], { session: session })
+        // add image
+        const result = await uploadImage(req.file);
+
+        // add contract
+        const [entry] = await Contracts.create([{...newContract, tenant: {...newContract.tenant, id_picture: result._id}}], { session: session })        
         const contractId = entry._id
-        console.log("Contract Id is", contractId)
 
         // use computeRentBilling in /utils to compute for the rent
         // then create() the resulting bills in the Bills schema
