@@ -1,11 +1,30 @@
+const mongoose = require('mongoose')
 const Contracts = require('../models/Contracts')
-const Properties = require('../models/Properties')
-const Tenants = require('../models/Tenants')
+const Bills = require('../models/Bills')
+const { computeRentBilling } = require('../utils/computeRentBilling')
 
 // GET req for list of all posts.
 exports.getContracts = async (req, res) => {
     try {
-        const contracts = await Contracts.find().exec()
+        const propertyId = req.params.propertyId
+        let contracts
+        if (!propertyId) {
+            contracts = await Contracts.find({}, 'date_start date_end tenant.last_name property')
+                        .populate('property', 'loc_number loc_street')
+                        .sort('-date_end')
+                        .exec()
+        } else {
+            contracts = await Contracts.find({property: propertyId}, 'date_start date_end tenant.last_name')
+                    .sort('-date_end')
+                    .exec()
+            if (contracts.length > 0) {
+                const latestContact = contracts[0]
+                if (latestContact.date_end > Date.now())
+                    contracts = {contracts: [...contracts], currContract: latestContact._id}
+                else
+                    contracts = {contracts: [...contracts], currContract: null}
+            }
+        }
         res.status(200).json(contracts);
     } catch (err) {
         res.status(500).send('Error')
@@ -13,47 +32,49 @@ exports.getContracts = async (req, res) => {
 }
 
 exports.createContract = async (req, res) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
     try {
-        // TODO: Update to new contract schema
+        const { date_start, date_end, monthly_due } = req.body
+        const newContract = req.body
 
-        // const { property, date_start, date_end, tenant, isTerminated } = req.body;
-        // const newContract = await Contracts.create({
-        //     property,
-        //     date_start,
-        //     date_end,
-        //     tenant,
-        //     isTerminated
-        // })
+        const entry = await Contracts.create([newContract], { session: session })
+        const contractId = entry[0]._id
 
-        // TODO: use the computeRentBilling in /utils to compute for the rent
-        // then .save() the resulting bills in the Bills schema
+        // use computeRentBilling in /utils to compute for the rent
+        // then create() the resulting bills in the Bills schema
 
-        await Properties.findOneAndUpdate(
-            { _id: property },
-            { $push: { contract_history: newContract._id } }
-        ).exec()
+        const bills = computeRentBilling(date_start, date_end, monthly_due)
 
-        res.status(200).send(`Contract added!`)
+        // Create insert promises for each bill
+        const promises = bills.map(async (bill) => {
+            await Bills.create([{
+                tenant_contract: contractId,
+                ...bill,
+                status: 'Unpaid'
+            }], { session: session })
+        })
+        await Promise.all(promises)
+
+        await session.commitTransaction();
+        session.endSession();
+
+        res.status(200).send(contractId)
     } catch (err) {
+        await session.abortTransaction();
+        session.endSession();
         res.status(500).send(err.message)
     }
 }
 
 exports.editContract = async (req, res) => {
     try {
-        const { contract_type, loc_number, loc_street, 
-            loc_contractname, loc_barangay, loc_city } = req.body;
+        const newContract = req.body;
 
         await Contracts.updateOne({
             _id: req.params.id
-        }, {
-            contract_type,
-            loc_number,
-            loc_street,
-            loc_contractname,
-            loc_barangay,
-            loc_city
-        })
+        }, newContract)
 
         res.status(200).send(`[${req.params.id}] contract edited!`)
     } catch (err) {
@@ -67,8 +88,9 @@ exports.getContract = async (req, res) => {
         if (!id) {
             res.status(404).send('Contract does not exist')
         }
-        const contracts = await Contracts.findOne({_id: id}).exec()
-        res.status(200).json(contracts)
+        const contracts = await Contracts.findOne({_id: id}).populate('property')
+        const bills = await Bills.find({tenant_contract: id})
+        res.status(200).json({contract: contracts, bills: [...bills]})
     } catch (err) {
         res.status(500).send('Error')
     }
@@ -82,19 +104,6 @@ exports.deleteContract = async (req, res) => {
         }
         await Contracts.findByIdAndDelete({_id: id}).exec()
         res.status(200).send(`Successfully deleted contract ${id}`)
-    } catch (err) {
-        res.status(500).send('Error')
-    }
-}
-
-exports.getContract = async (req, res) => {
-    try {
-        const id = req.params.id
-        if (!id) {
-            res.status(404).send('Contract does not exist')
-        }
-        const contracts = await Contracts.findOne({_id: id}).exec()
-        res.status(200).json(contracts)
     } catch (err) {
         res.status(500).send('Error')
     }

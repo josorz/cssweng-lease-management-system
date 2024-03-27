@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import MaintenanceTable from "./MaintenanceTable";
 import ContractsTable from "./ContractsTable";
+import AddContractModal from "./AddContractModal";
 
 const deleteProperty = (propertyId) => {
   fetch("/api/properties/delete-property", {
@@ -26,36 +27,30 @@ const Property = () => {
 
   const [tableData, setTableData] = useState([]);
 
+  const [currContract, setCurrContract] = useState("");
+
   const { propertyId } = useParams();
 
   useEffect(() => {
-    const url = `/api/properties/get-property/${propertyId}`;
-    fetch(url)
+    fetch(`/api/properties/get-property/${propertyId}`)
       .then((res) => res.json())
       .then((data) => {
         setPropertyInfo(data);
-        setTableData(data.maintenance_history);
-        setContracts(data.contract_history);
       });
-  }, []);
 
-  // the backend part of this works but idk where to place it yet
-  // const addContract = async (e) => {
-  //   e.preventDefault();
-  //   fetch("http://localhost:5050/api/contracts/create-contract", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       property: "65f49969df7b8282fc6b3fc1",
-  //       date_start: "2024-03-14",
-  //       date_end: "2025-03-14",
-  //       tenant: "65f530f5df7b8282fced41fe",
-  //       isTerminated: false,
-  //     }),
-  //   });
-  // };
+    fetch(`/api/maintenance-tasks/get-maintenance-tasks/${propertyId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setContracts(data.contracts);
+          setCurrContract(data.currContract);
+        }
+      });
+
+    fetch(`/api/contracts/get-contracts/${propertyId}`)
+      .then((res) => res.json())
+      .then((data) => {});
+  }, []);
 
   const addMaintenanceRow = async (e) => {
     e.preventDefault();
@@ -91,7 +86,7 @@ const Property = () => {
     });
   };
 
-  return (
+  return contractHistory == [] ? null : (
     <div>
       <div>{propertyInfo.loc_street}</div>
       <div>{propertyInfo.loc_barangay}</div>
@@ -100,7 +95,13 @@ const Property = () => {
       <Link to="" onClick={() => deleteProperty(propertyId)}>
         Remove Property
       </Link>
-      <div>View Current Contract</div>
+      {currContract ? (
+        <Link to={`/contract/${currContract}`}>View Current Contract</Link>
+      ) : (
+        <>
+          <AddContractModal property={propertyId} />
+        </>
+      )}
       <div>Contract History</div>
       <ContractsTable data={contractHistory} />
       <div>Maintenance Info</div>

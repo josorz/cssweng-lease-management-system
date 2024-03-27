@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const CreateTaskModal = ({ data, setData }) => {
-  const [properties, setProperties] = useState([]);
+const CreatePenaltyModal = () => {
+  const navigate = useNavigate();
+
+  const [contracts, setContracts] = useState([]);
   const [task, setTask] = useState({
     property: "",
     date: "",
@@ -25,19 +27,13 @@ const CreateTaskModal = ({ data, setData }) => {
     e.preventDefault();
 
     try {
-      await fetch("/api/maintenanceTasks/create-maintenance-task", {
+      await fetch("api/maintenanceTasks/create-maintenance-task", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify(task),
-      })
-        .then((res) => res.json())
-        .then((id) => {
-          const newData = { ...id, ...task, property: id.property };
-          setData([...data, newData]);
-          console.log(data);
-        });
+      }).then((res) => res.json);
       // TODO:
       // add a state on the parent that can change the table in real time
     } catch (error) {
@@ -47,16 +43,16 @@ const CreateTaskModal = ({ data, setData }) => {
   };
 
   useEffect(() => {
-    fetch("/api/properties/get-properties")
+    fetch("/api/contracts/get-contracts/")
       .then((res) => res.json())
-      .then((property) => setProperties(property));
+      .then((contract) => setContracts(contract));
   }, []);
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Property Type:</label>
+          <label>Tenant:</label>
           <select
             name="property"
             id="property"
@@ -66,10 +62,10 @@ const CreateTaskModal = ({ data, setData }) => {
             required
           >
             <option disabled selected value=""></option>
-            {properties.map((data) => (
+            {contracts.map((data) => (
               <option
-                value={data._id}
-              >{`${data.loc_number} ${data.loc_street}`}</option>
+                value={data.id}
+              >{`${data.tenant.last_name} / ${data.property.loc_number} ${data.property.loc_street}`}</option>
             ))}
           </select>
         </div>
@@ -89,7 +85,6 @@ const CreateTaskModal = ({ data, setData }) => {
             type="date"
             name="deadline"
             value={task.deadline}
-            min={task.date}
             onChange={handleChange}
             required
           />
@@ -136,4 +131,4 @@ const CreateTaskModal = ({ data, setData }) => {
   );
 };
 
-export default CreateTaskModal;
+export default CreatePenaltyModal;

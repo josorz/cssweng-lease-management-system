@@ -13,21 +13,22 @@ const ContractsTable = ({ data }) => {
         <th>Status</th>
         <th>Actions</th>
       </tr>
-      {data.map((item) => (
-        <tr key={item._id}>
-          <td>{convertDateToString(item.date_start)}</td>
-          <td>{convertDateToString(item.date_end)}</td>
-          <td>{item.tenant.last_name}</td>
-          <td>
-            <Status status={item.isTerminated} date={""} />
-          </td>
-          <Link to={`/contract/${item._id}`}>
+      {data &&
+        data.map((item) => (
+          <tr key={item._id}>
+            <td>{convertDateToString(item.date_start)}</td>
+            <td>{convertDateToString(item.date_end)}</td>
+            <td>{item.tenant.last_name}</td>
             <td>
-              <button>View Contract</button>
+              <Status status={item.isTerminated} date={""} />
             </td>
-          </Link>
-        </tr>
-      ))}
+            <Link to={`/contract/${item._id}`}>
+              <td>
+                <button>View Contract</button>
+              </td>
+            </Link>
+          </tr>
+        ))}
     </table>
   );
 };

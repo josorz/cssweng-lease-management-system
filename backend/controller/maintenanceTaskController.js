@@ -6,7 +6,9 @@ exports.getMaintenanceTasks = async (req, res) => {
         const propertyId = req.params.propertyId
         let response
         if (!propertyId) {
-            response = await MaintenanceTasks.find({}).exec()
+            response = await MaintenanceTasks.find({})
+                .populate('property', 'loc_number loc_street')
+                .exec()
         } else {
             const property = await Properties.findOne({_id: propertyId}, 'loc_number loc_street').exec()
             const tasks = await MaintenanceTasks.findOne({property: propertyId}).exec()
@@ -25,7 +27,8 @@ exports.getMaintenanceTask = async (req, res) => {
             res.status(404).send('Task does not exist')
         }
 
-        const task = await MaintenanceTasks.findOne({_id: id}).exec()
+        const task = await MaintenanceTasks.findOne({_id: id})
+            .exec()
 
         res.status(200).json(task)
     } catch (err) {
@@ -37,12 +40,15 @@ exports.createMaintenanceTask = async (req, res) => {
     try { 
         const { property, date, deadline, description, contractor, priority } = req.body;
 
+        const PropertyDetails = await Properties.findOne({_id: property}, 'loc_number loc_street')
+
+        if (!PropertyDetails) {
+            res.status(500).send('Property does not exist!');
+        }
+
         // TODO: Check Logic for date
 
         // If deadline is later than date then return an error, if not
-
-        // change status depending on date, pending as default
-        const status = ""
 
         const newMaintenanceTask = await MaintenanceTasks.create({
             property,
@@ -50,16 +56,19 @@ exports.createMaintenanceTask = async (req, res) => {
             deadline,
             description,
             contractor,
-            status,
             priority
         })
 
-        await Properties.findOneAndUpdate(
-            { _id: property },
-            { $push: { maintenance_history: newMaintenanceTask._id } }
-        ).exec()
+        const response = {
+            _id: newMaintenanceTask._id,
+            property: {
+                _id: PropertyDetails._id,
+                loc_number: PropertyDetails.loc_number,
+                loc_street: PropertyDetails.loc_street
+            }
+        }
 
-        res.status(200).send(`MaintenanceTask added!`)
+        res.status(200).send(response)
     } catch (err) {
         res.status(500).send(err.message)
     }
@@ -94,14 +103,9 @@ exports.deleteMaintenanceTask = async (req, res) => {
         if (!id) {
             return res.status(404).send('Task does not exist!')
         }
-
-        const Property = await Properties.findOne({maintenance_history: {$in : [id]}}).exec()
-        await Properties.findByIdAndUpdate( Property._id,
-            { $pull: { maintenance_history: id } }
-        ).exec()
         
         await MaintenanceTasks.findByIdAndDelete(id).exec()
-        res.status(200).send(`Successfully deleted contract ${id}`)
+        res.status(200).send(`Successfully deleted task!`)
     } catch (err) {
         res.status(500).send('Error')
     }

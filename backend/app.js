@@ -6,6 +6,8 @@ const app = express();
 const propertyRoutes = require('./routes/propertyRoutes')
 const contractRoutes = require('./routes/contractRoutes')
 const maintenanceTaskRoutes = require('./routes/maintenanceTaskRoutes')
+const billRoutes = require('./routes/billRoutes')
+const imageRoutes = require('./routes/imageRoutes')
 
 const cors=require('cors')
 
@@ -24,14 +26,16 @@ async function main() {
 }
 
 app.use("/api/properties", propertyRoutes);
-app.use("/api/contracts", contractRoutes);
 app.use("/api/maintenanceTasks", maintenanceTaskRoutes);
+app.use("/api/contracts", contractRoutes)
+app.use('/api/images',imageRoutes);
+app.use('/api/bills',billRoutes);
 
 // Global error handling
 app.use((err, _req, res, next) => {
   res.status(500).send("Uh oh! An unexpected error occured.")
 })
-
+  
 // start the Express server
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);

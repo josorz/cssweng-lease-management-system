@@ -14,7 +14,7 @@ const MaintenanceTasksSchema = new Schema({
     status: {
         type: String,
         enum: ['Complete', 'Pending', 'Cancelled'], // i didnt put overdue
-        required: true
+        default: 'Pending'
     },
     priority: {
         type: String,
