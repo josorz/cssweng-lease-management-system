@@ -9,23 +9,30 @@ const { computeRentBilling } = require('../utils/computeRentBilling')
 exports.getContracts = async (req, res) => {
     try {
         const propertyId = req.params.propertyId;
+        const today = new Date()
         let contracts;
         
         if (!propertyId) {
             contracts = await Contracts.find({}, 'date_start date_end tenant.last_name isTerminated property')
                 .populate('property', 'loc_number loc_street')
-                .sort('-date_end')
+                .sort({date_end: -1})
                 .exec();
         } else {
             contracts = await Contracts.find({ property: propertyId }, 'date_start date_end isTerminated tenant.last_name')
-                .sort('-date_end')
+                .sort({date_end: -1})
                 .exec();
             if (contracts.length > 0) {
-                const latestContract = contracts[0].isTerminated ? null : contracts[0];
-                if (latestContract && new Date(latestContract.date_end) > new Date()) {
+                // check if there is a current contract
+                const latestContract = await Contracts.find({
+                    date_start: { $lte: today }, // date_start less than toda
+                    date_end: { $gte: today },    // date_end greater than today
+                    isTerminated: false
+                }).sort({date_end: -1})
+                console.log(latestContract)
+                if (latestContract) {
                     contracts = {
                         contracts: [...contracts],
-                        currContract: latestContract._id
+                        currContract: latestContract[0]._id
                     };
                 } else {
                     contracts = {
