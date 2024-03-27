@@ -1,20 +1,28 @@
 import React from "react";
-// import { currentDate } from "../../utils/dateUtil";
+import "./status.css";
 
-const Status = ({ terminated, date }) => {
+const Status = ({ status }) => {
   const colors = {
-    Terminated: "dark-red",
-    Active: "green",
+    Terminated: "#8B0000",
+    Occupied: "green",
+    Vacant: "green",
+    Expiring: "yellow",
+    Paid: "green",
+    Unpaid: "#8B0000",
+    Waived: "yellow",
     Complete: "green",
+    Active: "#ADD8E6",
   };
-  const status = "idk";
-  //   terminated
-  //     ? "Terminated"
-  //     : isCurrent(date)
-  //     ? "Active"
-  //     : "Completed";
 
-  return <div>{status}</div>;
+  return (
+    <div className="status">
+      <span
+        className="shape"
+        style={{ backgroundColor: colors[status] }}
+      ></span>
+      <div className="text">{status}</div>
+    </div>
+  );
 };
 
 export default Status;

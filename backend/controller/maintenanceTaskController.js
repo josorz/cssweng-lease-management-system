@@ -7,7 +7,7 @@ exports.getMaintenanceTasks = async (req, res) => {
         let response
         if (!propertyId) {
             response = await MaintenanceTasks.find({})
-                .populate('property', 'loc_number loc_street')
+                .populate('Properties', 'property.loc_number property.loc_street')
                 .exec()
         } else {
             const property = await Properties.findOne({_id: propertyId}, 'loc_number loc_street').exec()
@@ -106,6 +106,25 @@ exports.deleteMaintenanceTask = async (req, res) => {
         
         await MaintenanceTasks.findByIdAndDelete(id).exec()
         res.status(200).send(`Successfully deleted task!`)
+    } catch (err) {
+        res.status(500).send('Error')
+    }
+}
+
+exports.getUpcomingTasks = async (req, res) => {
+    try {
+        const currentDate = new Date();
+
+        // Query upcoming bills
+        const upcomingBills = await MaintenanceTasks.find({
+            status: 'Pending',
+            deadline: { $gte: currentDate }
+        }).populate('property')
+        .sort({date_due: 1})
+        .exec();
+
+        // Send the upcoming bills as JSON response
+        res.status(200).json(upcomingBills);
     } catch (err) {
         res.status(500).send('Error')
     }

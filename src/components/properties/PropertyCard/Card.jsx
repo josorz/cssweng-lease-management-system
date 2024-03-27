@@ -1,4 +1,5 @@
 import React from "react";
+import Status from "../../status";
 import "./cardlayout.css";
 
 const Card = ({ key, data }) => {
@@ -15,12 +16,11 @@ const Card = ({ key, data }) => {
         <img src={`/api/images/${data.image_link}`} alt="" />
       </div>
       <div className="property-info">
-        {data.unit_number}, {data.loc_street}, {data.loc_barangay},{" "}
+        {data.loc_number} {data.loc_street}, {data.loc_barangay},{" "}
         {data.loc_city}
       </div>
-      <div className="property-occupancy">
-        <span className="property-occupancy-shape"></span>
-        <span className="property-occupancy-text">Occupied</span>
+      <div>
+        <Status status="Occupied" />
       </div>
     </div>
   );

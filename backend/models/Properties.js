@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const PropertiesSchema = new Schema({
     image_link: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Image',
+        ref: 'Images',
     },
     property_type: {
         type: String,

@@ -26,6 +26,24 @@ const Contract = () => {
         console.error(err);
       });
   }, []);
+
+  const terminateContract = async () => {
+    const navigate = useNavigate();
+
+    const data = {
+      id: contractId,
+    };
+    await fetch(`/api/contracts/delete-contract/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Indicate that the request body contains JSON data
+      },
+      body: JSON.stringify(data),
+    }).then(() => {
+      navigate(-1);
+    });
+  };
+
   return (
     contractData &&
     contractData.property &&
@@ -36,7 +54,9 @@ const Contract = () => {
           {">"} Contract
         </div>
         <div>Print Info</div>
-        <div>Terminate Contract</div>
+        <Link onClick={terminateContract} to="">
+          <div>Terminate Contract</div>
+        </Link>
         <div>Property Info</div>
         <div>Type: Apartment</div>
         <div>

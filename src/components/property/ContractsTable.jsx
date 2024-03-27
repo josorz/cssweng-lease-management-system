@@ -3,6 +3,18 @@ import { Link } from "react-router-dom";
 import Status from "../status";
 import { convertDateToString } from "../../utils/dateUtil";
 
+const validateStatus = (date_end, isTerminated) => {
+  if (isTerminated) {
+    return "Terminated";
+  } else {
+    if (date_end < new Date()) {
+      return "Complete";
+    } else {
+      return "Active";
+    }
+  }
+};
+
 const ContractsTable = ({ data }) => {
   return (
     <table>
@@ -20,7 +32,9 @@ const ContractsTable = ({ data }) => {
             <td>{convertDateToString(item.date_end)}</td>
             <td>{item.tenant.last_name}</td>
             <td>
-              <Status status={item.isTerminated} date={""} />
+              <Status
+                status={validateStatus(item.date_end, item.isTerminated)}
+              />
             </td>
             <Link to={`/contract/${item._id}`}>
               <td>

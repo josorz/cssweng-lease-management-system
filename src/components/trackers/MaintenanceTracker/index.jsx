@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { convertDateToString, compareTwoDates } from "../../../utils/dateUtil";
-import Status from "../Status";
 import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

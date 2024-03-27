@@ -19,7 +19,8 @@ const ContractsSchema = new Schema({
         id_picture: String
     },
     isTerminated: Boolean,
-    terminated_date: Date
+    terminated_date: Date,
+    bills: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Bills' }]
 }, { collection: 'Contracts' });
 
 module.exports = mongoose.model("Contracts", ContractsSchema);

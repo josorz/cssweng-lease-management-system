@@ -1,30 +1,40 @@
 const mongoose = require('mongoose')
 const Contracts = require('../models/Contracts')
 const Bills = require('../models/Bills')
+const Properties = require('../models/Properties')
 const { computeRentBilling } = require('../utils/computeRentBilling')
 
 // GET req for list of all posts.
 exports.getContracts = async (req, res) => {
     try {
-        const propertyId = req.params.propertyId
-        let contracts
+        const propertyId = req.params.propertyId;
+        let contracts;
+        
         if (!propertyId) {
-            contracts = await Contracts.find({}, 'date_start date_end tenant.last_name property')
-                        .populate('property', 'loc_number loc_street')
-                        .sort('-date_end')
-                        .exec()
+            contracts = await Contracts.find({}, 'date_start date_end tenant.last_name isTerminated property')
+                .populate('property', 'loc_number loc_street')
+                .sort('-date_end')
+                .exec();
         } else {
-            contracts = await Contracts.find({property: propertyId}, 'date_start date_end tenant.last_name')
-                    .sort('-date_end')
-                    .exec()
+            contracts = await Contracts.find({ property: propertyId }, 'date_start date_end isTerminated tenant.last_name')
+                .sort('-date_end')
+                .exec();
             if (contracts.length > 0) {
-                const latestContact = contracts[0]
-                if (latestContact.date_end > Date.now())
-                    contracts = {contracts: [...contracts], currContract: latestContact._id}
-                else
-                    contracts = {contracts: [...contracts], currContract: null}
+                const latestContract = contracts[0].isTerminated ? null : contracts[0];
+                if (latestContract && new Date(latestContract.date_end) > new Date()) {
+                    contracts = {
+                        contracts: [...contracts],
+                        currContract: latestContract._id
+                    };
+                } else {
+                    contracts = {
+                        contracts: [...contracts],
+                        currContract: null
+                    };
+                }
             }
         }
+        
         res.status(200).json(contracts);
     } catch (err) {
         res.status(500).send('Error')
@@ -39,8 +49,9 @@ exports.createContract = async (req, res) => {
         const { date_start, date_end, monthly_due } = req.body
         const newContract = req.body
 
-        const entry = await Contracts.create([newContract], { session: session })
-        const contractId = entry[0]._id
+        const [entry] = await Contracts.create([newContract], { session: session })
+        const contractId = entry._id
+        console.log("Contract Id is", contractId)
 
         // use computeRentBilling in /utils to compute for the rent
         // then create() the resulting bills in the Bills schema
@@ -102,9 +113,75 @@ exports.deleteContract = async (req, res) => {
         if (!id) {
             res.status(404).send('Contract does not exist')
         }
-        await Contracts.findByIdAndDelete({_id: id}).exec()
+        await Contracts.findOneAndUpdate({_id: id}, {isTerminated: true}).exec()
         res.status(200).send(`Successfully deleted contract ${id}`)
     } catch (err) {
         res.status(500).send('Error')
+    }
+}
+
+exports.getOccupancyChart = async (req, res) => {
+    try {
+        const currentDate = new Date();
+        const twoMonthsAgo = new Date();
+        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+        
+        const occupiedContracts = await Contracts.find({ isTerminated: false, date_end: { $gt: currentDate }})
+                                    .exec()
+        const occupied = occupiedContracts.length
+
+        const expiringContracts = await Contracts.find({ 
+                                        isTerminated: false,
+                                        date_end: {
+                                            $gte: twoMonthsAgo,  // Greater than or equal to two months ago
+                                            $lt: new Date()      // Less than current date
+                                        }
+                                    }).exec()
+        const expiring = expiringContracts.length
+
+        const properties = await Properties.find({ isHidden: false }).exec()
+        const vacant = properties.length - occupied
+
+        const data = [vacant - occupied, occupied, expiring]
+        const response = {
+                labels: [
+                'Vacant',
+                'Occupied',
+                'Expiring'
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: data,
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+            }]
+        }
+        res.status(200).json(response);
+    } catch (err) {
+        res.status(500).send('Error')
+    }
+}
+
+exports.getRentTracker = async (req, res) => {
+    try {
+        const query = await Contracts.aggregate([
+            {
+                $lookup: {
+                    from: 'Bills', // Collection name of Bills
+                    localField: '_id',
+                    foreignField: 'tenant_contract',
+                    as: 'bills'
+                }
+            }
+        ]);
+
+        const response = await Properties.populate(query, {path: 'property', select: 'loc_number loc_street'})
+        res.status(200).json(response)
+    } catch(err){
+        res.status(500).send(err)
     }
 }

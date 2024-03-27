@@ -10,7 +10,6 @@
     background: #FFF;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     width: 319px;
-    height: 300px;
     flex-shrink: 0;
     padding:0.5em;
 }
@@ -20,6 +19,7 @@
     width: 300px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom:0.5em;
 }
 
 .property-image > img {
