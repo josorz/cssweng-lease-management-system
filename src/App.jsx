@@ -9,6 +9,7 @@ import Contract from "./components/contract";
 import ViewTrackers from "./components/viewTrackers";
 import MaintenanceTracker from "./components/trackers/MaintenanceTracker";
 import PenaltyTracker from "./components/trackers/PenaltyTracker";
+import BillsTracker from "./components/trackers/BillsTracker";
 import RentTracker from "./components/trackers/RentTracker";
 import ContractManager from "./components/trackers/ContractManager";
 
@@ -34,6 +35,7 @@ function App() {
                 <Route path="penalty" element={<PenaltyTracker />} />
                 <Route path="rent" element={<RentTracker />} />
                 <Route path="contract" element={<ContractManager />} />
+                <Route path="bills" element={<BillsTracker />} />
                 {/* <Route /> */}
               </Route>
             </Route>

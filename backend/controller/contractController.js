@@ -49,6 +49,23 @@ exports.getContracts = async (req, res) => {
     }
 }
 
+exports.getActiveContracts = async (req, res) => {
+    try {
+        const propertyId = req.params.propertyId;
+        const today = new Date()
+        
+        const contracts = await Contracts.find({ isTerminated: false, date_end: { $gte: today} }, 'date_start date_end tenant.last_name isTerminated property')
+            .populate('property', 'loc_number loc_street')
+            .sort({date_end: -1})
+            .exec();
+
+        
+        res.status(200).json(contracts);
+    } catch (err) {
+        res.status(500).send('Error')
+    }
+}
+
 exports.createContract = async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -111,7 +128,7 @@ exports.getContract = async (req, res) => {
             res.status(404).send('Contract does not exist')
         }
         const contracts = await Contracts.findOne({_id: id}).populate('property')
-        const bills = await Bills.find({tenant_contract: id})
+        const bills = await Bills.find({tenant_contract: id}).sort({date_due: 1})
         res.status(200).json({contract: contracts, bills: [...bills]})
     } catch (err) {
         res.status(500).send('Error')

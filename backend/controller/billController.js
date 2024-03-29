@@ -19,7 +19,7 @@ exports.createBill = async (req, res) => {
     try {
         const { tenant_contract, date_due, information, bill_type, amount } = req.body;
 
-        const request = await Bills.create({
+        const create = await Bills.create({
             tenant_contract,
             date_due,
             bill_type,
@@ -28,45 +28,9 @@ exports.createBill = async (req, res) => {
             amount,
         })
 
-        res.status(500).send(request._id)
-    } catch (err) {
-        res.status(500).send(err.message)
-    }
-}
+        const response = await Bills.findOne({_id: create._id}).populate('tenant_contract', 'tenant.last_name tenant.first_name property')
 
-exports.addPenalty = async (req, res) => {
-    try {
-        const { tenant_contract, date_due, information, amount } = req.body;
-
-        const request = await Bills.create({
-            tenant_contract,
-            date_due,
-            bill_type: 'Penalty',
-            date_received: '',
-            information,
-            amount,
-        })
-
-        res.status(500).send(request._id)
-    } catch (err) {
-        res.status(500).send(err.message)
-    }
-}
-
-exports.addMisc = async (req, res) => {
-    try {
-        const { tenant_contract, date_due, information, amount } = req.body;
-
-        const request = await Bills.create({
-            tenant_contract,
-            date_due,
-            bill_type: 'Utility',
-            date_received: '',
-            information,
-            amount,
-        })
-
-        res.status(500).send(request._id)
+        res.status(500).json(response)
     } catch (err) {
         res.status(500).send(err.message)
     }
@@ -77,8 +41,8 @@ exports.editBill = async (req, res) => {
         const newBill = req.body;
 
         await Bills.updateOne({
-            _id: req.params.id
-        }, newBill)
+            _id: req.body.id
+        }, { $set: newBill})
 
         res.status(200).send(`[${req.params.id}] Bill edited!`)
     } catch (err) {
