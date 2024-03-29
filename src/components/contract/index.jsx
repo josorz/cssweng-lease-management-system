@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import BillsTable from "./BillsTable";
 import { dateToWordDate } from "../../utils/dateUtil";
+import "./PrintContract.css";
 
 const Contract = () => {
   const [contractData, setContractData] = useState({});

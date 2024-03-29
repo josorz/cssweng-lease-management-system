@@ -6,7 +6,7 @@ const { computeRentBilling } = require('../utils/computeRentBilling')
 exports.getBills = async (req, res) => {
     try {
         const bills = await Bills.find({})
-            .populate('tenant_contract', 'tenant.last_name tenant.first_name property')
+            .populate({path: 'tenant_contract', select: 'tenant.last_name tenant.first_name property', populate: {path: 'property'}})
             .exec()
 
         res.status(200).json(bills);

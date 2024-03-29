@@ -15,7 +15,7 @@ const Header = () => {
   };
 
   return (
-    <nav>
+    <nav className="no-print">
       <Link to="/">
         <span className="logo-text">TWENTY25.</span>
       </Link>
