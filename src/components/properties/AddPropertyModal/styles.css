@@ -76,8 +76,7 @@ button {
   cursor: pointer;
   width: auto; /* Auto width based on content */
   display: block; /* Block level element */
-  margin-left: auto; /* Align the button to the right */
-  margin-right: 0;
+  margin-left: 1700px;
 }
 
 button:hover {
