@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./styles.css";
+import backgr from "../../../assets/group2.png";
 const PropertyForm = () => {
   const navigate = useNavigate();
 

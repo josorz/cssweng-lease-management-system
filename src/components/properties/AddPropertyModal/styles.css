@@ -1,0 +1,92 @@
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+body, html {
+  height: 100%;
+  background-image: url(../../../assets/vector.png);
+  background-size: 40%;
+  background-position: 10px;
+  background-position-y: 110px;
+  background-position-x: right;
+  background-repeat: no-repeat;
+  
+
+}
+
+/* Style for the form container */
+.form-container {
+  background: rgba(255, 255, 255, 0.9); 
+  border-radius: 15px; /* More pronounced rounded corners */
+  padding: 40px; /* Increased padding for more space inside the form */
+  width: 50%; 
+  max-width: 700px; 
+  margin: 50px auto; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow to the form container */
+  position: relative; 
+  z-index: 2; 
+  margin: 0 auto;
+  
+
+}
+
+/* Style for form elements */
+form div {
+  margin-bottom: 10px; /* Increased space between form elements */
+  height: 100%;
+  display: flex;
+  align-items: center; 
+  flex-direction: column;
+  justify-content: center;
+}
+
+label {
+  display: block; 
+  margin-bottom: 10px;
+  color: #333; /* Darker font color for better readability */
+  font-size: 18px; /* Larger font size for labels */
+}
+
+input[type="text"],
+input[type="file"],
+select {
+  width: 50%; 
+  padding: 15px; /* More padding for input fields */
+  margin-bottom: 20px; 
+  margin-left: 20px; 
+
+  border: 1px solid #ccc;
+  border-radius: 25px; /* Rounded inputs */
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1); /* Inner shadow for inputs */
+}
+
+button {
+  background-color: #5cb85c; /* Slightly different shade of green */
+  color: white;
+  padding: 15px 25px; /* Larger padding for the button */
+  margin-top: 20px; /* More space above the button */
+  border: none;
+  border-radius: 25px; /* Rounded button */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for the button */
+  font-size: 18px; /* Larger font size for button text */
+  cursor: pointer;
+  width: auto; /* Auto width based on content */
+  display: block; /* Block level element */
+  margin-left: auto; /* Align the button to the right */
+  margin-right: 0;
+}
+
+button:hover {
+  background-color: #449d44; /* Darker shade on hover */
+}
+
+/* Adjustments for mobile views */
+@media (max-width: 768px) {
+  .form-container {
+    width: 90%; 
+  }
+}
