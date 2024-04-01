@@ -74,6 +74,7 @@ const EditTaskModal = () => {
             {properties.map((data) => (
               <option
                 value={data.id}
+                key={data.id} // Add a unique key prop
               >{`${data.loc_number} ${data.loc_street}`}</option>
             ))}
           </select>
@@ -134,7 +135,7 @@ const EditTaskModal = () => {
             <option value="High">High</option>
           </select>
         </div>
-        <button type="submit">Add Property</button>
+        <button type="submit">Edit Maintenance Task</button>
       </form>
     </div>
   );

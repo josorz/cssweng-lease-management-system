@@ -1,13 +1,16 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { convertDateToString, compareTwoDates } from "../../../utils/dateUtil";
+import React, { useState, useEffect } from "react";
+import { convertDateToString } from "../../../utils/dateUtil";
 import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import CreateTaskModal from "./CreateTaskModal";
+import CreateTaskModal from "./CreateTaskModal"; // Assuming you already have this component
+import EditTaskModal from "./EditTaskModal";
+import "./style.css";
 
 const MaintenanceTracker = () => {
   const [maintenanceTableData, setMaintenanceTableData] = useState([]);
+  const [editTaskId, setEditTaskId] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
     fetch("/api/maintenanceTasks/get-maintenance-tasks/")
@@ -29,6 +32,11 @@ const MaintenanceTracker = () => {
     });
   };
 
+  const handleEditClick = (id) => {
+    setEditTaskId(id);
+    setIsEditModalOpen(true);
+  };
+
   return (
     <div>
       <h1>Maintenance Tracker</h1>
@@ -43,25 +51,15 @@ const MaintenanceTracker = () => {
             <th>Property</th>
             <th>Date</th>
             <th>Deadline</th>
-            <th>Status</th>
-            <th>Description</th>
-            <th>Contractor</th>
-            <th>Priority</th>
             <th>Actions</th>
           </tr>
-          {maintenanceTableData.map((data, index) => (
-            <tr>
+          {maintenanceTableData.map((data) => (
+            <tr key={data._id}>
               <td>{`${data.property.loc_number} ${data.property.loc_street}`}</td>
               <td>{convertDateToString(data.date)}</td>
               <td>{convertDateToString(data.deadline)}</td>
               <td>
-                {/* <Status message={compareTwoDates(data.date, data.deadline)} /> */}
-              </td>
-              <td>{data.description}</td>
-              <td>{data.contractor}</td>
-              <td>{data.priority}</td>
-              <td>
-                <button>
+                <button onClick={() => handleEditClick(data._id)}>
                   <FontAwesomeIcon icon={faPencil} />
                 </button>
                 <button onClick={() => deleteTask(data._id)}>
@@ -72,6 +70,16 @@ const MaintenanceTracker = () => {
           ))}
         </tbody>
       </table>
+      {isEditModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={() => setIsEditModalOpen(false)}>
+              &times;
+            </span>
+            <EditTaskModal taskId={editTaskId} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
