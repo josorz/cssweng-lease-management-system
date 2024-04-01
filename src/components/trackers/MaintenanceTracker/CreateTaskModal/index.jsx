@@ -130,7 +130,7 @@ const CreateTaskModal = ({ data, setData }) => {
             <option value="High">High</option>
           </select>
         </div>
-        <button type="submit">Add Property</button>
+        <button type="submit">Add Maintenance Task</button>
       </form>
     </div>
   );
