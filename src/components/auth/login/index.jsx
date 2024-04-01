@@ -49,8 +49,7 @@ const Login = () => {
             <div className="login-3Cj">
                 <div className="group-3-ys5">
                     <div className="twenty25-6s9">TWENTY25.</div>
-                    <img className="bg-i3y" src={bgImage}/>
-                    <img className="vector-3rw" src={vectorImage}/>
+                    
                 </div>
                 <input type={"text"} className={"username-PrF"} placeholder={"Email"}
                        onChange={(e) => setEmail(e.target.value)}/>
