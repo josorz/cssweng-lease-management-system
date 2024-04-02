@@ -1,17 +1,15 @@
 import React from "react";
 import { Link, useNavigate, useMatch } from "react-router-dom";
-import { doSignOut } from "../../firebase/auth";
 import "./header.css";
+import { useAuth } from "../../contexts/authContext";
 
 const Header = () => {
-  const navigate = useNavigate();
   const homeMatch = useMatch("/");
   const trackerMatch = useMatch("/trackers");
+  const auth = useAuth();
 
   const handleSignOut = () => {
-    doSignOut().then(() => {
-      navigate("/login");
-    });
+    auth.logOut();
   };
 
   return (
