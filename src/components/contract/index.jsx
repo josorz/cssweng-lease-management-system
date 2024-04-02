@@ -54,17 +54,12 @@ const Contract = () => {
           {contractData.property.loc_number} {contractData.property.loc_street}{" "}
           {">"} Contract
         </div>
-        <div>Print Info</div>
-        <Link onClick={terminateContract} to="">
+        <button onClick={() => window.print()} className="no-print">
+          Print Contract Info
+        </button>
+        <Link onClick={terminateContract} to="" className="no-print">
           <div>Terminate Contract</div>
         </Link>
-        <div>Property Info</div>
-        <div>Type: Apartment</div>
-        <div>
-          Address: {contractData.property.loc_number},{" "}
-          {contractData.property.loc_street},{" "}
-          {contractData.property.loc_barangay}, {contractData.property.loc_city}
-        </div>
         <div>Contract Info</div>
         <div>
           Name: {contractData.tenant.first_name} {contractData.tenant.last_name}
@@ -72,24 +67,33 @@ const Contract = () => {
         <Link
           to={`/api/images/${contractData.tenant.id_picture}`}
           target="_blank"
+          className="no-print"
         >
           <div>View Identification</div>
         </Link>
         <div>Start Date: {dateToWordDate(contractData.date_start)}</div>
         <div>End Date: {dateToWordDate(contractData.date_end)}</div>
-        <div></div>
-        <div></div>
+        <div>Property Info</div>
+        <div>Type: Apartment</div>
+        <div>
+          Address: {contractData.property.loc_number},{" "}
+          {contractData.property.loc_street},{" "}
+          {contractData.property.loc_barangay}, {contractData.property.loc_city}
+        </div>
         <div></div>
         <div>Billing Info / Rent</div>
         <BillsTable data={rentData} />
 
-        <div>Billing Info / Rent</div>
-        <BillsTable data={utilData} />
-
-        <div>Penalties</div>
-        <BillsTable data={penaltyData} />
-        <div></div>
-        <div>Add New Expense</div>
+        <div className="print-two-columns">
+          <div className="">
+            <div className="print-column">Billing Info / Rent</div>
+            <BillsTable data={utilData} />
+          </div>
+          <div className="">
+            <div className="print-column">Penalties</div>
+            <BillsTable data={penaltyData} />
+          </div>
+        </div>
       </div>
     )
   );

@@ -6,6 +6,8 @@ import Properties from "./components/properties";
 import Property from "./components/property";
 import Contract from "./components/contract";
 
+import Admin from "./components/Admin";
+
 import ViewTrackers from "./components/viewTrackers";
 import MaintenanceTracker from "./components/trackers/MaintenanceTracker";
 import PenaltyTracker from "./components/trackers/PenaltyTracker";
@@ -38,6 +40,7 @@ function App() {
                 <Route path="bills" element={<BillsTracker />} />
                 {/* <Route /> */}
               </Route>
+              <Route path="admin" element={<Admin />} />
             </Route>
           </Route>
         </Routes>
