@@ -62,3 +62,12 @@ nav > a:hover,
 nav > a:active {
     text-decoration: none;
 }
+
+/* https://stackoverflow.com/questions/355313/how-do-i-hide-an-element-when-printing-a-web-page */
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}

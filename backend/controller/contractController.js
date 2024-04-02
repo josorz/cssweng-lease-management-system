@@ -2,29 +2,37 @@ const mongoose = require('mongoose')
 const Contracts = require('../models/Contracts')
 const Bills = require('../models/Bills')
 const Properties = require('../models/Properties')
+const { uploadImage } = require('../utils/uploadImage')
 const { computeRentBilling } = require('../utils/computeRentBilling')
 
 // GET req for list of all posts.
 exports.getContracts = async (req, res) => {
     try {
         const propertyId = req.params.propertyId;
+        const today = new Date()
         let contracts;
         
         if (!propertyId) {
             contracts = await Contracts.find({}, 'date_start date_end tenant.last_name isTerminated property')
                 .populate('property', 'loc_number loc_street')
-                .sort('-date_end')
+                .sort({date_end: -1})
                 .exec();
         } else {
             contracts = await Contracts.find({ property: propertyId }, 'date_start date_end isTerminated tenant.last_name')
-                .sort('-date_end')
+                .sort({date_end: -1})
                 .exec();
             if (contracts.length > 0) {
-                const latestContract = contracts[0].isTerminated ? null : contracts[0];
-                if (latestContract && new Date(latestContract.date_end) > new Date()) {
+                // check if there is a current contract
+                const latestContract = await Contracts.find({
+                    date_start: { $lte: today }, // date_start less than toda
+                    date_end: { $gte: today },    // date_end greater than today
+                    isTerminated: false
+                }).sort({date_end: -1})
+                console.log(latestContract)
+                if (latestContract) {
                     contracts = {
                         contracts: [...contracts],
-                        currContract: latestContract._id
+                        currContract: latestContract[0]._id
                     };
                 } else {
                     contracts = {
@@ -41,6 +49,23 @@ exports.getContracts = async (req, res) => {
     }
 }
 
+exports.getActiveContracts = async (req, res) => {
+    try {
+        const propertyId = req.params.propertyId;
+        const today = new Date()
+        
+        const contracts = await Contracts.find({ isTerminated: false, date_end: { $gte: today} }, 'date_start date_end tenant.last_name isTerminated property')
+            .populate('property', 'loc_number loc_street')
+            .sort({date_end: -1})
+            .exec();
+
+        
+        res.status(200).json(contracts);
+    } catch (err) {
+        res.status(500).send('Error')
+    }
+}
+
 exports.createContract = async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -49,9 +74,12 @@ exports.createContract = async (req, res) => {
         const { date_start, date_end, monthly_due } = req.body
         const newContract = req.body
 
-        const [entry] = await Contracts.create([newContract], { session: session })
+        // add image
+        const result = await uploadImage(req.file);
+
+        // add contract
+        const [entry] = await Contracts.create([{...newContract, tenant: {...newContract.tenant, id_picture: result._id}}], { session: session })        
         const contractId = entry._id
-        console.log("Contract Id is", contractId)
 
         // use computeRentBilling in /utils to compute for the rent
         // then create() the resulting bills in the Bills schema
@@ -100,7 +128,7 @@ exports.getContract = async (req, res) => {
             res.status(404).send('Contract does not exist')
         }
         const contracts = await Contracts.findOne({_id: id}).populate('property')
-        const bills = await Bills.find({tenant_contract: id})
+        const bills = await Bills.find({tenant_contract: id}).sort({date_due: 1})
         res.status(200).json({contract: contracts, bills: [...bills]})
     } catch (err) {
         res.status(500).send('Error')

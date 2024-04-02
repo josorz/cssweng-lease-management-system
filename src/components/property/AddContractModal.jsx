@@ -18,48 +18,34 @@ const AddContract = ({ property }) => {
       email: "",
       id_picture: "",
     },
-    isTerminated: false,
   });
 
   const [tenantImage, setTenantImage] = useState(null);
 
-  const uploadImage = async () => {
-    if (tenantImage) {
-      const formData = new FormData();
-      formData.append("image", tenantImage);
-      try {
-        const response = await fetch("/api/images/upload", {
-          method: "POST",
-          body: formData,
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        const data = await response.json();
-        return data.imageUrl;
-      } catch {
-        console.error("Error uploading image");
-      }
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const imageLink = await uploadImage();
-      console.log(imageLink);
+      const formData = new FormData();
+      formData.append("image", tenantImage);
+      formData.append("property", newContract.property);
+      formData.append("date_start", newContract.date_start);
+      formData.append("date_end", newContract.date_end);
+      formData.append("monthly_due", newContract.monthly_due);
+      formData.append("tenant[last_name]", newContract.tenant.last_name);
+      formData.append("tenant[first_name]", newContract.tenant.first_name);
+      formData.append("tenant[contact]", newContract.tenant.contact);
+      formData.append("tenant[email]", newContract.tenant.email);
+      formData.append("isTerminated", false);
+
       await fetch("/api/contracts/create-contract", {
         method: "POST",
         headers: {
-          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({
-          ...newContract,
-          tenant: { ...newContract.tenant, id_picture: imageLink },
-        }),
+        body: formData,
       })
         .then((res) => res.json())
-        .then((data) => navigate(`/contract/${data}`));
+        .then((id) => navigate(`/contract/${id}`));
     } catch (error) {
       console.error("Error adding property:", error);
       alert("Failed to add property. Please try again.");
