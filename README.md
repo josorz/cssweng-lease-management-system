@@ -11,7 +11,7 @@ Manage contracts, dues, and property maintenance of leased properties.
 - Jose Lorenzo Santos (SM)
 - John Angelo Soriano (Dev)
 
-## Getting Started
+## Setup
 
 1. **Set Up MongoDB Atlas:**
    - Sign up for MongoDB Atlas and create a cluster.
