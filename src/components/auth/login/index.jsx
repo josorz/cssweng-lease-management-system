@@ -19,7 +19,6 @@ const Login = () => {
       setIsSigningIn(true);
       try {
         auth.loginAction({ email, password });
-        navigate("/");
       } catch (err) {
         setErrorMessage(err.message);
         setIsSigningIn(false);

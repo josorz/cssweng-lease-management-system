@@ -21,6 +21,7 @@ const AuthProvider = ({ children }) => {
       const res = await response.json();
       setUser(res.email);
       sessionStorage.setItem("email", res.email);
+      navigate("/");
       return;
     }
   };
