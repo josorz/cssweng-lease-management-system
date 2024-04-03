@@ -18,6 +18,12 @@ const Register = () => {
     e.preventDefault();
     if (password !== confirmPassword) {
       // check if passwords match
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // regex for email validation
+
+    if (emailRegex.test(email) === false) {
+      setErrorMessage("Please enter a valid email");
+      return;
+    } else if (password !== confirmPassword) { // check if passwords match
       setErrorMessage("Passwords do not match");
       return;
     }
@@ -92,5 +98,5 @@ const Register = () => {
     </>
   );
 };
-
+};
 export default Register;

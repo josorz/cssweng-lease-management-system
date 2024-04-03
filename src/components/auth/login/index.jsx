@@ -15,6 +15,18 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // regex for email validation
+
+      // add validation checks for input
+      if (!email || !password) {
+          setErrorMessage("Please fill in all fields");
+          return;
+      } else if (emailRegex.test(email) === false) {
+          setErrorMessage("Please enter a valid email");
+          return;
+      }
+
+      e.preventDefault();
     if (!isSigningIn) {
       setIsSigningIn(true);
       try {
