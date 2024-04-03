@@ -1,20 +1,34 @@
 # Lease Management System
 
-Manage contracts, dues and schedules of leased property \ \
+Manage contracts, dues, and property maintenance of leased properties.
 
-**CSSWENG S11**\
-Kho, John\
-Lababidi, Mezen\
-Lada, Martin\
-Mangulabnan, Kenneth\
-Santos, Jose Lorenzo\
-Soriano, John Angelo
+## Contributors
 
-## Guide\
+- John Zechariah Kho (QA)
+- Mezen Lababidi (PO)
+- Martin Jose Lada (QA)
+- Kenneth Louis Mangulabnan (Designer)
+- Jose Lorenzo Santos (SM)
+- John Angelo Soriano (Dev)
 
-Sign up for MongoDB Atlas and create a cluster\
-Create an `.env` file in the backend folder with the contents\
-`ATLAS_URI=<cluster URI>`
+## Getting Started
 
-`npm install` on both root and backend folders\
-Run using `npm run dev` on root folder
+1. **Set Up MongoDB Atlas:**
+   - Sign up for MongoDB Atlas and create a cluster.
+   - Optionally, install MongoDB on a local machine.
+2. **Configure Environment Variables:**
+
+   - Create an `.env` file in the backend folder.
+   - Add the following content to the `.env` file:
+     ```
+     ATLAS_URI=<CLUSTER_URI>
+     ```
+
+3. **Install Dependencies:**
+
+   - Run `npm install` to both the root and `backend` folders.
+
+4. **Run the Application:**
+   ```
+   npm run dev
+   ```
