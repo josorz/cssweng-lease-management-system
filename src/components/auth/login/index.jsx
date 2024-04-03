@@ -56,10 +56,13 @@ const Login = () => {
         <button type={"submit"} id="auth-submit">
           {isSigningIn ? "Signing In..." : "Sign In"}
         </button>
-        <div className="post-registration">
-          Thank you for your registration. Please wait for your account's manual
-          approval.
-        </div>
+        {register && (
+          <div className="post-registration">
+            Thank you for your registration. Please wait for your account's
+            manual approval.
+          </div>
+        )}
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
       </form>
     </>
   );

@@ -1,0 +1,31 @@
+.add-button > a, .add-button > a:visited {
+    color:white;
+    text-decoration: none;
+    height: 100%;
+    width: 100%;
+}
+
+.add-button {
+    color:white;
+    text-decoration: none;
+    padding: 1rem;
+    background-color:rgba(27, 94, 57, 0.90);
+    border-radius: 50%;
+    margin-right: auto; 
+    margin-left: auto;
+
+    position: fixed; /* Position relative to the viewport */
+    bottom: 2rem; /* Distance from the bottom */
+    left: 2rem; /* Distance from the right */
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.properties-background {
+    height: 100%;
+    background-image: url(../../../assets/vector.png);
+    background-size: 40%;
+    background-position-x: right;
+    background-repeat: no-repeat;
+  }

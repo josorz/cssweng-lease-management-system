@@ -49,28 +49,37 @@ const Contract = () => {
     contractData &&
     contractData.property &&
     contractData.tenant && (
-      <div>
-        <div>
+      <div className="main-page">
+        <h2>
           {contractData.property.loc_number} {contractData.property.loc_street}{" "}
           {">"} Contract
+        </h2>
+        <div className="contract-actions no-print">
+          {" "}
+          <button onClick={() => window.print()} className="no-print">
+            Print Contract Info
+          </button>
+          <button>
+            {" "}
+            <Link onClick={terminateContract} to="" className="no-print">
+              <div>Terminate Contract</div>
+            </Link>
+          </button>
+          <button>
+            <Link
+              to={`/api/images/${contractData.tenant.id_picture}`}
+              target="_blank"
+              className="no-print"
+            >
+              <div>View Identification</div>
+            </Link>
+          </button>
         </div>
-        <button onClick={() => window.print()} className="no-print">
-          Print Contract Info
-        </button>
-        <Link onClick={terminateContract} to="" className="no-print">
-          <div>Terminate Contract</div>
-        </Link>
         <div>Contract Info</div>
         <div>
           Name: {contractData.tenant.first_name} {contractData.tenant.last_name}
         </div>
-        <Link
-          to={`/api/images/${contractData.tenant.id_picture}`}
-          target="_blank"
-          className="no-print"
-        >
-          <div>View Identification</div>
-        </Link>
+
         <div>Start Date: {dateToWordDate(contractData.date_start)}</div>
         <div>End Date: {dateToWordDate(contractData.date_end)}</div>
         <div>Property Info</div>

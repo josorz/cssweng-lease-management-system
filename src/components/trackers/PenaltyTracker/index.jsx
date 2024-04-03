@@ -50,7 +50,7 @@ const PenaltyTracker = () => {
   };
 
   return (
-    <div>
+    <div className="main-page">
       <h1>Penalty Tracker</h1>
       <h2>Overdue Bills</h2>
       <table>

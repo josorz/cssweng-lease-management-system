@@ -15,4 +15,8 @@
     {
         flex: 50%;
     }
+
+    .main-page {
+        width: 100%
+    }
 }

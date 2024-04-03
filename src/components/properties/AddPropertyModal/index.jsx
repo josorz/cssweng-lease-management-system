@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
-import backgr from "../../../assets/group2.png";
+
 const PropertyForm = () => {
   const navigate = useNavigate();
 
@@ -46,7 +46,7 @@ const PropertyForm = () => {
         body: formData,
       })
         .then((res) => res.json())
-        .then((id) => navigate(`/property/${id}`));
+        .then((id) => navigate(0));
     } catch (error) {
       console.error("Error adding property:", error);
       alert("Failed to add property. Please try again.");
@@ -54,8 +54,7 @@ const PropertyForm = () => {
   };
 
   return (
-    <div>
-      <h2>Add Property</h2>
+    <div className="add-property-modal">
       <form onSubmit={handleSubmit}>
         <div>
           <label>Image Link:</label>

@@ -81,117 +81,127 @@ const AddContract = ({ property }) => {
   }, [tenantImage]);
 
   return (
-    <div>
+    <div className="add-contract">
       <h1>Add New Contract</h1>
       <form onSubmit={handleSubmit}>
-        <label>Start Date</label>
-        <input type="date" name="date_start" onChange={handleChange} required />
-        <br />
-        <label>Number of Months</label>
-        <input
-          type="text"
-          inputMode="number"
-          name="mon"
-          min="6"
-          onChange={changeEndDate}
-          required
-        />
-        <label>End Date</label>
-        <input
-          type="date"
-          name="date_end"
-          onChange={handleChange}
-          min={newContract.date_start}
-          value={newContract.date_end}
-          disabled
-        />
-        <label>Monthly Due</label>
-        <input
-          type="text"
-          inputMode="numeric"
-          pattern="^[0-9]+(\.[0-9]+)?$"
-          name="monthly_due"
-          value={newContract.monthly_due}
-          onChange={handleChange}
-          required
-        />
-        <div>
-          <i>
-            This contract will generate the following bills: <br />
-          </i>
-          <i>
-            Deposit for three months, worth {newContract.monthly_due * 3}
+        <div className="add-contract-form-inputs">
+          <div className="">
+            <label>Start Date</label>
+            <input
+              type="date"
+              name="date_start"
+              onChange={handleChange}
+              required
+            />
             <br />
-          </i>
-          <i>
-            Two months advance worth {newContract.monthly_due * 2}
-            <br />
-          </i>
-          <i>Both due at start date</i>
+            <label>Number of Months</label>
+            <input
+              type="text"
+              inputMode="number"
+              name="mon"
+              min="6"
+              onChange={changeEndDate}
+              required
+            />
+            <label>End Date</label>
+            <input
+              type="date"
+              name="date_end"
+              onChange={handleChange}
+              min={newContract.date_start}
+              value={newContract.date_end}
+              disabled
+            />
+            <label>Monthly Due</label>
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="^[0-9]+(\.[0-9]+)?$"
+              name="monthly_due"
+              value={newContract.monthly_due}
+              onChange={handleChange}
+              required
+            />
+            <div>
+              <i>
+                This contract will generate the following bills: <br />
+              </i>
+              <i>
+                Deposit for three months, worth {newContract.monthly_due * 3}
+                <br />
+              </i>
+              <i>
+                Two months advance worth {newContract.monthly_due * 2}
+                <br />
+              </i>
+              <i>Both due at start date</i>
+            </div>
+          </div>
+          <div>
+            <h2>Tenant Information</h2>
+            <label>Last Name</label>
+            <input
+              type="text"
+              name="last_name"
+              value={newContract.tenant.last_name}
+              onChange={(e) =>
+                setNewContract({
+                  ...newContract,
+                  tenant: { ...newContract.tenant, last_name: e.target.value },
+                })
+              }
+              required
+            />
+            <label>First Name</label>
+            <input
+              type="text"
+              name="first_name"
+              value={newContract.tenant.first_name}
+              onChange={(e) =>
+                setNewContract({
+                  ...newContract,
+                  tenant: { ...newContract.tenant, first_name: e.target.value },
+                })
+              }
+              required
+            />
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={newContract.tenant.email}
+              onChange={(e) =>
+                setNewContract({
+                  ...newContract,
+                  tenant: { ...newContract.tenant, email: e.target.value },
+                })
+              }
+              required
+            />
+            <label>Contact</label>
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="(+)?[0-9]*"
+              name="contact"
+              value={newContract.tenant.contact}
+              onChange={(e) =>
+                setNewContract({
+                  ...newContract,
+                  tenant: { ...newContract.tenant, contact: e.target.value },
+                })
+              }
+              required
+            />
+            <label>ID</label>
+            <input
+              type="file"
+              onChange={(e) => setTenantImage(e.target.files[0])}
+              required
+            />
+          </div>
         </div>
-        <div>
-          <h2>Tenant Information</h2>
-          <label>Last Name</label>
-          <input
-            type="text"
-            name="last_name"
-            value={newContract.tenant.last_name}
-            onChange={(e) =>
-              setNewContract({
-                ...newContract,
-                tenant: { ...newContract.tenant, last_name: e.target.value },
-              })
-            }
-            required
-          />
-          <label>First Name</label>
-          <input
-            type="text"
-            name="first_name"
-            value={newContract.tenant.first_name}
-            onChange={(e) =>
-              setNewContract({
-                ...newContract,
-                tenant: { ...newContract.tenant, first_name: e.target.value },
-              })
-            }
-            required
-          />
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={newContract.tenant.email}
-            onChange={(e) =>
-              setNewContract({
-                ...newContract,
-                tenant: { ...newContract.tenant, email: e.target.value },
-              })
-            }
-            required
-          />
-          <label>Contact</label>
-          <input
-            type="text"
-            inputMode="numeric"
-            pattern="(+)?[0-9]*"
-            name="contact"
-            value={newContract.tenant.contact}
-            onChange={(e) =>
-              setNewContract({
-                ...newContract,
-                tenant: { ...newContract.tenant, contact: e.target.value },
-              })
-            }
-            required
-          />
-          <label>ID</label>
-          <input
-            type="file"
-            onChange={(e) => setTenantImage(e.target.files[0])}
-            required
-          />
-        </div>
+
         <button type="submit">Create New Contract</button>
       </form>
     </div>
