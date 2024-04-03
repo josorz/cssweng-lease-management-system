@@ -15,7 +15,7 @@ Manage contracts, dues, and property maintenance of leased properties.
 
 1. **Set Up MongoDB Atlas:**
    - Sign up for MongoDB Atlas and create a cluster.
-   - Optionally, install MongoDB on a local machine.
+   - Or, install MongoDB on a local machine.
 2. **Configure Environment Variables:**
 
    - Create an `.env` file in the backend folder.
