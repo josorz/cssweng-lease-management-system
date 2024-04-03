@@ -19,9 +19,6 @@ const Card = ({ key, data }) => {
         {data.loc_number} {data.loc_street}, {data.loc_barangay},{" "}
         {data.loc_city}
       </div>
-      <div>
-        <Status status="Occupied" />
-      </div>
     </div>
   );
 };

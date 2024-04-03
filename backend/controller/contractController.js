@@ -24,12 +24,11 @@ exports.getContracts = async (req, res) => {
             if (contracts.length > 0) {
                 // check if there is a current contract
                 const latestContract = await Contracts.find({
-                    date_start: { $lte: today }, // date_start less than toda
+                    property: propertyId,
                     date_end: { $gte: today },    // date_end greater than today
                     isTerminated: false
-                }).sort({date_end: -1})
-                console.log(latestContract)
-                if (latestContract) {
+                }).sort({date_end: 1})
+                if (latestContract && latestContract.length > 0) {
                     contracts = {
                         contracts: [...contracts],
                         currContract: latestContract[0]._id
@@ -45,7 +44,8 @@ exports.getContracts = async (req, res) => {
         
         res.status(200).json(contracts);
     } catch (err) {
-        res.status(500).send('Error')
+        console.error(err)
+        res.status(500).send(err.message)
     }
 }
 
@@ -131,7 +131,7 @@ exports.getContract = async (req, res) => {
         const bills = await Bills.find({tenant_contract: id}).sort({date_due: 1})
         res.status(200).json({contract: contracts, bills: [...bills]})
     } catch (err) {
-        res.status(500).send('Error')
+        res.status(500).send(err.message)
     }
 }
 

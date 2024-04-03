@@ -6,6 +6,7 @@ import "./PrintContract.css";
 
 const Contract = () => {
   const [contractData, setContractData] = useState({});
+  const navigate = useNavigate();
 
   const [rentData, setRentData] = useState([]);
   const [utilData, setUtilData] = useState([]);
@@ -29,48 +30,63 @@ const Contract = () => {
   }, []);
 
   const terminateContract = async () => {
-    const navigate = useNavigate();
-
-    const data = {
-      id: contractId,
-    };
-    await fetch(`/api/contracts/delete-contract/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // Indicate that the request body contains JSON data
-      },
-      body: JSON.stringify(data),
-    }).then(() => {
-      navigate(-1);
-    });
+    let result = confirm("Terminate Current Contract?");
+    if (result) {
+      const data = {
+        id: contractId,
+      };
+      await fetch(`/api/contracts/delete-contract/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Indicate that the request body contains JSON data
+        },
+        body: JSON.stringify(data),
+      }).then(() => {
+        navigate(-1);
+      });
+    }
   };
 
   return (
     contractData &&
     contractData.property &&
     contractData.tenant && (
-      <div>
-        <div>
+      <div className="main-page">
+        <h2>
           {contractData.property.loc_number} {contractData.property.loc_street}{" "}
           {">"} Contract
+        </h2>
+        <div className="contract-actions">
+          {" "}
+          <button
+            onClick={() => window.print()}
+            className="no-print"
+            id="contract-buttons"
+          >
+            Print Contract Info
+          </button>
+          <button
+            onClick={terminateContract}
+            className="no-print"
+            id="contract-buttons"
+          >
+            Terminate Contract
+          </button>
+          <button id="contract-buttons">
+            <Link
+              to={`/api/images/${contractData.tenant.id_picture}`}
+              target="_blank"
+              className="no-print"
+            >
+              <div>View Identification</div>
+            </Link>
+          </button>
         </div>
-        <button onClick={() => window.print()} className="no-print">
-          Print Contract Info
-        </button>
-        <Link onClick={terminateContract} to="" className="no-print">
-          <div>Terminate Contract</div>
-        </Link>
         <div>Contract Info</div>
         <div>
           Name: {contractData.tenant.first_name} {contractData.tenant.last_name}
         </div>
-        <Link
-          to={`/api/images/${contractData.tenant.id_picture}`}
-          target="_blank"
-          className="no-print"
-        >
-          <div>View Identification</div>
-        </Link>
+
         <div>Start Date: {dateToWordDate(contractData.date_start)}</div>
         <div>End Date: {dateToWordDate(contractData.date_end)}</div>
         <div>Property Info</div>
@@ -86,7 +102,9 @@ const Contract = () => {
 
         <div className="print-two-columns">
           <div className="">
-            <div className="print-column">Billing Info / Rent</div>
+            <div className="print-column">
+              Utilities/Miscellaneous Billing Info
+            </div>
             <BillsTable data={utilData} />
           </div>
           <div className="">

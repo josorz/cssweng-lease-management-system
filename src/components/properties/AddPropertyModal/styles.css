@@ -6,16 +6,13 @@
   font-family: 'Arial', sans-serif;
 }
 
-body, html {
+.add-property-modal {
   height: 100%;
   background-image: url(../../../assets/vector.png);
   background-size: 40%;
-  background-position: 10px;
-  background-position-y: 110px;
   background-position-x: right;
   background-repeat: no-repeat;
-  
-
+  padding-bottom: 3rem;
 }
 
 /* Style for the form container */
@@ -76,7 +73,7 @@ button {
   cursor: pointer;
   width: auto; /* Auto width based on content */
   display: block; /* Block level element */
-  margin-left: 1700px;
+  margin: 0 auto;
 }
 
 button:hover {

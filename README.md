@@ -8,12 +8,13 @@ Lababidi, Mezen\
 Lada, Martin\
 Mangulabnan, Kenneth\
 Santos, Jose Lorenzo\
-Soriano, John Angelo\
+Soriano, John Angelo
 
-## Guide
-```
-npm install
-npm run dev
-```
-### Firebase setup
-tba
+## Guide\
+
+Sign up for MongoDB Atlas and create a cluster\
+Create an `.env` file in the backend folder with the contents\
+`ATLAS_URI=<cluster URI>`
+
+`npm install` on both root and backend folders\
+Run using `npm run dev` on root folder

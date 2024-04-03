@@ -6,7 +6,7 @@ import Properties from "./components/properties";
 import Property from "./components/property";
 import Contract from "./components/contract";
 
-import Admin from "./components/Admin";
+// import Admin from "./components/Admin";
 
 import ViewTrackers from "./components/viewTrackers";
 import MaintenanceTracker from "./components/trackers/MaintenanceTracker";
@@ -15,14 +15,14 @@ import BillsTracker from "./components/trackers/BillsTracker";
 import RentTracker from "./components/trackers/RentTracker";
 import ContractManager from "./components/trackers/ContractManager";
 
-import { AuthProvider } from "./contexts/authContext";
+import AuthProvider from "./contexts/authContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
         <Routes>
           <Route element={<Login />} path="/login" />
           <Route element={<Register />} path="/register" />
@@ -40,12 +40,12 @@ function App() {
                 <Route path="bills" element={<BillsTracker />} />
                 {/* <Route /> */}
               </Route>
-              <Route path="admin" element={<Admin />} />
+              {/* <Route path="admin" element={<Admin />} /> */}
             </Route>
           </Route>
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
