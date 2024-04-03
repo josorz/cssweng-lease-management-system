@@ -1,9 +1,7 @@
 # Lease Management System
-
-Manage contracts, dues, and property maintenance of leased properties.
-
-## Contributors
-
+Major Course Output in CSSWENG
+## Group
+CSSWENG S11 Group 6
 - John Zechariah Kho (QA)
 - Mezen Lababidi (PO)
 - Martin Jose Lada (QA)
