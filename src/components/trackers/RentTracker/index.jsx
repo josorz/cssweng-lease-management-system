@@ -1,26 +1,31 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { convertDateToString } from "../../../utils/dateUtil";
-const RentTracker = () => {
-  const [tableData, setData] = useState([]);
+import { convertDateToString, compareTwoDates } from "../../../utils/dateUtil";
+import BillsTrackerTable from "../BillsTracker/BillsTrackerTable";
+
+import CreateBillModal from "../BillsTracker/CreateBillModal";
+
+const BillsTracker = () => {
+  const [billsTableData, setBillsData] = useState([]);
 
   useEffect(() => {
-    fetch("/api/contracts/get-rent-tracker/")
+    fetch("/api/bills/get-upcoming-bills")
       .then((res) => res.json())
       .then((data) => {
-        setData(data);
+        setBillsData(data.filter((bill) => bill.bill_type === "Rent"));
       });
   }, []);
+
+  const addBillsToTable = (newData) => {
+    setBillsData([...billsTableData, newData]);
+  };
 
   return (
     <div>
       <h1>Rent Tracker</h1>
-      <h2>Overdue Payments</h2>
-      {JSON.stringify(tableData)}
-      <h2>Current Rent Status</h2>
-      <h2>Upcoming Due Dates</h2>
+      <BillsTrackerTable data={billsTableData} />
     </div>
   );
 };
 
-export default RentTracker;
+export default BillsTracker;

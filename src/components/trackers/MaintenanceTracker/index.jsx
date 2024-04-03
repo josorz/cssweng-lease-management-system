@@ -38,38 +38,35 @@ const MaintenanceTracker = () => {
   };
 
   return (
-    <div>
+    <div className="main-page">
       <h1>Maintenance Tracker</h1>
-      <p>Create Task</p>
-      <CreateTaskModal
-        data={maintenanceTableData}
-        setData={setMaintenanceTableData}
-      />
-      <table>
-        <tbody>
-          <tr>
-            <th>Property</th>
-            <th>Date</th>
-            <th>Deadline</th>
-            <th>Actions</th>
-          </tr>
-          {maintenanceTableData.map((data) => (
-            <tr key={data._id}>
-              <td>{`${data.property.loc_number} ${data.property.loc_street}`}</td>
-              <td>{convertDateToString(data.date)}</td>
-              <td>{convertDateToString(data.deadline)}</td>
-              <td>
-                <button onClick={() => handleEditClick(data._id)}>
-                  <FontAwesomeIcon icon={faPencil} />
-                </button>
-                <button onClick={() => deleteTask(data._id)}>
-                  <FontAwesomeIcon icon={faTrashCan} />
-                </button>
-              </td>
+      {maintenanceTableData && (
+        <table>
+          <tbody>
+            <tr>
+              <th>Property</th>
+              <th>Date</th>
+              <th>Deadline</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+            {maintenanceTableData.map((data) => (
+              <tr key={data._id}>
+                <td>{`${data.property.loc_number} ${data.property.loc_street}`}</td>
+                <td>{convertDateToString(data.date)}</td>
+                <td>{convertDateToString(data.deadline)}</td>
+                <td>
+                  <button onClick={() => handleEditClick(data._id)}>
+                    <FontAwesomeIcon icon={faPencil} />
+                  </button>
+                  <button onClick={() => deleteTask(data._id)}>
+                    <FontAwesomeIcon icon={faTrashCan} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
       {isEditModalOpen && (
         <div className="modal">
           <div className="modal-content">
@@ -80,6 +77,11 @@ const MaintenanceTracker = () => {
           </div>
         </div>
       )}
+      <h1>Create Task</h1>
+      <CreateTaskModal
+        data={maintenanceTableData}
+        setData={setMaintenanceTableData}
+      />
     </div>
   );
 };

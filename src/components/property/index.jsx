@@ -4,6 +4,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import MaintenanceTable from "./MaintenanceTable";
 import ContractsTable from "./ContractsTable";
 import AddContractModal from "./AddContractModal";
+import "./property.css";
 
 const deleteProperty = (propertyId) => {
   fetch("/api/properties/delete-property", {
@@ -83,43 +84,48 @@ const Property = () => {
   };
 
   return contractHistory == [] ? null : (
-    <div>
-      <div>{propertyInfo.loc_street}</div>
-      <div>{propertyInfo.loc_barangay}</div>
-      <div>{propertyInfo.loc_city}</div>
-      <div>Edit Details</div>
-      <Link to="" onClick={() => deleteProperty(propertyId)}>
-        Remove Property
-      </Link>
-      {currContract ? (
-        <Link to={`/contract/${currContract}`}>View Current Contract</Link>
-      ) : (
-        <>
-          <AddContractModal property={propertyId} />
-        </>
+    <div className="info-panel">
+      <div className="property-name">
+        <div className="property-name-heading">
+          {propertyInfo.loc_number} {propertyInfo.loc_propertyname}
+        </div>
+        <div className="property-name-subheading">
+          {propertyInfo.loc_street}, {propertyInfo.loc_barangay},{" "}
+          {propertyInfo.loc_city}
+        </div>
+        <div></div>
+      </div>
+      <div className="property-hero">
+        <div className="image">
+          <img src={`/api/images/${propertyInfo.image_link}`} width={500} />
+        </div>
+        <div className="actions">
+          <button id="property-buttons">Edit Details</button>
+          <button id="property-buttons">
+            <Link to="" onClick={() => deleteProperty(propertyId)}>
+              Remove Property
+            </Link>
+          </button>
+          {currContract ? (
+            <button id="property-buttons">
+              <Link to={`/contract/${currContract}`}>
+                View Current Contract
+              </Link>
+            </button>
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+
+      {!currContract ? <AddContractModal property={propertyId} /> : ""}
+
+      {contractHistory && (
+        <div>
+          <h2>Contract History</h2>
+          <ContractsTable data={contractHistory} />
+        </div>
       )}
-      <div>Contract History</div>
-      <ContractsTable data={contractHistory} />
-      <div>Maintenance Info</div>
-      <form onSubmit={addMaintenanceRow}>
-        <input
-          type="date"
-          onChange={(e) => setInputMaintenanceDate(e.target.value)}
-          required
-        />{" "}
-        <br />
-        <input
-          placeholder="Description"
-          onChange={(e) => setInputMaintenanceDesc(e.target.value)}
-          required
-        />{" "}
-        <br />
-        <button>Add New Maintenance</button>
-      </form>
-      <MaintenanceTable
-        data={tableData}
-        deleteMaintenanceRow={deleteMaintenanceRow}
-      />
     </div>
   );
 };

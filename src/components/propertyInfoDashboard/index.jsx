@@ -46,25 +46,20 @@ const PropertyInfoDashboard = () => {
   return (
     <div>
       <h2>Real Estate Portfolio</h2>
-      <h3>Occupancy Rate</h3>
-      {"chartjs doesnt work!!!" + JSON.stringify(occupancyChart)}
+      {/* <h3>Occupancy Rate</h3>
+      {"chartjs doesnt work!!!" + JSON.stringify(occupancyChart)} */}
       <h3>Financial Performace</h3>
-      {financialPerformance} from the past two weeks
+      <h1>₱ {financialPerformance}</h1>
+      from the past two weeks <br /> <br />
       <h3>Upcoming Due Dates</h3>
       <ul>
         {upcomingBills &&
-          upcomingBills.map((data) => (
+          upcomingBills.slice(0, 5).map((data) => (
             <li key={data._id}>
-              <br />
-              <div>{convertDateToString(data.date_due)}</div>
-              <br />
-              <div>{data.information}</div>
-              <br />
-              <div>{data.bill_type}</div>
-              <br />
-              {data.tenant_contract && data.tenant_contract.tenant && (
-                <div>{data.tenant_contract.tenant.last_name}</div>
-              )}
+              <div>
+                {convertDateToString(data.date_due)} - {data.information},{" "}
+                {data.tenant_contract.tenant.last_name}
+              </div>
             </li>
           ))}
       </ul>

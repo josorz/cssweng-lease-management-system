@@ -30,9 +30,20 @@ const BillsTrackerTableRow = ({ item, MarkPaid, Waive }) => {
       {row.date_received || row.isWaived ? (
         ""
       ) : (
-        <td>
-          <button onClick={() => changePayStatus(row)}>Mark as Paid</button>
-          <button onClick={() => changeWaiveStatus(row)}>Waive</button>
+        <td
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            margin: "0 !important",
+          }}
+        >
+          <button style={{ margin: 0 }} onClick={() => changePayStatus(row)}>
+            Mark as Paid
+          </button>
+          <button style={{ margin: 0 }} onClick={() => changeWaiveStatus(row)}>
+            Waive
+          </button>
+          <button style={{ margin: 0 }}>Change Date</button>
         </td>
       )}
     </tr>

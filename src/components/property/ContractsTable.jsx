@@ -17,7 +17,7 @@ const validateStatus = (date_end, isTerminated) => {
 
 const ContractsTable = ({ data }) => {
   return (
-    <table>
+    <table className="contracts-table">
       <tr>
         <th>Contract Start</th>
         <th>Contract End</th>
@@ -36,11 +36,11 @@ const ContractsTable = ({ data }) => {
                 status={validateStatus(item.date_end, item.isTerminated)}
               />
             </td>
-            <Link to={`/contract/${item._id}`}>
-              <td>
-                <button>View Contract</button>
-              </td>
-            </Link>
+            <td>
+              <Link to={`/contract/${item._id}`}>
+                <button id="property-buttons">View Contract</button>
+              </Link>
+            </td>
           </tr>
         ))}
     </table>

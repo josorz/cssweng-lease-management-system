@@ -49,6 +49,11 @@ exports.loginUser = async (req, res) => {
             return;
         }
 
+        if (!userLogin.isActivated) {
+            res.status(401).json({ message: "User is not activated. Please wait for activation." });
+            return;
+        }
+
         const passwordMatch = await bcrypt.compare(password, userLogin.password);
 
         if (passwordMatch) {
