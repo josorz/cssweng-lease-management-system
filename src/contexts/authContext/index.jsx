@@ -1,49 +1,46 @@
-import React, { useContext, useState, useEffect } from "react";
-import { auth } from "../../firebase/firebase";
-import { onAuthStateChanged } from "firebase/auth";
+// https://dev.to/miracool/how-to-manage-user-authentication-with-react-js-3ic5
 
-const AuthContext = React.createContext();
+import { useContext, createContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
+const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, initializeUser);
-    return unsubscribe;
-  }, []);
-
-  async function initializeUser(user) {
-    if (user) {
-      setCurrentUser({ ...user });
-
-      // check if provider is email and password login
-      const isEmail = user.providerData.some(
-        (provider) => provider.providerId === "password"
-      );
-      setUserLoggedIn(true);
-    } else {
-      setCurrentUser(null);
-      setUserLoggedIn(false);
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(sessionStorage.getItem("email"));
+  const navigate = useNavigate();
+  const loginAction = async (data) => {
+    const response = await fetch("/api/users/login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (response.status === 201) {
+      const res = await response.json();
+      setUser(res.email);
+      sessionStorage.setItem("email", res.email);
+      navigate("/");
+      return;
     }
+  };
 
-    setLoading(false);
-  }
-
-  const value = {
-    userLoggedIn,
-    currentUser,
-    setCurrentUser,
+  const logOut = () => {
+    setUser(null);
+    sessionStorage.removeItem("email");
+    navigate("/login");
   };
 
   return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
+    <AuthContext.Provider value={{ user, loginAction, logOut }}>
+      {children}
     </AuthContext.Provider>
   );
-}
+};
+
+export default AuthProvider;
+
+export const useAuth = () => {
+  return useContext(AuthContext);
+};

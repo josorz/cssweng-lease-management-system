@@ -1,9 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import CardLayout from "./CardLayout";
-import Card from "./Card";
+import CardLayout from "./PropertyCard/CardLayout";
+import Card from "./PropertyCard/Card";
 import AddPropertyModal from "./AddPropertyModal";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import "./addButton.css";
 
 const Properties = () => {
   const [tableData, setTableData] = useState([]);
@@ -23,19 +27,34 @@ const Properties = () => {
   };
 
   return (
-    <>
-      <h1>Properties</h1>
-      <Link to="" onClick={changeAddProperty}>
-        Add Property
-      </Link>
+    <div className="properties-background">
+      <h1
+        style={{
+          fontFamily: "Poppins",
+          fontSize: "36px",
+          display: "flex",
+          justifyContent: "center",
+          margin: "2rem",
+        }}
+      >
+        Properties
+      </h1>
+      <span className="add-button">
+        <Link to="" onClick={changeAddProperty}>
+          <FontAwesomeIcon icon={faPlus} />
+        </Link>
+      </span>
       {addProperty && <AddPropertyModal cancel={changeAddProperty} />}
-      <CardLayout>
-        {tableData.map((data) => (
-          <Card key={data._id} data={data} />
-        ))}
-        <p>{JSON.stringify(tableData)}</p>
-      </CardLayout>
-    </>
+      <div className="card-container">
+        <CardLayout>
+          {tableData.map((data) => (
+            <Link to={`/property/${data._id}`}>
+              <Card key={data._id} data={data} />
+            </Link>
+          ))}
+        </CardLayout>
+      </div>
+    </div>
   );
 };
 

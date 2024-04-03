@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.auth-logo-holder {
+  display: flex;
+  width: 300px;
+  height: 110px;
+  flex-direction: row;
+  justify-content: left;
+  flex-shrink: 0;
+  padding: 1rem 0 0 1rem;
+}
+
+.auth-logo {
+  color: #000;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.auth-logo:hover {
+  user-select: none;
+}
+
+.auth-input-box {
+  width: 30%;
+  height: 3rem;
+  flex-shrink: 0;
+  background: linear-gradient(271deg, rgba(187, 191, 202, 0.87) 18.49%, #E8E8E8 77.06%, #E8E8E8 94.51%);
+}
+
+#auth-input {
+  width: 90%;
+  height: auto;
+  background-color: transparent;
+  border:none;
+  outline: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.input-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto !important;
+}
+
+#auth-submit {
+  margin-left: auto !important; 
+  margin-right: auto !important;
+}
+
+.post-registration {
+  border: 1px solid black;
+  background-color: lightgreen;
+  margin-top: 2rem;
+  border-radius: 2rem;
+  padding: 2rem;
+  width:25%;
+}
+
+.error-message {
+  border: 1px solid black;
+  background-color: pink;
+  margin-top: 2rem;
+  border-radius: 2rem;
+  padding: 2rem;
+  width:25%;
+}

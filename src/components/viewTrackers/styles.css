@@ -1,0 +1,58 @@
+
+
+
+
+.tracker-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between cards */
+    justify-content: center; /* Center cards in the container */
+    padding: 20px; /* Padding around the container */
+  }
+  
+  .tracker-container > div {
+    background-color: #ffffff; /* Green background for buttons */
+    color: #048853; /* White text color */
+    border-radius: 8px; /* Rounded corners for button */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Darker box shadow for depth */
+    transition: transform 0.2s, box-shadow 0.2s; /* Transition for hover effects */
+    cursor: pointer; /* Cursor changes to a hand icon on hover */
+    width: calc(50% - 20px); /* Calculate width for 2 cards per row minus gap */
+    text-align: center; /* Center text inside the button */
+    padding: 100px; /* Padding inside the button */
+  }
+  .tracker-container img {
+    width: 100px; /* Set a specific width for the images */
+    height: auto; /* Keep the height automatic to maintain aspect ratio */
+    margin-bottom: 10px; /* Add some space below the image */
+}
+  
+  .tracker-container > div:hover {
+    transform: translateY(-5px); /* Move the button up slightly on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Darker box shadow for depth */
+}
+  
+  .tracker-container a {
+    text-decoration: none; /* Remove the underline from links */
+    color: inherit; /* Links use the same color as their parent */
+    display: block; /* Make the link fill its container for better clickability */
+  }
+  
+  .tracker-container h3 {
+    margin: 0; /* Remove margin from headings */
+    font-size: 1.25em; /* Increase font size for visibility */
+  }
+  
+  .info {
+    width: 100%; /* Info section takes full width */
+    margin-top: 40px; /* Space above the info section */
+    /* Add further styles for the .info section here */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .tracker-container > div {
+      width: calc(100% - 20px); /* 100% width for mobile */
+    }
+  }
+  

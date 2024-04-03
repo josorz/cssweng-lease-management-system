@@ -1,0 +1,23 @@
+@media print
+{
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+
+    .print-two-columns
+    {
+        display:flex;
+        justify-content: center;
+    }
+
+    .print-column
+    {
+        flex: 50%;
+    }
+
+    .main-page {
+        width: 100%;
+        margin: 0;
+    }
+}

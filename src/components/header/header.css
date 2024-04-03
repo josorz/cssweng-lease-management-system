@@ -41,7 +41,10 @@ nav {
     flex-shrink: 0;
 }
 
-.nav-links> a:link, a:visited, a:hover, a:active {
+.nav-links a:link, 
+.nav-links a:visited, 
+.nav-links a:hover, 
+.nav-links a:active {
     color: #000;
     text-align: center;
     font-family: "Poppins";
@@ -51,4 +54,20 @@ nav {
     line-height: normal;
     text-transform:uppercase;
     text-decoration: none;
+}
+
+nav > a:link, 
+nav > a:visited, 
+nav > a:hover, 
+nav > a:active {
+    text-decoration: none;
+}
+
+/* https://stackoverflow.com/questions/355313/how-do-i-hide-an-element-when-printing-a-web-page */
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
 }

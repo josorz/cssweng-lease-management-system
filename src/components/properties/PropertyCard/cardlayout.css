@@ -1,0 +1,36 @@
+.card-layout {
+    display: grid;
+    grid-template-columns: 22.5rem 22.5rem 22.5rem;
+    gap: 2rem 0
+}
+
+.card {
+    border-radius: 5px;
+    border: 5px solid rgba(27, 94, 57, 0.90);
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 319px;
+    flex-shrink: 0;
+    padding:0.5em;
+}
+
+.card > .property-image {
+    height: 200px;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom:0.5em;
+}
+
+.property-image > img {
+    height: 200px;
+    width: 300px;
+}
+
+.card-layout a:link, 
+.card-layout a:visited, 
+.card-layout a:hover, 
+.card-layout a:active {
+    color:black;
+    text-decoration: none;
+}
