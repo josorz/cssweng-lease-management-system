@@ -76,18 +76,12 @@ exports.createMaintenanceTask = async (req, res) => {
 exports.editMaintenanceTask = async (req, res) => {
     // TODO
     try {
-        const { contract_type, loc_number, loc_street, 
-            loc_contractname, loc_barangay, loc_city } = req.body;
+        const { id, status } = req.body;
 
         await MaintenanceTasks.updateOne({
-            _id: req.params.id
+            _id: id
         }, {
-            contract_type,
-            loc_number,
-            loc_street,
-            loc_contractname,
-            loc_barangay,
-            loc_city
+            status
         })
 
         res.status(200).send(`[${req.params.id}] contract edited!`)

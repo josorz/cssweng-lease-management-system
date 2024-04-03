@@ -9,7 +9,7 @@ const CreateTaskModal = ({ data, setData }) => {
     deadline: "",
     description: "",
     contractor: "",
-    status: "",
+    status: "Pending",
     priority: "",
   });
 

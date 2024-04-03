@@ -23,7 +23,6 @@ const BillsTracker = () => {
   return (
     <div>
       <h1>Utility Bills Tracker</h1>
-      <p>Add Bill</p>
       <CreateBillModal billType={"Utility"} setData={addBillsToTable} />
       <BillsTrackerTable data={billsTableData} />
     </div>

@@ -103,7 +103,6 @@ const Property = () => {
           <img src={`/api/images/${propertyInfo.image_link}`} width={500} />
         </div>
         <div className="actions">
-          <button id="property-buttons">Edit Details</button>
           <button
             id="property-buttons"
             onClick={() => deleteProperty(propertyId, navigate)}
