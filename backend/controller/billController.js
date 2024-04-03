@@ -85,7 +85,7 @@ exports.getFinancialPerformance = async (req, res) => {
         const query = await Bills.aggregate([
             {
                 $match: {
-                    date_received: { $gte: twoWeeksAgo }
+                    date_received: { $exists: true, $gte: twoWeeksAgo }
                 }
             },
             {

@@ -6,20 +6,23 @@ import ContractsTable from "./ContractsTable";
 import AddContractModal from "./AddContractModal";
 import "./property.css";
 
-const deleteProperty = (propertyId) => {
-  fetch("/api/properties/delete-property", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id: propertyId }),
-  }).then(() => {
-    const navigate = useNavigate();
-    navigate("/");
-  });
+const deleteProperty = (propertyId, navigate) => {
+  let result = confirm("Delete current property?");
+  if (result === true) {
+    fetch("/api/properties/delete-property", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: propertyId }),
+    }).then(() => {
+      navigate("/");
+    });
+  }
 };
 
 const Property = () => {
+  const navigate = useNavigate();
   const [propertyInfo, setPropertyInfo] = useState([]);
   const [contractHistory, setContracts] = useState([]);
 
@@ -100,11 +103,11 @@ const Property = () => {
           <img src={`/api/images/${propertyInfo.image_link}`} width={500} />
         </div>
         <div className="actions">
-          <button id="property-buttons">Edit Details</button>
-          <button id="property-buttons">
-            <Link to="" onClick={() => deleteProperty(propertyId)}>
-              Remove Property
-            </Link>
+          <button
+            id="property-buttons"
+            onClick={() => deleteProperty(propertyId, navigate)}
+          >
+            Remove Property
           </button>
           {currContract ? (
             <button id="property-buttons">
