@@ -60,6 +60,7 @@ const PenaltyTracker = () => {
             <th>Property</th>
             <th>Tenant Name</th>
             <th>Description</th>
+            <th>Amount</th>
           </tr>
           {overdueBills.map((data, index) => (
             <tr key={data.id}>
@@ -70,6 +71,7 @@ const PenaltyTracker = () => {
               </td>
               <td>{data.tenant_contract.tenant.last_name}</td>
               <td>{data.information}</td>
+              <td>{data.amount}</td>
             </tr>
           ))}
         </tbody>

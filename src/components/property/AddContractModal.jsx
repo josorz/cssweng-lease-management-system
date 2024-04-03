@@ -94,32 +94,22 @@ const AddContract = ({ property }) => {
               required
             />
             <br />
+            <br />
             <label>Number of Months</label>
-            <input
-              type="text"
-              inputMode="number"
-              name="mon"
-              min="6"
+            <select
+              name=""
+              id=""
+              defaultValue=""
               onChange={changeEndDate}
               required
-            />
-            <div>
-              <label>Property Type:</label>
-              <select
-                name=""
-                id=""
-                defaultValue=""
-                onChange={changeEndDate}
-                required
-              >
-                <option disabled selected value=""></option>
-                <option value="3">3</option>
-                <option value="6">6</option>
-                <option value="12">12</option>
-                <option value="12">24</option>
-                <option value="12">36</option>
-              </select>
-            </div>
+            >
+              <option disabled selected value=""></option>
+              <option value="3">3</option>
+              <option value="6">6</option>
+              <option value="12">12</option>
+              <option value="12">24</option>
+              <option value="12">36</option>
+            </select>
             <label>End Date</label>
             <input
               type="date"

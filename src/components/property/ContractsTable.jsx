@@ -7,7 +7,9 @@ const validateStatus = (date_end, isTerminated) => {
   if (isTerminated) {
     return "Terminated";
   } else {
-    if (date_end < new Date()) {
+    console.log(date_end);
+    console.log(new Date());
+    if (new Date(date_end) < new Date()) {
       return "Complete";
     } else {
       return "Active";

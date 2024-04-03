@@ -6,9 +6,7 @@ exports.getMaintenanceTasks = async (req, res) => {
         const propertyId = req.params.propertyId
         let response
         if (!propertyId) {
-            response = await MaintenanceTasks.find({})
-                .populate('properties')
-                .exec()
+            response = await MaintenanceTasks.find({}).populate('property')
         } else {
             const property = await Properties.findOne({_id: propertyId}, 'loc_number loc_street').exec()
             const tasks = await MaintenanceTasks.findOne({property: propertyId}).exec()
@@ -16,6 +14,7 @@ exports.getMaintenanceTasks = async (req, res) => {
         }
         res.status(200).json(response)
     } catch (err) {
+        console.error(err)
         res.status(500).send(err.message)
     }
 }

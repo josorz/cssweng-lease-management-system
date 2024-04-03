@@ -37,7 +37,7 @@ const postingImage = async (req, res) => {
 // http://localhost:5000/api/images/:id
 const singleImage = async (req, res) => {
   try {
-    const image = await Image.findById(req.params.id); //req -> local:Url 
+    const image = await Image.findOne({_id: req.params.id}); //req -> local:Url 
     // await console.log(image.name)
     if (!image) {
       return res.status(404).json({ error: 'Image not found' });

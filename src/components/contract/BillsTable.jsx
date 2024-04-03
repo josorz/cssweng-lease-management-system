@@ -12,7 +12,6 @@ const BillsTable = ({ data }) => {
           <th>Information</th>
           <th>Amount</th>
           <th>Status</th>
-          <th className="no-print">Actions</th>
         </tr>
         {data.map((item) => (
           <tr key={item._id}>
@@ -26,11 +25,6 @@ const BillsTable = ({ data }) => {
                 : item.isWaived
                 ? "Waived"
                 : "Unpaid"}
-            </td>
-            <td className="no-print">
-              <button>Mark as Paid</button>
-              <button>Waive</button>
-              <button>Edit Date</button>
             </td>
           </tr>
         ))}
