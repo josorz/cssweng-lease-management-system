@@ -102,7 +102,9 @@ const Contract = () => {
 
         <div className="print-two-columns">
           <div className="">
-            <div className="print-column">Billing Info / Rent</div>
+            <div className="print-column">
+              Utilities/Miscellaneous Billing Info
+            </div>
             <BillsTable data={utilData} />
           </div>
           <div className="">

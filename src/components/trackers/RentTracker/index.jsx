@@ -9,7 +9,7 @@ const BillsTracker = () => {
   const [billsTableData, setBillsData] = useState([]);
 
   useEffect(() => {
-    fetch("/api/bills/get-upcoming-bills")
+    fetch("/api/bills/get-bills")
       .then((res) => res.json())
       .then((data) => {
         setBillsData(data.filter((bill) => bill.bill_type === "Rent"));

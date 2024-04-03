@@ -68,7 +68,9 @@ const MaintenanceTracker = () => {
             <tr>
               <th>Property</th>
               <th>Date</th>
+              <th>Description</th>
               <th>Deadline</th>
+              <th>Contractor</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -76,7 +78,9 @@ const MaintenanceTracker = () => {
               <tr key={data._id}>
                 <td>{`${data.property.loc_number} ${data.property.loc_street}`}</td>
                 <td>{convertDateToString(data.date)}</td>
+                <td>{data.description}</td>
                 <td>{convertDateToString(data.deadline)}</td>
+                <td>{data.contractor}</td>
                 <td>{data.status}</td>
                 {data.status !== "Complete" ? (
                   <td>

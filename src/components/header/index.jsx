@@ -5,7 +5,8 @@ import { useAuth } from "../../contexts/authContext";
 
 const Header = () => {
   const homeMatch = useMatch("/");
-  const trackerMatch = useMatch("/trackers");
+  const viewTrackersMatch = useMatch("/trackers/");
+  const trackerMatch = useMatch("/trackers/*");
   const auth = useAuth();
 
   const handleSignOut = () => {
@@ -19,8 +20,8 @@ const Header = () => {
       </Link>
       <div>
         <div className="nav-links">
-          {trackerMatch ? <Link to="/">Properties</Link> : ""}
-          {homeMatch ? <Link to="trackers">Trackers</Link> : ""}
+          {viewTrackersMatch ? <Link to="/">Properties</Link> : ""}
+          {homeMatch || trackerMatch ? <Link to="trackers">Trackers</Link> : ""}
           <Link onClick={handleSignOut}>Sign Out</Link>
         </div>
       </div>
