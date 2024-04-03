@@ -14,7 +14,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+      e.preventDefault();
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // regex for email validation
 
       // add validation checks for input
